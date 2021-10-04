@@ -14,7 +14,7 @@
 body{
 width:100%;
 height:100%;
-background-color:lightseagreen;
+background-color:#c1edeb;
 } 
 ul{
 display:inline-flex;

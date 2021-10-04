@@ -12,7 +12,7 @@
 body{
 width:100%;
 height:100%;
-background-color:lightseagreen;
+background-color:#c1edeb;
 }
 div{
 text-align:center
