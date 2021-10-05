@@ -12,7 +12,7 @@
 body{
 width:100%;
 height:100%;
-background-color:lightseagreen;
+background-color:#c1edeb;
 }
 div{
 text-align:center
@@ -39,7 +39,7 @@ text-align:center;
 		Email: <input type="email" name="email">
 		<br><span id=mail></span><br>
 		Password: <input type="password" name="password"><br><br>
-			Don't have an account? <a href="register.jsp">Sign Up</a><br><br>
+			Don't have an account? <a href="register">Sign Up</a><br><br>
 		<input type="submit" value="submit">
 		</form>
 	</div>
