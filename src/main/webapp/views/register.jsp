@@ -39,7 +39,7 @@ color:red;
 <body>
 	<h4>Register User:</h4>
 	<div>
-		<form action="Register" method="post" onsubmit="return check()">
+		<form action="register" method="post" onsubmit="return check()">
 		User Name *:<input type="text" id="userName"  name="userName" required>
 		<br><span id=user></span><br>
 		Email *:<input type="text" id="userEmail"name="userEmail" required  >
@@ -55,7 +55,7 @@ color:red;
 		Confirm Password *:<input type="password" id="confirmPassword" name="confirmPassword" required ><br><br>
 			<span id=message></span><br>
 			<h6 style="color:red">${error}</h6>
-			Already have an account? <a href="login.jsp">Log In</a><br><br>
+			Already have an account? <a href="login">Log In</a><br><br>
 		<button type="submit" value="submit" >Submit</button>
 		</form>
 	</div>
