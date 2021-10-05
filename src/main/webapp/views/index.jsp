@@ -60,7 +60,7 @@ li a span{
 	<ul>
 		<li><img src="logo.jpg" ></li>
 		<li>CitY Search </li>
-		<li><a href="login.jsp"><span>Login</span></a></li>
+		<li><a href="login"><span>Login</span></a></li>
 	</ul>
 	<div>
 	</div>
