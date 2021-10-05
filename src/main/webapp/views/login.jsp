@@ -35,7 +35,7 @@ text-align:center;
 <body>
 	<h4>Login:</h4>
 	<div>
-		<form name="login" action="/login" method="post" onsubmit="return check()">
+		<form name="login" action="login" method="post" onsubmit="return check()">
 		Email: <input type="email" name="email">
 		<br><span id=mail></span><br>
 		Password: <input type="password" name="password"><br><br>

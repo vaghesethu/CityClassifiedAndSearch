@@ -3,43 +3,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Register User</title>
+	<meta charset="ISO-8859-1">
+	<title>Register User</title>
 </head>
 <style type="text/css">
-body{
-width:100%;
-height:100%;
-background-color:#c1edeb;
-}
-div{
-text-align:center
-}
-form{
-display:inline-block;
-margin-left:auto;
-margin-right:auto;
-text-align:right;
-}
-input:invalid {
-  box-shadow: 0 0 5px 1px red;
-}
-h4{  
-background-color:teal;
-color:white;
-padding:15px;
-font-size:25px;	
-text-align:center;
-}
-span{
-color:red;
-}
+	body{
+		width:100%;
+		height:100%;
+		background-color:#c1edeb;
+	}
+	div{
+		text-align:center
+	}
+	form{
+		display:inline-block;
+		margin-left:auto;
+		margin-right:auto;
+		text-align:right;
+	}
+	input:invalid {
+	  box-shadow: 0 0 5px 1px red;
+	}
+	h4{  
+		background-color:teal;
+		color:white;
+		padding:15px;
+		font-size:25px;	
+		text-align:center;
+	}
+	span{
+		color:red;
+	}
 </style>
 </head>
 <body>
 	<h4>Register User:</h4>
 	<div>
-		<form action="register" method="post" onsubmit="return check()">
+		<form action="register1" method="post" onsubmit="return check()">
 		User Name *:<input type="text" id="userName"  name="userName" required>
 		<br><span id=user></span><br>
 		Email *:<input type="text" id="userEmail"name="userEmail" required  >
