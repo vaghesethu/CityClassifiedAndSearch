@@ -1,4 +1,3 @@
- 
 package com.virtusa.citysearch;
 
 import org.springframework.boot.SpringApplication;

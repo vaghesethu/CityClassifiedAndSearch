@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,10 +15,6 @@ public class Classified {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "classifiedid", unique = true, nullable = false)
 	private int classifiedId;
-	
-	//not yet mapped/implemented
-	//foreign key (userid) references user(userid)
-	//private int userId;
 	
 	@Column(name = "classifiedtitle", unique = false, nullable = false)
 	private String classifiedTitle;
@@ -29,7 +26,7 @@ public class Classified {
 		super();
 	}
 
-	public Classified(String classifiedTitle, String classifiedCatgory) {
+	public Classified(User user, String classifiedTitle, String classifiedCatgory) {
 		super();
 		this.classifiedTitle = classifiedTitle;
 		this.classifiedCatgory = classifiedCatgory;
