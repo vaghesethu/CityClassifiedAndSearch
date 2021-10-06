@@ -12,11 +12,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration
 @EnableJpaRepositories("com.virtusa.repo")
 @EntityScan("com.virtusa.bean")
-@ComponentScan(basePackages = {"com.virtusa.config","com.virtusa.controller"})
+@ComponentScan(basePackages = {"com.virtusa.config","com.virtusa.controller", "com.virtusa.service"})
 public class CityClassifiedAndSearchApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(CityClassifiedAndSearchApplication.class, args);
 	}
-
 }
