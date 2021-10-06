@@ -23,25 +23,28 @@ public class User implements Serializable {
 	@Column(name="UserId",unique=true,nullable=false)
 	private int userId;
 	
-	@Column(name="UserName",unique=false,nullable=false,length=30)
+	@Column(name="UserName",unique=false,nullable=false,length=100)
 	private String userName;
 	
-	@Column(name="UserEmail",unique=true,nullable=false,length=30)
+	@Column(name="UserEmail",unique=true,nullable=false,length=100)
 	private String userEmail;
 	
-	@Column(name="Password",unique=false,nullable=false,length=15)
+	@Column(name="Password",unique=false,nullable=false,length=100)
 	private String password;
 	
 	@Column(name="Mobile",unique=true,nullable=false,length=10)
 	private String mobile;
 	
-	@Column(name="userAddress",unique=true,nullable=false,length=50)
+	@Column(name="userAddress",unique=true,nullable=false,length=100)
 	private String userAddress;
 	
 	@Column(name="UserCity",unique=true,nullable=false,length=20)
 	private String userCity;
 	
-	@Column(name="enabled")
+	@Column(name="Role",unique=false,nullable=false,length=20)
+	private String Role;
+	
+	@Column(name="enabled",nullable=false)
 	private boolean enabled;
 
 	@OneToMany
@@ -104,7 +107,15 @@ public class User implements Serializable {
 	public void setUserCity(String userCity) {
 		this.userCity = userCity;
 	}
+	
+	public String getRole() {
+		return Role;
+	}
 
+	public void setRole(String role) {
+		Role = role;
+	}
+	
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -124,8 +135,10 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", password="
-				+ password + ", mobile=" + mobile + ", userAddress=" + userAddress + ", userCity=" + userCity + ", classified="
-				+ classified + "]";
+				+ password + ", mobile=" + mobile + ", userAddress=" + userAddress + ", userCity=" + userCity
+				+ ", Role=" + Role + ", enabled=" + enabled + ", classified=" + classified + "]";
 	}
+
+	
 		
 }

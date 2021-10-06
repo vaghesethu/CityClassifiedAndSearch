@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.virtusa.bean.MyUserDetails;
 import com.virtusa.bean.User;
 import com.virtusa.repo.UserRepository;
 
