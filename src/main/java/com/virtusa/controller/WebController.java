@@ -29,6 +29,7 @@ public class WebController {
 	
 	@PostMapping("/register1")
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
+		System.out.println("Inside register1 controller");
 		userService.save(registrationDto);
 		return "redirect:/register?success";
 	}

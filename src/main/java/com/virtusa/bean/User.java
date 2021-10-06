@@ -1,17 +1,10 @@
 package com.virtusa.bean;
 
-import java.util.Collection;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -37,28 +30,21 @@ public class User {
 	@Column(name = "useraddress", unique = false, nullable = true, length = 30)
 	private String userAddress;
 	
-	@Column(name = "usercity", unique = false, nullable = true, length=10)
+	@Column(name = "usercity", unique = false, nullable = true, length = 10)
 	private String userCity;
 	
 	@Column(name = "enabled")
 	private char enabled;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "usersroles",
-			joinColumns = @JoinColumn(
-		            name = "userid", referencedColumnName = "userid"),
-			inverseJoinColumns = @JoinColumn(
-				            name = "roleid", referencedColumnName = "id"))
-	
-	private Collection<Role> roles;
+	@Column(name = "role", unique = false, nullable = false, length = 5)
+	private String role;
 
 	public User() {
 		super();
 	}
 
 	public User(String userName, String userEmail, String password, String mobile, String userAddress,
-			String userCity, char enabled, Collection<Role> roles) {
+			String userCity, char enabled, String role) {
 		super();
 		this.userName = userName;
 		this.userEmail = userEmail;
@@ -67,7 +53,7 @@ public class User {
 		this.userAddress = userAddress;
 		this.userCity = userCity;
 		this.enabled = enabled;
-		this.roles = roles;
+		this.role = role;
 	}
 
 	public int getUserId() {
@@ -134,18 +120,18 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public Collection<Role> getRoles() {
-		return roles;
+	public String getRole() {
+		return role;
 	}
 
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", password="
 				+ password + ", mobile=" + mobile + ", userAddress=" + userAddress + ", userCity=" + userCity
-				+ ", enabled=" + enabled + ", roles=" + roles + "]";
+				+ ", enabled=" + enabled + ", roles=" + role + "]";
 	}
 }
