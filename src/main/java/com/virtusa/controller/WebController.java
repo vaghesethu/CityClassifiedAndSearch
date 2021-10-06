@@ -24,13 +24,11 @@ public class WebController {
 	
 	@GetMapping("/register")
 	public String showUserRegisterationForm() {
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		return "register";
 	}
 	
 	@PostMapping("/register1")
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
-		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		userService.save(registrationDto);
 		return "redirect:/register?success";
 	}

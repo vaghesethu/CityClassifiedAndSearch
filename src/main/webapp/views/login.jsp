@@ -36,7 +36,7 @@ text-align:center;
 	<h4>Login:</h4>
 	<div>
 		<form name="login" action="login" method="post" onsubmit="return check()">
-		Email: <input type="email" name="email">
+		Email: <input type="email" name="username">
 		<br><span id=mail></span><br>
 		Password: <input type="password" name="password"><br><br>
 			Don't have an account? <a href="register">Sign Up</a><br><br>

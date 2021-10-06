@@ -7,14 +7,14 @@ public class UserRegistrationDto {
 	private String mobile;
 	private String userAddress;
 	private String userCity;
-	private boolean enabled;
+	private char enabled;
 	
 	public UserRegistrationDto() {
 		super();
 	}
 	
 	public UserRegistrationDto(String userName, String userEmail, String password, String mobile, String userAddress,
-			String userCity, boolean enabled) {
+			String userCity, char enabled) {
 		super();
 		this.userName = userName;
 		this.userEmail = userEmail;
@@ -73,11 +73,11 @@ public class UserRegistrationDto {
 		this.userCity = userCity;
 	}
 	
-	public boolean isEnabled() {
+	public char getEnabled() {
 		return enabled;
 	}
 	
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(char enabled) {
 		this.enabled = enabled;
 	}
 }
