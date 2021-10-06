@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.virtusa.bean.User;
 import com.virtusa.service.UserService;
-import com.virtusa.service.web.dto.UserRegistrationDto;
 
 @Controller
 public class WebController {
@@ -18,8 +18,8 @@ public class WebController {
 	}
 	
 	@ModelAttribute("user")
-    public UserRegistrationDto userRegistrationDto() {
-        return new UserRegistrationDto();
+    public User userRegistration() {
+        return new User();
     }
 	
 	@GetMapping("/register")
@@ -28,9 +28,9 @@ public class WebController {
 	}
 	
 	@PostMapping("/register1")
-	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
+	public String registerUserAccount(@ModelAttribute("user") User user) {
 		System.out.println("Inside register1 controller");
-		userService.save(registrationDto);
+		userService.save(user);
 		return "redirect:/register?success";
 	}
 	

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.virtusa.bean.User;
 import com.virtusa.repo.UserRepository;
-import com.virtusa.service.web.dto.UserRegistrationDto;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,10 +27,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User save(UserRegistrationDto registrationDto) {
-		User user = new User(registrationDto.getUserName(), registrationDto.getUserEmail(), passwordEncoder.encode(registrationDto.getPassword()),
-							registrationDto.getMobile(), registrationDto.getUserAddress(), registrationDto.getUserCity(),
-							'y', "USER");
+	public User save(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setEnabled('y');
+		user.setRole("USER");
 		return userRepository.save(user);
 	}
 
