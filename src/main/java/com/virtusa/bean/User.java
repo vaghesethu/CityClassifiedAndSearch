@@ -31,13 +31,13 @@ public class User {
 	@Column(name = "password", unique = false, nullable = false, length = 60)
 	private String password;
 	
-	@Column(name = "mobile", unique = true, nullable = false, length = 10)
+	@Column(name = "mobile", unique = false, nullable = true, length = 10)
 	private String mobile;
 	
-	@Column(name = "useraddress", unique = true, nullable = false, length = 30)
+	@Column(name = "useraddress", unique = false, nullable = true, length = 30)
 	private String userAddress;
 	
-	@Column(name = "usercity", unique = false, nullable = false, length=10)
+	@Column(name = "usercity", unique = false, nullable = true, length=10)
 	private String userCity;
 	
 	@Column(name = "enabled")
