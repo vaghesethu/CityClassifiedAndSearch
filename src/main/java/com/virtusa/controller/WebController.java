@@ -1,51 +1,50 @@
 package com.virtusa.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.virtusa.bean.User;
-import com.virtusa.repo.UserRepository;
+import com.virtusa.service.UserService;
+import com.virtusa.service.web.dto.UserRegistrationDto;
 
 @Controller
 public class WebController {
-	@Autowired
-	UserRepository userrepo;
+	private UserService userService;
 	
-	@GetMapping("/")
-	public String home() {
-		return "index";
+	public WebController(UserService userService) {
+		super();
+		this.userService = userService;
 	}
+	
+	@ModelAttribute("user")
+    public UserRegistrationDto userRegistrationDto() {
+        return new UserRegistrationDto();
+    }
+	
+	@GetMapping("/register")
+	public String showUserRegisterationForm() {
+		return "register";
+	}
+	
+	@PostMapping("/register1")
+	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
+		userService.save(registrationDto);
+		return "redirect:/register?success";
+	}
+	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-	@GetMapping("/register")
-	public String showRegistrationForm() {
-	   // model.addAttribute("user", new User());
-	    return "register";
+	
+	@GetMapping("/index")
+	public String index() {
+		return "index";
 	}
-	@PostMapping("/register")
-	public User processRegister(User user) {
-	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	    String encodedPassword = passwordEncoder.encode(user.getPassword());
-	    user.setPassword(encodedPassword);
-	    userrepo.save(user);
-		return user;
-	    
+	
+	@GetMapping("/template")
+	public String template() {
+		return "template";
 	}
-	@GetMapping("/users")
-	public String listUsers(Model model) {
-	    List<User> listUsers = userrepo.findAll();
-	    model.addAttribute("listUsers", listUsers);
-	     
-	    return "users";
-	}
-
 }

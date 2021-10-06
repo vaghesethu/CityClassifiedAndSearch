@@ -1,57 +1,75 @@
 package com.virtusa.bean;
 
-import java.io.Serializable;
-import java.util.Set;
+import java.util.Collection;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
 @Entity
-@Table(name="USER")
-public class User implements Serializable {
-	
+@Table(name = "user")
+public class User {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="UserId",unique=true,nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "userid", unique = true, nullable = false)
 	private int userId;
 	
-	@Column(name="UserName",unique=false,nullable=false,length=100)
+	@Column(name = "username", unique = false, nullable = false, length = 20)
 	private String userName;
 	
-	@Column(name="UserEmail",unique=true,nullable=false,length=100)
+	@Column(name = "useremail", unique = true, nullable = false, length = 30)
 	private String userEmail;
 	
-	@Column(name="Password",unique=false,nullable=false,length=100)
+	@Column(name = "password", unique = false, nullable = false, length = 60)
 	private String password;
 	
-	@Column(name="Mobile",unique=true,nullable=false,length=10)
+	@Column(name = "mobile", unique = false, nullable = true, length = 10)
 	private String mobile;
 	
-	@Column(name="userAddress",unique=true,nullable=false,length=100)
+	@Column(name = "useraddress", unique = false, nullable = true, length = 30)
 	private String userAddress;
 	
-	@Column(name="UserCity",unique=true,nullable=false,length=20)
+	@Column(name = "usercity", unique = false, nullable = true, length=10)
 	private String userCity;
 	
-	@Column(name="Role",unique=false,nullable=false,length=20)
-	private String Role;
+	@Column(name = "enabled")
+	private char enabled;
 	
-	@Column(name="enabled",nullable=false)
-	private boolean enabled;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "usersroles",
+			joinColumns = @JoinColumn(
+		            name = "userid", referencedColumnName = "userid"),
+			inverseJoinColumns = @JoinColumn(
+				            name = "roleid", referencedColumnName = "id"))
+	
+	private Collection<Role> roles;
 
-	@OneToMany
-	@JoinColumn(name="UserId")
-	private Set<Classified> classified;
+	public User() {
+		super();
+	}
 
-	//Getters And Setters
+	public User(String userName, String userEmail, String password, String mobile, String userAddress,
+			String userCity, char enabled, Collection<Role> roles) {
+		super();
+		this.userName = userName;
+		this.userEmail = userEmail;
+		this.password = password;
+		this.mobile = mobile;
+		this.userAddress = userAddress;
+		this.userCity = userCity;
+		this.enabled = enabled;
+		this.roles = roles;
+	}
+
 	public int getUserId() {
 		return userId;
 	}
@@ -59,7 +77,7 @@ public class User implements Serializable {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	
+
 	public String getUserName() {
 		return userName;
 	}
@@ -107,38 +125,27 @@ public class User implements Serializable {
 	public void setUserCity(String userCity) {
 		this.userCity = userCity;
 	}
-	
-	public String getRole() {
-		return Role;
-	}
 
-	public void setRole(String role) {
-		Role = role;
-	}
-	
-	public boolean isEnabled() {
+	public char getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(char enabled) {
 		this.enabled = enabled;
 	}
 
-	public Set<Classified> getClassified() {
-		return classified;
+	public Collection<Role> getRoles() {
+		return roles;
 	}
 
-	public void setClassified(Set<Classified> classified) {
-		this.classified = classified;
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", password="
 				+ password + ", mobile=" + mobile + ", userAddress=" + userAddress + ", userCity=" + userCity
-				+ ", Role=" + Role + ", enabled=" + enabled + ", classified=" + classified + "]";
+				+ ", enabled=" + enabled + ", roles=" + roles + "]";
 	}
-
-	
-		
 }

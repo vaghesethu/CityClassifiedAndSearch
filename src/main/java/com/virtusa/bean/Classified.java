@@ -1,63 +1,46 @@
 package com.virtusa.bean;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
 @Entity
-@Table(name="CLASSIFIED")
-public class Classified implements Serializable{
-	
+@Table(name = "classified")
+public class Classified {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ClassifiedId",unique=true,nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "classifiedid", unique = true, nullable = false)
 	private int classifiedId;
 	
-	@Column(name="UserId",unique=false,nullable=false)
-	private int userId;
+	//not yet mapped/implemented
+	//foreign key (userid) references user(userid)
+	//private int userId;
 	
-	@Column(name="ClassifiedCategory",unique=false,nullable=false,length=30)
-	private String classifiedCategory;
-	
-	@Column(name="ClassifiedTitle",unique=false,nullable=false,length=30)
+	@Column(name = "classifiedtitle", unique = false, nullable = false)
 	private String classifiedTitle;
 	
-	@Column(name="Description",unique=false,nullable=false,length=500)
-	private String description;
+	@Column(name = "classifiedCategory", unique = false, nullable = false)
+	private String classifiedCatgory;
 	
-	@ManyToOne
-	private User user;
+	public Classified() {
+		super();
+	}
 
-	//Getters And Setters
+	public Classified(String classifiedTitle, String classifiedCatgory) {
+		super();
+		this.classifiedTitle = classifiedTitle;
+		this.classifiedCatgory = classifiedCatgory;
+	}
+
 	public int getClassifiedId() {
 		return classifiedId;
 	}
 
 	public void setClassifiedId(int classifiedId) {
 		this.classifiedId = classifiedId;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public String getClassifiedCategory() {
-		return classifiedCategory;
-	}
-
-	public void setClassifiedCategory(String classifiedCategory) {
-		this.classifiedCategory = classifiedCategory;
 	}
 
 	public String getClassifiedTitle() {
@@ -68,27 +51,17 @@ public class Classified implements Serializable{
 		this.classifiedTitle = classifiedTitle;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getClassifiedCatgory() {
+		return classifiedCatgory;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setClassifiedCatgory(String classifiedCatgory) {
+		this.classifiedCatgory = classifiedCatgory;
 	}
 
 	@Override
 	public String toString() {
-		return "Classified [classifiedId=" + classifiedId + ", userId=" + userId + ", classifiedCategory="
-				+ classifiedCategory + ", classifiedTitle=" + classifiedTitle + ", description=" + description
-				+ ", user=" + user + "]";
+		return "Classified [classifiedId=" + classifiedId + ", classifiedTitle=" + classifiedTitle
+				+ ", classifiedCatgory=" + classifiedCatgory + "]";
 	}
-	
 }

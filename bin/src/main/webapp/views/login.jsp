@@ -12,7 +12,7 @@
 body{
 width:100%;
 height:100%;
-background-color:#c1edeb;
+background-color:lightseagreen;
 }
 div{
 text-align:center
@@ -35,11 +35,11 @@ text-align:center;
 <body>
 	<h4>Login:</h4>
 	<div>
-		<form name="login" action="login" method="post" onsubmit="return check()">
-		Email: <input type="email" name="username">
+		<form name="login" action="/login" method="post" onsubmit="return check()">
+		Email: <input type="email" name="email">
 		<br><span id=mail></span><br>
 		Password: <input type="password" name="password"><br><br>
-			Don't have an account? <a href="register">Sign Up</a><br><br>
+			Don't have an account? <a href="register.jsp">Sign Up</a><br><br>
 		<input type="submit" value="submit">
 		</form>
 	</div>
