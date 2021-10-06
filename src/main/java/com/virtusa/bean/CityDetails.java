@@ -14,10 +14,6 @@ public class CityDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cityid", unique = true, nullable = false)
 	private int cityId;
-
-	//not yet mapped/implemented
-	//private int userId;
-	//foreign key(userid) references user(userid)
 	
 	@Column(name = "city", unique = false, nullable = false)
 	private String city;
@@ -38,9 +34,8 @@ public class CityDetails {
 		super();
 	}
 
-	public CityDetails(int cityId, String city, String category, String name, String address, String link) {
+	public CityDetails(User user, String city, String category, String name, String address, String link) {
 		super();
-		this.cityId = cityId;
 		this.city = city;
 		this.category = category;
 		this.name = name;
