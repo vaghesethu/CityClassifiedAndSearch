@@ -15,6 +15,9 @@ public class Classified {
 	@Column(name = "classifiedid", unique = true, nullable = false)
 	private int classifiedId;
 	
+	@Column(name = "userid", unique = false, nullable = false)
+	private int userId;
+	
 	@Column(name = "classifiedtitle", unique = false, nullable = false)
 	private String classifiedTitle;
 	
@@ -28,8 +31,9 @@ public class Classified {
 		super();
 	}
 
-	public Classified(String classifiedTitle, String description, String classifiedCatgory) {
+	public Classified(int userId, String classifiedTitle, String description, String classifiedCatgory) {
 		super();
+		this.userId = userId;
 		this.classifiedTitle = classifiedTitle;
 		this.description = description;
 		this.classifiedCatgory = classifiedCatgory;
@@ -41,6 +45,14 @@ public class Classified {
 
 	public void setClassifiedId(int classifiedId) {
 		this.classifiedId = classifiedId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getClassifiedTitle() {
@@ -69,7 +81,7 @@ public class Classified {
 
 	@Override
 	public String toString() {
-		return "Classified [classifiedId=" + classifiedId + ", classifiedTitle=" + classifiedTitle + ", description="
-				+ description + ", classifiedCatgory=" + classifiedCatgory + "]";
+		return "Classified [classifiedId=" + classifiedId + ", userId=" + userId + ", classifiedTitle="
+				+ classifiedTitle + ", description=" + description + ", classifiedCatgory=" + classifiedCatgory + "]";
 	}
 }

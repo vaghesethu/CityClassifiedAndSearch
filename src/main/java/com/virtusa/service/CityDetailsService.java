@@ -39,6 +39,16 @@ public class CityDetailsService {
 	   }
    }
    
+   public List<CityDetails> getCityDetailsByUserId(int userId) {
+	   List<CityDetails> cityDetails = cityDetailsRepository.findByUserId(userId);
+		if(cityDetails.size() > 0) {
+			Collections.reverse(cityDetails);
+			return cityDetails;
+		} else {
+		    return new ArrayList<CityDetails>(); //replace with custom exception(RecordNotFoundException)
+		}
+   }
+   
    public CityDetails createOrUpdateCityDetails(CityDetails cityDetails) {
        Optional<CityDetails> cityDetailsExists = cityDetailsRepository.findById(cityDetails.getCityId());
        if(cityDetailsExists.isPresent()) {
@@ -63,5 +73,5 @@ public class CityDetailsService {
        else {
            return; // replace with custom exception(RecordNotFoundException)
        }
-   } 
+   }
 }

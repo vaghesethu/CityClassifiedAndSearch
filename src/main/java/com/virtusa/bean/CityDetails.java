@@ -15,6 +15,9 @@ public class CityDetails {
 	@Column(name = "cityid", unique = true, nullable = false)
 	private int cityId;
 	
+	@Column(name = "userid", unique = false, nullable = false)
+	private int userId;
+	
 	@Column(name = "city", unique = false, nullable = false)
 	private String city;
 	
@@ -34,8 +37,9 @@ public class CityDetails {
 		super();
 	}
 
-	public CityDetails(User user, String city, String category, String name, String address, String link) {
+	public CityDetails(int userId, String city, String category, String name, String address, String link) {
 		super();
+		this.userId = userId;
 		this.city = city;
 		this.category = category;
 		this.name = name;
@@ -49,6 +53,14 @@ public class CityDetails {
 
 	public void setCityId(int cityId) {
 		this.cityId = cityId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserid(int userId) {
+		this.userId = userId;
 	}
 
 	public String getCity() {
@@ -93,7 +105,7 @@ public class CityDetails {
 
 	@Override
 	public String toString() {
-		return "CityDetails [cityId=" + cityId + ", city=" + city + ", category=" + category + ", name=" + name
-				+ ", address=" + address + ", link=" + link + "]";
+		return "CityDetails [cityId=" + cityId + ", userId=" + userId + ", city=" + city + ", category=" + category
+				+ ", name=" + name + ", address=" + address + ", link=" + link + "]";
 	}
 }

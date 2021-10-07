@@ -39,6 +39,17 @@ public class ClassifiedService {
 	   }
    }
    
+   public List<Classified> getClassifiedByUserId(int userId) {
+	   List<Classified> classifieds = classifiedRepository.findByUserId(userId);
+		if(classifieds.size() > 0) {
+			Collections.reverse(classifieds);
+			return classifieds;
+		} else {
+		    return new ArrayList<Classified>(); //replace with custom exception(RecordNotFoundException)
+		}
+   }
+   
+   
    public Classified createOrUpdateClassified(Classified classified) {
        Optional<Classified> classifiedExists = classifiedRepository.findById(classified.getClassifiedId());
        if(classifiedExists.isPresent()) {

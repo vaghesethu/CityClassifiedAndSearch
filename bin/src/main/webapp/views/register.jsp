@@ -39,7 +39,7 @@
 <body>
 	<h4>Register User:</h4>
 	<div>
-		<form action="register1" method="post" onsubmit="return check()">
+		<form action="register" method="post" onsubmit="return check()">
 		User Name *:<input type="text" id="userName"  name="userName" required>
 		<br><span id=user></span><br>
 		Email *:<input type="text" id="userEmail"name="userEmail" required  >
