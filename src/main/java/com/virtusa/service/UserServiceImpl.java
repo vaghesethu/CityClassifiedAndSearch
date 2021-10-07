@@ -1,6 +1,5 @@
 package com.virtusa.service;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,10 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.virtusa.bean.Role;
 import com.virtusa.bean.User;
 import com.virtusa.repo.UserRepository;
-import com.virtusa.service.web.dto.UserRegistrationDto;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,10 +27,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User save(UserRegistrationDto registrationDto) {
-		User user = new User(registrationDto.getUserName(), registrationDto.getUserEmail(), passwordEncoder.encode(registrationDto.getPassword()),
-							registrationDto.getMobile(), registrationDto.getUserAddress(), registrationDto.getUserCity(),
-							registrationDto.getEnabled(), Arrays.asList(new Role("ROLE_USER")));
+	public User save(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setEnabled('y');
+		user.setRole("USER");
 		return userRepository.save(user);
 	}
 
@@ -44,8 +41,7 @@ public class UserServiceImpl implements UserService {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
-		grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
 		return new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getPassword(), grantedAuthorities);	
 	}
 	

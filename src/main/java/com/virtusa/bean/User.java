@@ -5,13 +5,11 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -37,28 +35,30 @@ public class User {
 	@Column(name = "useraddress", unique = false, nullable = true, length = 30)
 	private String userAddress;
 	
-	@Column(name = "usercity", unique = false, nullable = true, length=10)
+	@Column(name = "usercity", unique = false, nullable = true, length = 10)
 	private String userCity;
 	
-	@Column(name = "enabled")
+	@Column(name = "enabled", unique = false, nullable = false)
 	private char enabled;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "usersroles",
-			joinColumns = @JoinColumn(
-		            name = "userid", referencedColumnName = "userid"),
-			inverseJoinColumns = @JoinColumn(
-				            name = "roleid", referencedColumnName = "id"))
+	@Column(name = "role", unique = false, nullable = false, length = 5)
+	private String role;
 	
-	private Collection<Role> roles;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "userid")
+	private Collection<Classified> classifieds;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "userid")
+	private Collection<CityDetails> cityDetails;
 
 	public User() {
 		super();
 	}
 
 	public User(String userName, String userEmail, String password, String mobile, String userAddress,
-			String userCity, char enabled, Collection<Role> roles) {
+			String userCity, char enabled, String role, Collection<Classified> classifieds,
+			Collection<CityDetails> cityDetails) {
 		super();
 		this.userName = userName;
 		this.userEmail = userEmail;
@@ -67,7 +67,9 @@ public class User {
 		this.userAddress = userAddress;
 		this.userCity = userCity;
 		this.enabled = enabled;
-		this.roles = roles;
+		this.role = role;
+		this.classifieds = classifieds;
+		this.cityDetails = cityDetails;
 	}
 
 	public int getUserId() {
@@ -134,18 +136,35 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public Collection<Role> getRoles() {
-		return roles;
+	public String getRole() {
+		return role;
 	}
 
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Collection<Classified> getClassifieds() {
+		return classifieds;
+	}
+
+	public void setClassifieds(Collection<Classified> classifieds) {
+		this.classifieds = classifieds;
+	}
+
+	public Collection<CityDetails> getCityDetails() {
+		return cityDetails;
+	}
+
+	public void setCityDetails(Collection<CityDetails> cityDetails) {
+		this.cityDetails = cityDetails;
 	}
 
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", password="
 				+ password + ", mobile=" + mobile + ", userAddress=" + userAddress + ", userCity=" + userCity
-				+ ", enabled=" + enabled + ", roles=" + roles + "]";
+				+ ", enabled=" + enabled + ", role=" + role + ", classifieds=" + classifieds + ", cityDetails="
+				+ cityDetails + "]";
 	}
 }
