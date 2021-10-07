@@ -27,9 +27,8 @@ public class WebController {
 		return "register";
 	}
 	
-	@PostMapping("/register1")
+	@PostMapping("/register")
 	public String registerUserAccount(@ModelAttribute("user") User user) {
-		System.out.println("Inside register1 controller");
 		userService.save(user);
 		return "redirect:/register?success";
 	}
