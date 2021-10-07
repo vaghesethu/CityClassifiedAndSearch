@@ -114,7 +114,7 @@ li a span{
 	<ul class="top">
 		<li style="float:left">
 		<button class="open" onclick="w3_open()"><div class="button"></div><div class="button1"></div><div class="button2"></div></button></li>
-		<li><img src="logo.jpg" ></li>
+		<li><img src="/images/logo.jpg" ></li>
 		<li>CitY Search </li>
 		<li class="log"><a href="logout"><span>Logout</span></a></li>
 	</ul>
