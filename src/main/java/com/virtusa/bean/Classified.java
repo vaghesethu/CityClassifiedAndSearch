@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +18,9 @@ public class Classified {
 	@Column(name = "classifiedtitle", unique = false, nullable = false)
 	private String classifiedTitle;
 	
+	@Column(name = "description", unique = false, nullable = true)
+	private String description;
+	
 	@Column(name = "classifiedCategory", unique = false, nullable = false)
 	private String classifiedCatgory;
 	
@@ -26,9 +28,10 @@ public class Classified {
 		super();
 	}
 
-	public Classified(User user, String classifiedTitle, String classifiedCatgory) {
+	public Classified(String classifiedTitle, String description, String classifiedCatgory) {
 		super();
 		this.classifiedTitle = classifiedTitle;
+		this.description = description;
 		this.classifiedCatgory = classifiedCatgory;
 	}
 
@@ -48,6 +51,14 @@ public class Classified {
 		this.classifiedTitle = classifiedTitle;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getClassifiedCatgory() {
 		return classifiedCatgory;
 	}
@@ -58,7 +69,7 @@ public class Classified {
 
 	@Override
 	public String toString() {
-		return "Classified [classifiedId=" + classifiedId + ", classifiedTitle=" + classifiedTitle
-				+ ", classifiedCatgory=" + classifiedCatgory + "]";
+		return "Classified [classifiedId=" + classifiedId + ", classifiedTitle=" + classifiedTitle + ", description="
+				+ description + ", classifiedCatgory=" + classifiedCatgory + "]";
 	}
 }
