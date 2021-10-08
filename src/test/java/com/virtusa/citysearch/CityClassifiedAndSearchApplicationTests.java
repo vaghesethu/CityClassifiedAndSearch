@@ -1,4 +1,4 @@
-package com.virtusa.citysearch;
+package com.cityclassifiedandsearch.citysearch;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
