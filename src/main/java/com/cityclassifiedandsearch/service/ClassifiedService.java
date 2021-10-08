@@ -1,4 +1,4 @@
-package com.virtusa.service;
+package com.cityclassifiedandsearch.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.virtusa.bean.Classified;
-import com.virtusa.repo.ClassifiedRepository;
+import com.cityclassifiedandsearch.bean.Classified;
+import com.cityclassifiedandsearch.repo.ClassifiedRepository;
 
 @Service
 public class ClassifiedService {

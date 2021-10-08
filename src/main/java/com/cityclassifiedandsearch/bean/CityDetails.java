@@ -1,4 +1,4 @@
-package com.virtusa.bean;
+package com.cityclassifiedandsearch.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

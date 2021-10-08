@@ -1,4 +1,4 @@
-package com.virtusa.controller;
+package com.cityclassifiedandsearch.controller;
 
 import java.io.IOException;
 import org.springframework.core.io.ClassPathResource;

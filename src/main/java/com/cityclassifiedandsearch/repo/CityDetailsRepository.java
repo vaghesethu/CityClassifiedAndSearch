@@ -1,11 +1,11 @@
-package com.virtusa.repo;
+package com.cityclassifiedandsearch.repo;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.virtusa.bean.CityDetails;
+import com.cityclassifiedandsearch.bean.CityDetails;
 
 @Repository
 public interface CityDetailsRepository extends JpaRepository<CityDetails, Integer> {
