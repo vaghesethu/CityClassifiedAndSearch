@@ -1,12 +1,12 @@
-package com.virtusa.controller;
+package com.cityclassifiedandsearch.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.virtusa.bean.CityDetails;
-import com.virtusa.service.CityDetailsService;
+import com.cityclassifiedandsearch.bean.CityDetails;
+import com.cityclassifiedandsearch.service.CityDetailsService;
 
 @Controller
 public class CityDetailsController {

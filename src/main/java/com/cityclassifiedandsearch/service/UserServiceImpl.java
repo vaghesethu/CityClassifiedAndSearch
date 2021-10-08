@@ -1,4 +1,4 @@
-package com.virtusa.service;
+package com.cityclassifiedandsearch.service;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.virtusa.bean.User;
-import com.virtusa.repo.UserRepository;
+import com.cityclassifiedandsearch.bean.User;
+import com.cityclassifiedandsearch.repo.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
