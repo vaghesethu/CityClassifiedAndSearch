@@ -31,8 +31,8 @@ public class Classified implements Serializable {
 	@Column(name = "description", unique = false, nullable = true)
 	private String description;
 	
-	@Column(name = "classifiedCategory", unique = false, nullable = false)
-	private String classifiedCatgory;
+	@Column(name = "classifiedcategory", unique = false, nullable = false)
+	private String classifiedCategory;
 	
 	@Lob
 	@Column(columnDefinition = "MEDIUMBLOB")
@@ -44,13 +44,13 @@ public class Classified implements Serializable {
 	}
 
 	public Classified(int classifiedId, int userId, String classifiedTitle, String description,
-			String classifiedCatgory, String classifiedimage) {
+			String classifiedCategory, String classifiedimage) {
 		super();
 		this.classifiedId = classifiedId;
 		this.userId = userId;
 		this.classifiedTitle = classifiedTitle;
 		this.description = description;
-		this.classifiedCatgory = classifiedCatgory;
+		this.classifiedCategory = classifiedCategory;
 		this.classifiedimage = classifiedimage;
 	}
 
@@ -86,12 +86,12 @@ public class Classified implements Serializable {
 		this.description = description;
 	}
 
-	public String getClassifiedCatgory() {
-		return classifiedCatgory;
+	public String getClassifiedCategory() {
+		return classifiedCategory;
 	}
 
-	public void setClassifiedCatgory(String classifiedCatgory) {
-		this.classifiedCatgory = classifiedCatgory;
+	public void setClassifiedCategory(String classifiedCatgory) {
+		this.classifiedCategory = classifiedCatgory;
 	}
 	
 	public String getClassifiedimage() {
@@ -105,7 +105,7 @@ public class Classified implements Serializable {
 	@Override
 	public String toString() {
 		return "Classified [classifiedId=" + classifiedId + ", userId=" + userId + ", classifiedTitle="
-				+ classifiedTitle + ", description=" + description + ", classifiedCatgory=" + classifiedCatgory
+				+ classifiedTitle + ", description=" + description + ", classifiedCategory=" + classifiedCategory
 				+ ", classifiedimage=" + classifiedimage + "]";
 	}
 	
