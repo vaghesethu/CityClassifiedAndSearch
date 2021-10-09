@@ -1,18 +1,21 @@
-package com.virtusa.service;
+package com.cityclassifiedandsearch.service;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.virtusa.bean.User;
-import com.virtusa.repo.UserRepository;
+import com.cityclassifiedandsearch.bean.User;
+import com.cityclassifiedandsearch.repo.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,6 +28,13 @@ public class UserServiceImpl implements UserService {
 		super();
 		this.userRepository = userRepository;
 	}
+	
+	/*public static User getCurrentUser() {
+		SecurityContext context=SecurityContextHolder.getContext();
+		Authentication auth=context.getAuthentication();
+		User currentuser=(User)auth.getPrincipal();
+		return currentuser;
+	}*/
 	
 	@Override
 	public User save(User user) {

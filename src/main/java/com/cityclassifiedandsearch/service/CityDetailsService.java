@@ -1,14 +1,18 @@
-package com.virtusa.service;
+package com.cityclassifiedandsearch.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.virtusa.bean.CityDetails;
-import com.virtusa.repo.CityDetailsRepository;
+import com.cityclassifiedandsearch.bean.CityDetails;
+import com.cityclassifiedandsearch.repo.CityDetailsRepository;
 
 @Service
 public class CityDetailsService {
@@ -49,20 +53,20 @@ public class CityDetailsService {
 		}
    }
    
-   public CityDetails createOrUpdateCityDetails(CityDetails cityDetails) {
-       Optional<CityDetails> cityDetailsExists = cityDetailsRepository.findById(cityDetails.getCityId());
-       if(cityDetailsExists.isPresent()) {
-    	   CityDetails newCityDetails = cityDetailsExists.get();
-    	   newCityDetails.setName(cityDetails.getName());
-    	   newCityDetails.setCity(cityDetails.getCity());
-    	   newCityDetails.setCategory(cityDetails.getCategory());
-    	   newCityDetails.setAddress(cityDetails.getAddress());
-    	   newCityDetails.setLink(cityDetails.getLink());
+   public CityDetails createOrUpdateCityDetails(String category,String name,String address,String cityName,String link,MultipartFile image) throws IOException {
+          	   CityDetails newCityDetails = new CityDetails();
+    	   newCityDetails.setUserId(1);//UserServiceImpl.getCurrentUser().getUserId());
+    	   newCityDetails.setName(name);
+    	   newCityDetails.setCity(cityName);
+    	   newCityDetails.setCategory(category);
+    	   newCityDetails.setAddress(address);
+    	   newCityDetails.setLink(link);
+    	   String filename=StringUtils.cleanPath(image.getOriginalFilename());
+    	   if(filename.contains(".."))
+    		   System.out.println("not a valid file");
+   		   newCityDetails.setCityimage(Base64.getEncoder().encodeToString(image.getBytes()));
     	   return cityDetailsRepository.save(newCityDetails);
-       }
-       else {
-           return cityDetailsRepository.save(cityDetails);
-       }
+      
    }
    
    public void deleteCityDetailsById(int cityDetailsId) {

@@ -1,5 +1,6 @@
-package com.virtusa.bean;
+package com.cityclassifiedandsearch.bean;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userid", unique = true, nullable = false)
@@ -66,7 +72,7 @@ public class User {
 		this.mobile = mobile;
 		this.userAddress = userAddress;
 		this.userCity = userCity;
-		this.enabled = enabled;
+		this.enabled = 'n';
 		this.role = role;
 		this.classifieds = classifieds;
 		this.cityDetails = cityDetails;

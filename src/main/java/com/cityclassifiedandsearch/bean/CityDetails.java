@@ -1,15 +1,23 @@
-package com.virtusa.bean;
+package com.cityclassifiedandsearch.bean;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "citydetails")
-public class CityDetails {
+public class CityDetails implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cityid", unique = true, nullable = false)
@@ -33,18 +41,25 @@ public class CityDetails {
 	@Column(name = "link", unique = false, nullable = true)
 	private String link;
 	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
+    private String cityimage;
+	
 	public CityDetails() {
 		super();
 	}
 
-	public CityDetails(int userId, String city, String category, String name, String address, String link) {
+	public CityDetails(int cityId, int userId, String city, String category, String name, String address, String link,
+			String cityimage) {
 		super();
+		this.cityId = cityId;
 		this.userId = userId;
 		this.city = city;
 		this.category = category;
 		this.name = name;
 		this.address = address;
 		this.link = link;
+		this.cityimage = cityimage;
 	}
 
 	public int getCityId() {
@@ -59,7 +74,7 @@ public class CityDetails {
 		return userId;
 	}
 
-	public void setUserid(int userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -103,9 +118,17 @@ public class CityDetails {
 		this.link = link;
 	}
 
+	public String getCityimage() {
+		return cityimage;
+	}
+
+	public void setCityimage(String cityimage) {
+		this.cityimage = cityimage;
+	}
+
 	@Override
 	public String toString() {
 		return "CityDetails [cityId=" + cityId + ", userId=" + userId + ", city=" + city + ", category=" + category
-				+ ", name=" + name + ", address=" + address + ", link=" + link + "]";
+				+ ", name=" + name + ", address=" + address + ", link=" + link + ", cityimage=" + cityimage + "]";
 	}
 }

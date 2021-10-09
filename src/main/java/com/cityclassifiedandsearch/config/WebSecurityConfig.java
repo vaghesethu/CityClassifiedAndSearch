@@ -1,4 +1,4 @@
-package com.virtusa.config;
+package com.cityclassifiedandsearch.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,11 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.virtusa.service.UserService;
+import com.cityclassifiedandsearch.service.UserService;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan("com.virtusa.config")  
+@ComponentScan("com.cityclassifiedandsearch.config")  
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserService userService;

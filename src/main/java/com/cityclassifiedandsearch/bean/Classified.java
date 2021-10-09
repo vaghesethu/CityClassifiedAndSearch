@@ -1,15 +1,22 @@
-package com.virtusa.bean;
+package com.cityclassifiedandsearch.bean;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "classified")
-public class Classified {
+public class Classified implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "classifiedid", unique = true, nullable = false)
@@ -27,16 +34,24 @@ public class Classified {
 	@Column(name = "classifiedCategory", unique = false, nullable = false)
 	private String classifiedCatgory;
 	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
+    private String classifiedimage;
+	
+
 	public Classified() {
 		super();
 	}
 
-	public Classified(int userId, String classifiedTitle, String description, String classifiedCatgory) {
+	public Classified(int classifiedId, int userId, String classifiedTitle, String description,
+			String classifiedCatgory, String classifiedimage) {
 		super();
+		this.classifiedId = classifiedId;
 		this.userId = userId;
 		this.classifiedTitle = classifiedTitle;
 		this.description = description;
 		this.classifiedCatgory = classifiedCatgory;
+		this.classifiedimage = classifiedimage;
 	}
 
 	public int getClassifiedId() {
@@ -78,10 +93,21 @@ public class Classified {
 	public void setClassifiedCatgory(String classifiedCatgory) {
 		this.classifiedCatgory = classifiedCatgory;
 	}
+	
+	public String getClassifiedimage() {
+		return classifiedimage;
+	}
+
+	public void setClassifiedimage(String classifiedimage) {
+		this.classifiedimage = classifiedimage;
+	}
 
 	@Override
 	public String toString() {
 		return "Classified [classifiedId=" + classifiedId + ", userId=" + userId + ", classifiedTitle="
-				+ classifiedTitle + ", description=" + description + ", classifiedCatgory=" + classifiedCatgory + "]";
+				+ classifiedTitle + ", description=" + description + ", classifiedCatgory=" + classifiedCatgory
+				+ ", classifiedimage=" + classifiedimage + "]";
 	}
+	
+	
 }
