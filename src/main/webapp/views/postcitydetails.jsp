@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form class="modal-content" action="postcitydetails" method="post" enctype="multipart/form-data" >
+<form class="modal-content" action="/admin/postcitydetails" method="post" enctype="multipart/form-data" >
     <div class="container">
       <h1>Post CityDetails</h1>
       

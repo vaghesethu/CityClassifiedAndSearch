@@ -9,7 +9,7 @@
 </head>
 <body>
 		
- <form class="modal-content" action="UpdateCity?cityId=" method="post"  >
+ <form class="modal-content" action="/admin/editcitydetails?cityId=?" method="post"  >
     <div class="container">
       <h1>Edit CityDetails</h1>
       

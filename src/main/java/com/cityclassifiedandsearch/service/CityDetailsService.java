@@ -55,7 +55,7 @@ public class CityDetailsService {
    
    public CityDetails createOrUpdateCityDetails(String category,String name,String address,String cityName,String link,MultipartFile image) throws IOException {
           	   CityDetails newCityDetails = new CityDetails();
-    	   newCityDetails.setUserId(1);//add the current user
+    	   newCityDetails.setUserId(1);//UserServiceImpl.getCurrentUser().getUserId());
     	   newCityDetails.setName(name);
     	   newCityDetails.setCity(cityName);
     	   newCityDetails.setCategory(category);

@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form class="modal-content" action="postclassified" method="post" enctype="multipart/form-data">
+<form class="modal-content" action="/user/postclassified" method="post" enctype="multipart/form-data">
     <div class="container" >
       <h1>Post Classified</h1>
       
@@ -30,7 +30,5 @@
       </div>
     </div>
   </form>
-
-<img src="data:image/jpeg;base64,${Classified.getClassifiedimage()}" />
 </body>
 </html>

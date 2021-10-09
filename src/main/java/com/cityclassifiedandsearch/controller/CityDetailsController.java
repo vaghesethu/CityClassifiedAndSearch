@@ -3,13 +3,14 @@ package com.cityclassifiedandsearch.controller;
 import java.io.IOException;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cityclassifiedandsearch.bean.CityDetails;
 import com.cityclassifiedandsearch.service.CityDetailsService;
 
 @Controller
@@ -26,7 +27,7 @@ public class CityDetailsController {
 		return "postcitydetails";
 	}
 	
-	@PostMapping("/postcitydetails")
+	@PostMapping("/admin/postcitydetails")
 	public String postCityDetails(@RequestParam("category")String category,
 			@RequestParam("name")String name,
 			@RequestParam("address")String address,
@@ -34,7 +35,7 @@ public class CityDetailsController {
 			@RequestParam("link")String link,
 			@RequestParam("file") MultipartFile image) throws IOException {
 		cityDetailsService.createOrUpdateCityDetails(category,name,address,cityName,link,image);
-		return "redirect:/postcitydetails?success";
+		return "redirect:/editcitydetails?success";
 	}
 	
 	@GetMapping("/editcitydetails")
@@ -42,9 +43,18 @@ public class CityDetailsController {
 		return "editcitydetails";
 	}
 	
-	/*@PostMapping("/editcitydetails")
-	public String editCityDetails(@ModelAttribute("cityDetails") CityDetails cityDetails) {
-		cityDetailsService.createOrUpdateCityDetails(cityDetails);
+	@PutMapping("/admin/editcitydetails")
+	public String editCityDetails(@RequestParam("category")String category,
+			@RequestParam("name")String name,
+			@RequestParam("address")String address,
+			@RequestParam("cityName")String cityName,
+			@RequestParam("link")String link,
+			@RequestParam("file") MultipartFile image) throws IOException {
+		cityDetailsService.createOrUpdateCityDetails(category,name,address,cityName,link,image);
 		return "redirect:/editcitydetails?success";
-	}*/
+	}
+	@DeleteMapping("/deletecitydetails/{id}")
+	public void deleteCityDetails(@PathVariable("id")int cityId) {
+		cityDetailsService.deleteCityDetailsById(cityId);
+	}
 }

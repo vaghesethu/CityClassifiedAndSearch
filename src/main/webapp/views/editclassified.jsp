@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form class="modal-content" action="UpdateClassified?classifiedId=" method="post" >
+<form class="modal-content" action="/user/editclassified?classifiedId=?" method="post" >
     <div class="container">
       <h1>Post Classified</h1>
       

@@ -19,7 +19,7 @@ import com.cityclassifiedandsearch.repo.ClassifiedRepository;
 public class ClassifiedService {
 	@Autowired
 	private ClassifiedRepository classifiedRepository;
-	
+		
 	public ClassifiedService(ClassifiedRepository classifiedRepository) {
 		super();
 		this.classifiedRepository = classifiedRepository;
@@ -59,7 +59,7 @@ public class ClassifiedService {
    public Classified createOrUpdateClassified(String classifiedCategory,
 			String classifiedTitle,String description,MultipartFile image) throws IOException {
        	   Classified newClassified = new Classified();
-    	   newClassified.setUserId(1);//add the current user
+    	   newClassified.setUserId(1);//UserServiceImpl.getCurrentUser().getUserId());
     	   newClassified.setClassifiedTitle(classifiedTitle);
     	   newClassified.setClassifiedCatgory(classifiedCategory);
     	   newClassified.setDescription(description);

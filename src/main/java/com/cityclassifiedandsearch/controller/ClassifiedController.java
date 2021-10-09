@@ -4,9 +4,11 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,7 +32,7 @@ public class ClassifiedController {
 		return "postclassified";
 	}
 	
-	@PostMapping("/postclassified")
+	@PostMapping("/user/postclassified")
 	public String postClassified(@RequestParam("classifiedCategory")String classifiedCategory,
 			@RequestParam("classifiedTitle")String classifiedTitle,
 			@RequestParam("description")String description,
@@ -48,11 +50,23 @@ public class ClassifiedController {
 		return "editclassified";
 	}
 	
-	/*@PutMapping("/editclassified")
-	public String editClassified(@ModelAttribute("classified") Classified classified) {
-		classifiedService.createOrUpdateClassified(classified);
-		return "redirect:/editclassified?success";
-	}*/
+	@PutMapping("/user/editclassified")
+	public String editClassified(@RequestParam("classifiedCategory")String classifiedCategory,
+			@RequestParam("classifiedTitle")String classifiedTitle,
+			@RequestParam("description")String description,
+			@RequestParam("file") MultipartFile image) {
+		try {
+			classifiedService.createOrUpdateClassified(classifiedCategory,classifiedTitle,description,image);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/postclassified?success";
+	}
+	
+	@DeleteMapping("/deleteclassified/{id}")
+	public void deleteCityDetails(@PathVariable("id")int classifiedId) {
+		classifiedService.deleteClassifiedById(classifiedId);
+	}
 	
 	//test
 	@GetMapping("test")
