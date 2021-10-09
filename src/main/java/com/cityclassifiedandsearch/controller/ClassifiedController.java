@@ -1,16 +1,24 @@
 package com.cityclassifiedandsearch.controller;
 
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import com.cityclassifiedandsearch.bean.Classified;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.cityclassifiedandsearch.repo.ClassifiedRepository;
 import com.cityclassifiedandsearch.service.ClassifiedService;
 
 @Controller
 public class ClassifiedController {
+	@Autowired
 	private ClassifiedService classifiedService;
+	@Autowired
+	ClassifiedRepository classifiedrepository;
 	
 	public ClassifiedController(ClassifiedService classifiedService) {
 		super();
@@ -23,8 +31,15 @@ public class ClassifiedController {
 	}
 	
 	@PostMapping("/postclassified")
-	public String postClassified(@ModelAttribute("classified") Classified classified) {
-		classifiedService.createOrUpdateClassified(classified);
+	public String postClassified(@RequestParam("classifiedCategory")String classifiedCategory,
+			@RequestParam("classifiedTitle")String classifiedTitle,
+			@RequestParam("description")String description,
+			@RequestParam("file") MultipartFile image) {
+		try {
+			classifiedService.createOrUpdateClassified(classifiedCategory,classifiedTitle,description,image);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "redirect:/postclassified?success";
 	}
 	
@@ -33,11 +48,11 @@ public class ClassifiedController {
 		return "editclassified";
 	}
 	
-	@PostMapping("/editclassified")
+	/*@PutMapping("/editclassified")
 	public String editClassified(@ModelAttribute("classified") Classified classified) {
 		classifiedService.createOrUpdateClassified(classified);
 		return "redirect:/editclassified?success";
-	}
+	}*/
 	
 	//test
 	@GetMapping("test")

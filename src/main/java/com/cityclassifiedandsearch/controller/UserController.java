@@ -33,10 +33,5 @@ public class UserController {
 		return "redirect:/register?success";
 	}
 	
-	@GetMapping("/otpverification")
-	public String otpVerificationForm() {
-		return "otpverification";
-	}
 	
-	//post mapping for otpverification
 }
