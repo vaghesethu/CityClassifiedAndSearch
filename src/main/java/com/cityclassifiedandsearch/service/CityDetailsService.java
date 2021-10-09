@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.CityDetails;
@@ -55,8 +54,7 @@ public class CityDetailsService {
    }
    
    public CityDetails createOrUpdateCityDetails(String category,String name,String address,String cityName,String link,MultipartFile image) throws IOException {
-       //Optional<CityDetails> cityDetailsExists = cityDetailsRepository.findById(cityDetails.getCityId());
-    	   CityDetails newCityDetails = new CityDetails();
+          	   CityDetails newCityDetails = new CityDetails();
     	   newCityDetails.setUserId(1);//add the current user
     	   newCityDetails.setName(name);
     	   newCityDetails.setCity(cityName);
