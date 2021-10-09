@@ -61,7 +61,7 @@ public class ClassifiedService {
        	   Classified newClassified = new Classified();
     	   newClassified.setUserId(1);//UserServiceImpl.getCurrentUser().getUserId());
     	   newClassified.setClassifiedTitle(classifiedTitle);
-    	   newClassified.setClassifiedCatgory(classifiedCategory);
+    	   newClassified.setClassifiedCategory(classifiedCategory);
     	   newClassified.setDescription(description);
     	   String filename=StringUtils.cleanPath(image.getOriginalFilename());
     	   if(filename.contains(".."))
