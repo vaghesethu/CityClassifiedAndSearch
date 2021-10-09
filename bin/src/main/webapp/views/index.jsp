@@ -61,7 +61,10 @@ li a span{
 		<li><img src="/images/logo.jpg" ></li>
 		<li>CitY Search </li>
 		<li><a href="login"><span>Login</span></a></li>
+		
 	</ul>
+	<a href="postclassified">postclassified</a>
+		<a href="postcitydetails">postcitydetails</a>
 	<div>
 	</div>
 </body>

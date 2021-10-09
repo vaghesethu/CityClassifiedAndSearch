@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="java.util.*" %>
+    <%@ page import="com.cityclassifiedandsearch.bean.*,com.cityclassifiedandsearch.service.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form class="modal-content" action="PostClassified" method="post" >
-    <div class="container">
+<form class="modal-content" action="/user/postclassified" method="post" enctype="multipart/form-data">
+    <div class="container" >
       <h1>Post Classified</h1>
       
 		<select id="classifiedCategory" name="classifiedCategory">
@@ -20,6 +22,8 @@
 		<input type="text" id="classifiedTitle" placeHolder="Title" name="classifiedTitle" required>
 		
 		<input type="text" id="description" placeholder="Description" name="description" required >
+		
+		<input type="file" name="file" >
 		 
       <div class="clearfix">
               <button type="submit" class="signupbtn">Post</button>
