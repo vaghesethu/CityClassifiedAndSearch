@@ -48,7 +48,7 @@ public class CityDetails implements Serializable {
 	public CityDetails() {
 		super();
 	}
-	
+
 	public CityDetails(int cityId, int userId, String city, String category, String name, String address, String link,
 			String cityimage) {
 		super();
@@ -61,7 +61,7 @@ public class CityDetails implements Serializable {
 		this.link = link;
 		this.cityimage = cityimage;
 	}
-	
+
 	public int getCityId() {
 		return cityId;
 	}

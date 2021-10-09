@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form class="modal-content" action="AddCity" method="post"  >
+<form class="modal-content" action="postcitydetails" method="post" enctype="multipart/form-data" >
     <div class="container">
       <h1>Post CityDetails</h1>
       
@@ -22,11 +22,11 @@
 		
 		<input type="text" id="address" placeholder="Adress" name="address" required >
 		
-		<input type="text" id="cityName" placeholder="city" name="city" required >
+		<input type="text" id="cityName" placeholder="city" name="cityName" required >
 		
 		<input type="text" id="link" placeholder="Link" name="link" required  >
 		
-		 
+		 <input type="file" name="file" >
       <div class="clearfix">
               <button type="submit" class="signupbtn">Post</button>
       </div>

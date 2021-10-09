@@ -59,7 +59,7 @@ public class ClassifiedService {
    public Classified createOrUpdateClassified(String classifiedCategory,
 			String classifiedTitle,String description,MultipartFile image) throws IOException {
        	   Classified newClassified = new Classified();
-    	   newClassified.setUserId(1);
+    	   newClassified.setUserId(1);//add the current user
     	   newClassified.setClassifiedTitle(classifiedTitle);
     	   newClassified.setClassifiedCatgory(classifiedCategory);
     	   newClassified.setDescription(description);

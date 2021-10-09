@@ -30,7 +30,7 @@
       </div>
     </div>
   </form>
-  <%List<Classified> list=ClassifiedService.getAllClassifieds();%>
-<img src="data:image/jpeg;base64,${cs.getClassifiedimage()}" />
+
+<img src="data:image/jpeg;base64,${Classified.getClassifiedimage()}" />
 </body>
 </html>
