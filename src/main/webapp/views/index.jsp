@@ -8,12 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
-    <title>City Classfied And Search</title>
+    <title>City Classified And Search</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">City Classfied And Search</a>
+        <a class="navbar-brand" href="#">City Classified And Search</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,7 +23,7 @@
               <a class="nav-link active" aria-current="page" href="#">Classifieds</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">City Details</a> <!--add in the href-->
+              <a class="nav-link" href="/index2">City Details</a>
             </li>
           </ul>
           <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#signinmodal">
@@ -53,10 +53,12 @@
 							      		img = "/images/noimage.jpg";
 							      	}
 							      	else {
-							      		img = "/images/noimage.jpg"; //code for fetching the image
+							      		img = "data:image/jpeg;base64," + classifiedImage;
 							      	}
 							      %>
-							      <img src="<%= img %>" class="card-img-top">
+							      <div class="mt-2 mx-auto index-image-parent">
+							      	<img src="<%= img %>" class="index-image">
+							      </div>
 							      <div class="card-body">
 							        <h5 class="card-title"><%= classified.getClassifiedTitle() %></h5>
 							        <p class="card-text">
@@ -83,7 +85,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="container">
-	      	<form class="my-3" name="login" action="login" method="post" onsubmit="return loginmodalcheck()">
+	      	<form class="my-3" name="login" action="login" method="post" onsubmit="return signinmodalcheck()">
 			  <div class="mb-3">
 			    <label for="useremail" class="form-label">Email address</label>
 			    <span id=mail></span>
@@ -93,7 +95,7 @@
 			    <label for="password" class="form-label">Password</label>
 			    <input type="password" class="form-control" id="password" name="password">
 			  </div>
-		  	  <button type="submit" class="btn btn-outline-dark">Login</button>
+		  	  <button type="submit" class="btn btn-outline-dark mx-auto">Login</button>
 		  	</form>
 		 </div>
 	    </div>
@@ -109,7 +111,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="container">
-	      	<form class="my-3" name="register" action="register" method="post">
+	      	<form class="my-3" name="register" action="register" method="post" onsubmit="return signupmodalcheck()">
 			  <div class="mb-3">
 			    <label for="userName" class="form-label">User Name</label>
 			    <input type="text" class="form-control" id="userName" name="userName">
@@ -138,8 +140,10 @@
 			    <label for="confirmPassword" class="form-label">Confirm Password</label>
 			    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
 			  </div>
-			  Already have an account? <a href="login">Log In</a> <br>
-		  	  <button type="submit" class="btn btn-outline-dark">Submit</button>
+			  <p>
+			  	Already have an account? <a href="login">Log In</a>
+			  </p>
+		  	  <button type="submit" class="btn btn-outline-dark">Register</button>
 		  	</form>
 		 </div>
 	    </div>
@@ -147,7 +151,7 @@
 	</div>
 	
 	<script>
-		function loginmodalcheck() {
+		function signinmodalcheck() {
 			var email = document.getElementById("useremail").value;
 			var mailformat =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 			if(!email.match(mailformat)) {
@@ -157,6 +161,49 @@
 				return true;
 			}
 		}
+		
+		function signupmodalcheck(){
+			var userName = document.getElementById("userName").value;
+			var nameformat=/^[A-Za-z]+$/;
+			
+			if(!userName.match(nameformat)){  
+			      document.getElementById("user").innerHTML = "Only characters are allowed";  
+			      return false;  
+			}
+			
+			if(userName.length<3){  
+			      document.getElementById("user").innerHTML = "Enter valid name";  
+			      return false;  
+			}
+			
+			var userEmail=document.getElementById("userEmail").value;
+			var mailformat =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+			
+			if(!userEmail.match(mailformat)){
+				document.getElementById("mail").innerHTML = "Invalid Email";  
+			     return false;  
+			}
+			var mobile = document.getElementById("mobile").value;
+			var mobileformat=/^[0-9]+$/;
+			
+			if(!mobile.match(mobileformat)){  
+			      document.getElementById("Mobile").innerHTML = "Only numbers allowed";  
+			      return false;  
+			}
+			if(mobile.length!=10){  
+			      document.getElementById("Mobile").innerHTML = "Enter valid Mobile Number";  
+			      return false;  
+			}
+			
+			var password = document.getElementById("password").value;
+			var confirmPassword = document.getElementById("confirmPassword").value;
+			if(password!=confirmPassword){
+				document.getElementById("message").innerHTML = "Password Mismatch";  
+			    return false; 
+			}
+			else{
+			    return true;
+			}
 	</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
