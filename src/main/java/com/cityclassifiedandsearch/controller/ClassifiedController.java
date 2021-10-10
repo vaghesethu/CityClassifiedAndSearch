@@ -13,19 +13,24 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cityclassifiedandsearch.repo.ClassifiedRepository;
+import com.cityclassifiedandsearch.bean.Classified;
 import com.cityclassifiedandsearch.service.ClassifiedService;
+import com.cityclassifiedandsearch.service.UserServiceImpl;
 
 @Controller
 public class ClassifiedController {
 	@Autowired
 	private ClassifiedService classifiedService;
-	@Autowired
-	ClassifiedRepository classifiedrepository;
 	
-	public ClassifiedController(ClassifiedService classifiedService) {
-		super();
-		this.classifiedService = classifiedService;
+	@Autowired
+	private UserServiceImpl userServiceImpl;
+	
+	@GetMapping("/viewclassified/{classifiedId}")
+	public String viewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
+		Classified classified = classifiedService.getClassifiedById(classifiedId);
+		model.addAttribute("classified", classified);
+		model.addAttribute("userdetails", userServiceImpl.getUserById(classified.getUserId()));
+		return "viewclassified";
 	}
 	
 	@GetMapping("/index")
