@@ -35,7 +35,7 @@ public class ClassifiedController {
 	public String viewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
 		Classified classified = classifiedService.getClassifiedById(classifiedId);
 		model.addAttribute("classified", classified);
-		model.addAttribute("userdetails", userServiceImpl.getUserById(classified.getUserId()));
+		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
 		return "viewclassified";
 	}
 	
