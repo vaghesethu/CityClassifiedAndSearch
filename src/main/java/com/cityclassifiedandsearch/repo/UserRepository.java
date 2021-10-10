@@ -1,12 +1,15 @@
 package com.cityclassifiedandsearch.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.cityclassifiedandsearch.bean.User;
 
-@Repository
+import java.util.*;
+
 public interface UserRepository extends JpaRepository<User, Integer> {
 	User findByUserEmail(String userEmail);
 	User findByUserId(int userId);
+	User findByUserName(String userName);
+	List<User> findAll();
 }

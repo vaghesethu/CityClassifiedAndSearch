@@ -9,41 +9,44 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.cityclassifiedandsearch.bean.User;
 import com.cityclassifiedandsearch.repo.UserRepository;
 import com.cityclassifiedandsearch.service.UserService;
-import com.cityclassifiedandsearch.controller.EmailController;
 import java.util.*;
 
 import javax.mail.MessagingException;
 
 @Controller
-public class UserController {
-	private UserService userService;
-	private EmailController email;
+public class EmailController {
+	
 	@Autowired
 	private UserRepository userrepo;
+	@Autowired
+	private SmtpMailSender smtpMailSender;
+	
+	
+	
 
-	public UserController(UserService userService) {
-		super();
-		this.userService = userService;
-	}
-	
-	@GetMapping("/login")
-	public String userLoginForm() {
-		return "login";
-	}
-	
-	@GetMapping("/register")
-	public String userRegistrationForm() {
+	public boolean EmailSubscription(String cityname, String address) {
 		
-		//email.EmailSubscription("Chennai","kukjkjkj,palm");
+		String subject=cityname+" added";
+		String body="Address: "+address;
+		List<User> test=userrepo.findAll();
+		for(User u:test) {
+			System.out.println("USER EMAIL HERE : "+u.getUserEmail()+"\n");
+			try {
+				smtpMailSender.send(u.getUserEmail(), subject, body);
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				System.out.println("MAIL NOT SENT");
+				e.printStackTrace();
+				return false;
+			}
+			
+		}
+	
 		
-		return "register";
+		return true;
 	}
 	
-	@PostMapping("/register")
-	public String userRegistration(@ModelAttribute("user") User user) {
-		userService.save(user);
-		return "login";
-	}
+	
 	
 	
 }

@@ -34,23 +34,26 @@ public class Classified implements Serializable {
 	@Column(name = "classifiedcategory", unique = false, nullable = false)
 	private String classifiedCategory;
 	
+	@Column(name="approval",nullable=false)
+	private boolean approval;
+	
 	@Lob
 	@Column(columnDefinition = "MEDIUMBLOB")
     private String classifiedimage;
-	
 
 	public Classified() {
 		super();
 	}
 
 	public Classified(int classifiedId, int userId, String classifiedTitle, String description,
-			String classifiedCategory, String classifiedimage) {
+			String classifiedCatgory, boolean approval, String classifiedimage) {
 		super();
 		this.classifiedId = classifiedId;
 		this.userId = userId;
 		this.classifiedTitle = classifiedTitle;
 		this.description = description;
 		this.classifiedCategory = classifiedCategory;
+		this.approval = approval;
 		this.classifiedimage = classifiedimage;
 	}
 
@@ -90,10 +93,18 @@ public class Classified implements Serializable {
 		return classifiedCategory;
 	}
 
-	public void setClassifiedCategory(String classifiedCatgory) {
-		this.classifiedCategory = classifiedCatgory;
+	public void setClassifiedCategory(String classifiedCategory) {
+		this.classifiedCategory = classifiedCategory;
 	}
 	
+	public boolean isApproval() {
+		return approval;
+	}
+
+	public void setApproval(boolean approval) {
+		this.approval = approval;
+	}
+
 	public String getClassifiedimage() {
 		return classifiedimage;
 	}
@@ -106,8 +117,6 @@ public class Classified implements Serializable {
 	public String toString() {
 		return "Classified [classifiedId=" + classifiedId + ", userId=" + userId + ", classifiedTitle="
 				+ classifiedTitle + ", description=" + description + ", classifiedCategory=" + classifiedCategory
-				+ ", classifiedimage=" + classifiedimage + "]";
+				+ ", approval=" + approval + ", classifiedimage=" + classifiedimage + "]";
 	}
-	
-	
 }

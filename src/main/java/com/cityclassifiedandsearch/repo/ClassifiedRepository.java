@@ -10,4 +10,5 @@ import com.cityclassifiedandsearch.bean.Classified;
 @Repository
 public interface ClassifiedRepository extends JpaRepository<Classified, Integer> {
 	List<Classified> findByUserId(int userId);
+	List<Classified> findByApproval(boolean approval);
 }

@@ -39,7 +39,7 @@ public class ClassifiedController {
 		return "viewclassified";
 	}
 	
-	@GetMapping("/postclassified")
+	@GetMapping("/user/postclassified")
 	public String postClassifiedForm() {
 		return "postclassified";
 	}
@@ -50,33 +50,40 @@ public class ClassifiedController {
 			@RequestParam("description")String description,
 			@RequestParam("file") MultipartFile image) {
 		try {
-			classifiedService.createOrUpdateClassified(classifiedCategory,classifiedTitle,description,image);
+			classifiedService.createClassified(classifiedCategory,classifiedTitle,description,image);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "redirect:/postclassified?success";
+		return "welcome";
 	}
 	
-	@GetMapping("/editclassified")
+	@GetMapping("/user/editclassified")
 	public String editClassifiedForm() {
 		return "editclassified";
 	}
 	
-	@PutMapping("/user/editclassified")
-	public String editClassified(@RequestParam("classifiedCategory")String classifiedCategory,
+	@PutMapping("/user/editclassified/{id}")
+	public String editClassified(@PathVariable("id") int classifiedId,@RequestParam("classifiedCategory")String classifiedCategory,
 			@RequestParam("classifiedTitle")String classifiedTitle,
 			@RequestParam("description")String description,
-			@RequestParam("file") MultipartFile image) {
-		try {
-			classifiedService.createOrUpdateClassified(classifiedCategory,classifiedTitle,description,image);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "redirect:/postclassified?success";
+			@RequestParam("file") MultipartFile image) throws IOException {
+		classifiedService.UpdateClassified(classifiedId,classifiedCategory,classifiedTitle,description,image);
+		return "redirect:/editclassified?success";
 	}
 	
 	@DeleteMapping("/deleteclassified/{id}")
 	public void deleteCityDetails(@PathVariable("id")int classifiedId) {
 		classifiedService.deleteClassifiedById(classifiedId);
+	}
+  
+	@GetMapping("/admin/approve")
+	public String classifiedApproval() {
+		return "approve";
+	}
+	
+	@PutMapping("/admin/approve/{id}")
+	public String approval(@PathVariable("id") int classifiedId) {
+		classifiedService.approve(classifiedId);
+		return "redirect:/approve?success";	
 	}
 }

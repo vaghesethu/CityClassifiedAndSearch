@@ -39,7 +39,7 @@ public class CityDetailsController {
 		return "viewcitydetails";
 	}
 	
-	@GetMapping("/postcitydetails")
+	@GetMapping("/admin/postcitydetails")
 	public String postCityDetailsForm() {
 		return "postcitydetails";
 	}
@@ -51,26 +51,26 @@ public class CityDetailsController {
 			@RequestParam("cityName")String cityName,
 			@RequestParam("link")String link,
 			@RequestParam("file") MultipartFile image) throws IOException {
-		cityDetailsService.createOrUpdateCityDetails(category,name,address,cityName,link,image);
-		return "redirect:/editcitydetails?success";
+		cityDetailsService.createCityDetails(category,name,address,cityName,link,image);
+		return "citydetails";
 	}
 	
-	@GetMapping("/editcitydetails")
+	@GetMapping("/admin/editcitydetails")
 	public String editCityDetailsForm() {
 		return "editcitydetails";
 	}
 	
-	@PutMapping("/admin/editcitydetails")
-	public String editCityDetails(@RequestParam("category")String category,
+	@PutMapping("/admin/editcitydetails/{id}")
+	public String editCityDetails(@PathVariable("id") int cityId,@RequestParam("category")String category,
 			@RequestParam("name")String name,
 			@RequestParam("address")String address,
 			@RequestParam("cityName")String cityName,
 			@RequestParam("link")String link,
 			@RequestParam("file") MultipartFile image) throws IOException {
-		cityDetailsService.createOrUpdateCityDetails(category,name,address,cityName,link,image);
+		cityDetailsService.UpdateCityDetails(cityId,category,name,address,cityName,link,image);
 		return "redirect:/editcitydetails?success";
 	}
-	@DeleteMapping("/deletecitydetails/{id}")
+	@DeleteMapping("/admin/deletecitydetails/{id}")
 	public void deleteCityDetails(@PathVariable("id")int cityId) {
 		cityDetailsService.deleteCityDetailsById(cityId);
 	}

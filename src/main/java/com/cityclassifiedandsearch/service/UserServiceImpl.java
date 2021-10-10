@@ -29,9 +29,8 @@ public class UserServiceImpl implements UserService {
 		this.userRepository = userRepository;
 	}
 	
-	/*public static User getCurrentUser() {
-		SecurityContext context=SecurityContextHolder.getContext();
-		Authentication auth=context.getAuthentication();
+	/*public User getCurrentUser() {
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 		User currentuser=(User)auth.getPrincipal();
 		return currentuser;
 	}*/
