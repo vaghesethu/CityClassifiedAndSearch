@@ -7,19 +7,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cityclassifiedandsearch.bean.User;
-import com.cityclassifiedandsearch.repo.UserRepository;
 import com.cityclassifiedandsearch.service.UserService;
-import com.cityclassifiedandsearch.controller.EmailController;
-import java.util.*;
-
-import javax.mail.MessagingException;
 
 @Controller
 public class UserController {
-	private UserService userService;
-	private EmailController email;
 	@Autowired
-	private UserRepository userrepo;
+	private UserService userService;
+	
+	//private EmailController email;
 
 	public UserController(UserService userService) {
 		super();
@@ -33,9 +28,7 @@ public class UserController {
 	
 	@GetMapping("/register")
 	public String userRegistrationForm() {
-		
 		//email.EmailSubscription("Chennai","kukjkjkj,palm");
-		
 		return "register";
 	}
 	

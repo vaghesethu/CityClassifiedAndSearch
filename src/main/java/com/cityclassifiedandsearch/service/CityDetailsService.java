@@ -1,7 +1,5 @@
-
-
 package com.cityclassifiedandsearch.service;
-import com.cityclassifiedandsearch.controller.EmailController;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -15,16 +13,15 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.CityDetails;
-import com.cityclassifiedandsearch.bean.User;
 import com.cityclassifiedandsearch.repo.CityDetailsRepository;
-import com.cityclassifiedandsearch.repo.UserRepository;
 
 @Service
 public class CityDetailsService {
 	@Autowired
 	private CityDetailsRepository cityDetailsRepository;
-	UserRepository userrepo;
-  private EmailController email; 
+	
+//	UserRepository userrepo;
+//	private EmailController email; 
 	
 	public CityDetailsService(CityDetailsRepository cityDetailsRepository) {
 		super();
