@@ -42,17 +42,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.csrf().disable()
-      authorizeRequests()
+			.csrf().disable().
+			authorizeRequests()
 			.antMatchers("/").anonymous()//allows users to visit page without logging in
 			.antMatchers("/admin").hasRole("ADMIN")//only admin can visit the pages with "/admin"
 			.antMatchers("/user").hasRole("USER")//only user can visit the pages with "/user"
-      .antMatchers(
+			.antMatchers(
 				 "/register**",
-         "/index**",
+				 "/index**",
 				 "/js/**",
-         "/css/**",
-         "/images/**").permitAll()
+				 "/css/**",
+				 "/images/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
