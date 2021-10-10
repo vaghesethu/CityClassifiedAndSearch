@@ -32,7 +32,7 @@ public class Classified implements Serializable {
 	private String description;
 	
 	@Column(name = "classifiedCategory", unique = false, nullable = false)
-	private String classifiedCatgory;
+	private String classifiedCategory;
 	
 	@Column(name="approval",nullable=false)
 	private boolean approval;
@@ -53,7 +53,7 @@ public class Classified implements Serializable {
 		this.userId = userId;
 		this.classifiedTitle = classifiedTitle;
 		this.description = description;
-		this.classifiedCatgory = classifiedCatgory;
+		this.classifiedCategory = classifiedCategory;
 		this.approval = approval;
 		this.classifiedimage = classifiedimage;
 	}
@@ -92,12 +92,12 @@ public class Classified implements Serializable {
 		this.description = description;
 	}
 
-	public String getClassifiedCatgory() {
-		return classifiedCatgory;
+	public String getClassifiedCategory() {
+		return classifiedCategory;
 	}
 
-	public void setClassifiedCatgory(String classifiedCatgory) {
-		this.classifiedCatgory = classifiedCatgory;
+	public void setClassifiedCategory(String classifiedCategory) {
+		this.classifiedCategory = classifiedCategory;
 	}
 	
 	public boolean isApproval() {
@@ -119,7 +119,7 @@ public class Classified implements Serializable {
 	@Override
 	public String toString() {
 		return "Classified [classifiedId=" + classifiedId + ", userId=" + userId + ", classifiedTitle="
-				+ classifiedTitle + ", description=" + description + ", classifiedCatgory=" + classifiedCatgory
+				+ classifiedTitle + ", description=" + description + ", classifiedCategory=" + classifiedCategory
 				+ ", approval=" + approval + ", classifiedimage=" + classifiedimage + "]";
 	}
 	

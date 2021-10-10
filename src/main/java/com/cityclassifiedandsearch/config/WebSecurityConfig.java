@@ -1,4 +1,4 @@
-package com.cityclassifiedandsearch.config;
+ package com.cityclassifiedandsearch.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeRequests().antMatchers(
+					"/index",
 				 "/register**",
 	                "/js/**",
 	                "/css/**",

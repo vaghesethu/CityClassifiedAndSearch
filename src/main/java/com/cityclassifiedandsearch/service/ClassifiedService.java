@@ -19,7 +19,7 @@ import com.cityclassifiedandsearch.repo.ClassifiedRepository;
 public class ClassifiedService {
 	@Autowired
 	private ClassifiedRepository classifiedRepository;
-		
+			
 	public ClassifiedService(ClassifiedRepository classifiedRepository) {
 		super();
 		this.classifiedRepository = classifiedRepository;
@@ -71,7 +71,7 @@ public class ClassifiedService {
        	   Classified newClassified = new Classified();
     	   newClassified.setUserId(1);//UserServiceImpl.getCurrentUser().getUserId());
     	   newClassified.setClassifiedTitle(classifiedTitle);
-    	   newClassified.setClassifiedCatgory(classifiedCategory);
+    	   newClassified.setClassifiedCategory(classifiedCategory);
     	   newClassified.setDescription(description);
     	   newClassified.setApproval(false);
     	   String filename=StringUtils.cleanPath(image.getOriginalFilename());
@@ -99,14 +99,14 @@ public Classified UpdateClassified(int classifiedId, String classifiedCategory, 
 	Optional<Classified> exist=classifiedRepository.findById(classifiedId);
 	if(exist.isPresent()) {
 		Classified update=exist.get();
-		update.setClassifiedCatgory(classifiedCategory);
+		update.setClassifiedCategory(classifiedCategory);
 		update.setClassifiedTitle(classifiedTitle);
 		update.setDescription(description);
 		update.setApproval(false);
 		update.setClassifiedimage(Base64.getEncoder().encodeToString(image.getBytes()));
 		return classifiedRepository.save(update);
 	}
-	return null;//throw record not found excepetion
+	return null;//throw record not found exception
 	
 }
 
