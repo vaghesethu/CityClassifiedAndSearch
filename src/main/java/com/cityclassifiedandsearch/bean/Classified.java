@@ -32,7 +32,10 @@ public class Classified implements Serializable {
 	private String description;
 	
 	@Column(name = "classifiedCategory", unique = false, nullable = false)
-	private String classifiedCatgory;
+	private String classifiedCategory;
+	
+	@Column(name="approval",nullable=false)
+	private boolean approval;
 	
 	@Lob
 	@Column(columnDefinition = "MEDIUMBLOB")
@@ -44,15 +47,18 @@ public class Classified implements Serializable {
 	}
 
 	public Classified(int classifiedId, int userId, String classifiedTitle, String description,
-			String classifiedCatgory, String classifiedimage) {
+			String classifiedCatgory, boolean approval, String classifiedimage) {
 		super();
 		this.classifiedId = classifiedId;
 		this.userId = userId;
 		this.classifiedTitle = classifiedTitle;
 		this.description = description;
-		this.classifiedCatgory = classifiedCatgory;
+		this.classifiedCategory = classifiedCategory;
+		this.approval = approval;
 		this.classifiedimage = classifiedimage;
 	}
+
+
 
 	public int getClassifiedId() {
 		return classifiedId;
@@ -86,14 +92,22 @@ public class Classified implements Serializable {
 		this.description = description;
 	}
 
-	public String getClassifiedCatgory() {
-		return classifiedCatgory;
+	public String getClassifiedCategory() {
+		return classifiedCategory;
 	}
 
-	public void setClassifiedCatgory(String classifiedCatgory) {
-		this.classifiedCatgory = classifiedCatgory;
+	public void setClassifiedCategory(String classifiedCategory) {
+		this.classifiedCategory = classifiedCategory;
 	}
 	
+	public boolean isApproval() {
+		return approval;
+	}
+
+	public void setApproval(boolean approval) {
+		this.approval = approval;
+	}
+
 	public String getClassifiedimage() {
 		return classifiedimage;
 	}
@@ -105,8 +119,8 @@ public class Classified implements Serializable {
 	@Override
 	public String toString() {
 		return "Classified [classifiedId=" + classifiedId + ", userId=" + userId + ", classifiedTitle="
-				+ classifiedTitle + ", description=" + description + ", classifiedCatgory=" + classifiedCatgory
-				+ ", classifiedimage=" + classifiedimage + "]";
+				+ classifiedTitle + ", description=" + description + ", classifiedCategory=" + classifiedCategory
+				+ ", approval=" + approval + ", classifiedimage=" + classifiedimage + "]";
 	}
 	
 	

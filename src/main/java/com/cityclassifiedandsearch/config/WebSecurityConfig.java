@@ -1,4 +1,4 @@
-package com.cityclassifiedandsearch.config;
+ package com.cityclassifiedandsearch.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.csrf().disable()
-			.authorizeRequests().antMatchers(
+			.authorizeRequests()
+			.antMatchers("/").anonymous()
+			.antMatchers("/admin").hasRole("ADMIN")
+			.antMatchers("/user").hasRole("USER")
+			.antMatchers(
 				 "/register**",
 	                "/js/**",
 	                "/css/**",

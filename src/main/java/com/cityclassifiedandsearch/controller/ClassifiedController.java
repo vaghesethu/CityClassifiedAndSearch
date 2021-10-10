@@ -38,11 +38,11 @@ public class ClassifiedController {
 			@RequestParam("description")String description,
 			@RequestParam("file") MultipartFile image) {
 		try {
-			classifiedService.createOrUpdateClassified(classifiedCategory,classifiedTitle,description,image);
+			classifiedService.createClassified(classifiedCategory,classifiedTitle,description,image);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "redirect:/postclassified?success";
+		return "welcome";
 	}
 	
 	@GetMapping("/editclassified")
@@ -50,22 +50,24 @@ public class ClassifiedController {
 		return "editclassified";
 	}
 	
-	@PutMapping("/user/editclassified")
-	public String editClassified(@RequestParam("classifiedCategory")String classifiedCategory,
+	@PutMapping("/user/editclassified/{id}")
+	public String editClassified(@PathVariable("id") int classifiedId,@RequestParam("classifiedCategory")String classifiedCategory,
 			@RequestParam("classifiedTitle")String classifiedTitle,
 			@RequestParam("description")String description,
-			@RequestParam("file") MultipartFile image) {
-		try {
-			classifiedService.createOrUpdateClassified(classifiedCategory,classifiedTitle,description,image);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "redirect:/postclassified?success";
+			@RequestParam("file") MultipartFile image) throws IOException {
+		classifiedService.UpdateClassified(classifiedId,classifiedCategory,classifiedTitle,description,image);
+		return "myclassified";
 	}
 	
 	@DeleteMapping("/deleteclassified/{id}")
 	public void deleteCityDetails(@PathVariable("id")int classifiedId) {
 		classifiedService.deleteClassifiedById(classifiedId);
+	}
+	
+	@PutMapping("/admin/approve/{id}")
+	public String approval(@PathVariable("id") int classifiedId) {
+		classifiedService.approve(classifiedId);
+		return "redirect:/approve?success";	
 	}
 	
 	//test

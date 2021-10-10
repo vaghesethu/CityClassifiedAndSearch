@@ -19,7 +19,7 @@ import com.cityclassifiedandsearch.repo.ClassifiedRepository;
 public class ClassifiedService {
 	@Autowired
 	private ClassifiedRepository classifiedRepository;
-		
+			
 	public ClassifiedService(ClassifiedRepository classifiedRepository) {
 		super();
 		this.classifiedRepository = classifiedRepository;
@@ -45,6 +45,16 @@ public class ClassifiedService {
 	   }
    }
    
+   public List<Classified> approvalClassifieds() {
+		List<Classified> classifieds = classifiedRepository.findByApproval(false);
+		if(classifieds.size() > 0) {
+			Collections.reverse(classifieds);
+			return classifieds;
+		} else {
+		    return new ArrayList<Classified>(); //replace with custom exception(RecordNotFoundException)
+		}
+   }
+   
    public List<Classified> getClassifiedByUserId(int userId) {
 	   List<Classified> classifieds = classifiedRepository.findByUserId(userId);
 		if(classifieds.size() > 0) {
@@ -56,13 +66,14 @@ public class ClassifiedService {
    }
    
    
-   public Classified createOrUpdateClassified(String classifiedCategory,
+   public Classified createClassified(String classifiedCategory,
 			String classifiedTitle,String description,MultipartFile image) throws IOException {
        	   Classified newClassified = new Classified();
     	   newClassified.setUserId(1);//UserServiceImpl.getCurrentUser().getUserId());
     	   newClassified.setClassifiedTitle(classifiedTitle);
-    	   newClassified.setClassifiedCatgory(classifiedCategory);
+    	   newClassified.setClassifiedCategory(classifiedCategory);
     	   newClassified.setDescription(description);
+    	   newClassified.setApproval(false);
     	   String filename=StringUtils.cleanPath(image.getOriginalFilename());
     	   if(filename.contains(".."))
     		   System.out.println("not a valid file");
@@ -80,5 +91,30 @@ public class ClassifiedService {
        else {
            return; // replace with custom exception(RecordNotFoundException)
        }
-   } 
+   }
+
+
+public Classified UpdateClassified(int classifiedId, String classifiedCategory, String classifiedTitle, String description,
+		MultipartFile image) throws IOException {
+	Optional<Classified> exist=classifiedRepository.findById(classifiedId);
+	if(exist.isPresent()) {
+		Classified update=exist.get();
+		update.setClassifiedCategory(classifiedCategory);
+		update.setClassifiedTitle(classifiedTitle);
+		update.setDescription(description);
+		update.setApproval(false);
+		update.setClassifiedimage(Base64.getEncoder().encodeToString(image.getBytes()));
+		return classifiedRepository.save(update);
+	}
+	return null;//throw record not found exception
+	
+}
+
+public void approve(int classifiedId) {
+	Optional<Classified> exist=classifiedRepository.findById(classifiedId);
+	if(exist.isPresent()) {
+		Classified update=exist.get();
+		update.setApproval(true);
+	}
+} 
 }

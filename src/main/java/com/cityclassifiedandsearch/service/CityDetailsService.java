@@ -56,7 +56,7 @@ public class CityDetailsService {
 		}
    }
    
-   public CityDetails createOrUpdateCityDetails(String category,String name,String address,String cityName,String link,MultipartFile image) throws IOException {
+   public CityDetails createCityDetails(String category,String name,String address,String cityName,String link,MultipartFile image) throws IOException {
           	   CityDetails newCityDetails = new CityDetails();
     	   newCityDetails.setUserId(1);//UserServiceImpl.getCurrentUser().getUserId());
     	   newCityDetails.setName(name);
@@ -84,4 +84,22 @@ public class CityDetailsService {
            return; // replace with custom exception(RecordNotFoundException)
        }
    }
+
+
+public CityDetails UpdateCityDetails(int cityId, String category, String name, String address, String cityName, String link,
+		MultipartFile image) throws IOException {
+	Optional<CityDetails> exist=cityDetailsRepository.findById(cityId);
+	if(exist.isPresent()) {
+		CityDetails update=exist.get();
+		update.setAddress(address);
+		update.setName(name);
+		update.setCategory(category);
+		update.setCity(cityName);
+		update.setLink(link);
+		update.setCityimage(Base64.getEncoder().encodeToString(image.getBytes()));
+		return cityDetailsRepository.save(update);
+	}
+	return null;
+	
+}
 }
