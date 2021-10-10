@@ -44,9 +44,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/").anonymous()
-			.antMatchers("/admin").hasRole("ADMIN")
-			.antMatchers("/user").hasRole("USER")
+			.antMatchers("/").anonymous()//allows users to visit page without logging in
+			.antMatchers("/admin").hasRole("ADMIN")//only admin can visit the pages with "/admin"
+			.antMatchers("/user").hasRole("USER")//only user can visit the pages with "/user"
 			.antMatchers(
 				 "/register**",
 	                "/js/**",
@@ -55,8 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
-			.loginPage("/login")
-			.defaultSuccessUrl("/index", true)
+			.loginPage("/login")//custom login page
+			.defaultSuccessUrl("/welcome", true)
 			.failureUrl("/template")
 			.permitAll()
 			.and()

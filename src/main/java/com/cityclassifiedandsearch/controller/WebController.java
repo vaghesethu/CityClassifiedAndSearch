@@ -10,8 +10,13 @@ public class WebController {
 		return "index";
 	}
 	
-	@GetMapping("/template")
+	@GetMapping("/welcome")
+	public String template() {
+		return "welcome";
+	}
+	
+	/*@GetMapping("/template")
 	public String template() {
 		return "template";
-	}
+	}*/
 }

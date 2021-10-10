@@ -23,7 +23,7 @@ public class CityDetailsController {
 		this.cityDetailsService = cityDetailsService;
 	}
 	
-	@GetMapping("/postcitydetails")
+	@GetMapping("/admin/postcitydetails")
 	public String postCityDetailsForm() {
 		return "postcitydetails";
 	}
@@ -36,10 +36,10 @@ public class CityDetailsController {
 			@RequestParam("link")String link,
 			@RequestParam("file") MultipartFile image) throws IOException {
 		cityDetailsService.createCityDetails(category,name,address,cityName,link,image);
-		return "redirect:/editcitydetails?success";
+		return "citydetails";
 	}
 	
-	@GetMapping("/editcitydetails")
+	@GetMapping("/admin/editcitydetails")
 	public String editCityDetailsForm() {
 		return "editcitydetails";
 	}
@@ -54,7 +54,7 @@ public class CityDetailsController {
 		cityDetailsService.UpdateCityDetails(cityId,category,name,address,cityName,link,image);
 		return "redirect:/editcitydetails?success";
 	}
-	@DeleteMapping("/deletecitydetails/{id}")
+	@DeleteMapping("/admin/deletecitydetails/{id}")
 	public void deleteCityDetails(@PathVariable("id")int cityId) {
 		cityDetailsService.deleteCityDetailsById(cityId);
 	}

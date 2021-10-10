@@ -27,7 +27,7 @@ public class ClassifiedController {
 		this.classifiedService = classifiedService;
 	}
 	
-	@GetMapping("/postclassified")
+	@GetMapping("/user/postclassified")
 	public String postClassifiedForm() {
 		return "postclassified";
 	}
@@ -45,7 +45,7 @@ public class ClassifiedController {
 		return "welcome";
 	}
 	
-	@GetMapping("/editclassified")
+	@GetMapping("/user/editclassified")
 	public String editClassifiedForm() {
 		return "editclassified";
 	}
@@ -56,12 +56,17 @@ public class ClassifiedController {
 			@RequestParam("description")String description,
 			@RequestParam("file") MultipartFile image) throws IOException {
 		classifiedService.UpdateClassified(classifiedId,classifiedCategory,classifiedTitle,description,image);
-		return "myclassified";
+		return "redirect:/editclassified?success";
 	}
 	
 	@DeleteMapping("/deleteclassified/{id}")
 	public void deleteCityDetails(@PathVariable("id")int classifiedId) {
 		classifiedService.deleteClassifiedById(classifiedId);
+	}
+	
+	@GetMapping("/admin/approve")
+	public String classifiedApproval() {
+		return "approve";
 	}
 	
 	@PutMapping("/admin/approve/{id}")
@@ -70,10 +75,10 @@ public class ClassifiedController {
 		return "redirect:/approve?success";	
 	}
 	
-	//test
+	/*
 	@GetMapping("test")
 	public String test() {
 		System.out.println(classifiedService.getClassifiedByUserId(1));
 		return "index";
-	}
+	}*/
 }

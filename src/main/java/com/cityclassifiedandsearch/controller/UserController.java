@@ -21,10 +21,6 @@ public class UserController {
 	@Autowired
 	private UserRepository userrepo;
 
-	
-	
-	
-	
 	public UserController(UserService userService) {
 		super();
 		this.userService = userService;

@@ -9,16 +9,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.CityDetails;
+import com.cityclassifiedandsearch.bean.User;
 import com.cityclassifiedandsearch.repo.CityDetailsRepository;
+import com.cityclassifiedandsearch.repo.UserRepository;
 
 @Service
 public class CityDetailsService {
+	@Autowired
 	private CityDetailsRepository cityDetailsRepository;
+	UserRepository userrepo;
   private EmailController email; 
 	
 	public CityDetailsService(CityDetailsRepository cityDetailsRepository) {
@@ -58,7 +63,9 @@ public class CityDetailsService {
    
    public CityDetails createCityDetails(String category,String name,String address,String cityName,String link,MultipartFile image) throws IOException {
           	   CityDetails newCityDetails = new CityDetails();
-    	   newCityDetails.setUserId(1);//UserServiceImpl.getCurrentUser().getUserId());
+				//UserServiceImpl userServiceImpl = new UserServiceImpl(userrepo);
+				//User currentuser=userServiceImpl.getCurrentUser();
+    	   newCityDetails.setUserId(1);//currentuser.getUserId());
     	   newCityDetails.setName(name);
     	   newCityDetails.setCity(cityName);
     	   newCityDetails.setCategory(category);
