@@ -25,18 +25,18 @@ public class ClassifiedController {
 	@Autowired
 	private UserServiceImpl userServiceImpl;
 	
+	@GetMapping("/index")
+	public String index(Model model) {
+		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
+		return "index";
+	}
+	
 	@GetMapping("/viewclassified/{classifiedId}")
 	public String viewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
 		Classified classified = classifiedService.getClassifiedById(classifiedId);
 		model.addAttribute("classified", classified);
 		model.addAttribute("userdetails", userServiceImpl.getUserById(classified.getUserId()));
 		return "viewclassified";
-	}
-	
-	@GetMapping("/index")
-	public String index(Model model) {
-		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
-		return "index";
 	}
 	
 	@GetMapping("/postclassified")
@@ -78,12 +78,5 @@ public class ClassifiedController {
 	@DeleteMapping("/deleteclassified/{id}")
 	public void deleteCityDetails(@PathVariable("id")int classifiedId) {
 		classifiedService.deleteClassifiedById(classifiedId);
-	}
-	
-	//test
-	@GetMapping("test")
-	public String test() {
-		System.out.println(classifiedService.getClassifiedByUserId(1));
-		return "index";
 	}
 }
