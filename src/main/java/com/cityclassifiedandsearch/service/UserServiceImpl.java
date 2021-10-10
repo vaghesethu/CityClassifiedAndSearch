@@ -54,5 +54,8 @@ public class UserServiceImpl implements UserService {
 		return new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getPassword(), grantedAuthorities);	
 	}
 	
-	
+	public User getUserById(int userId) {
+		User user = userRepository.findByUserId(userId);
+		return user;
+	}
 }

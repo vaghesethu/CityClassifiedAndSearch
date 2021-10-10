@@ -31,7 +31,7 @@ public class Classified implements Serializable {
 	@Column(name = "description", unique = false, nullable = true)
 	private String description;
 	
-	@Column(name = "classifiedCategory", unique = false, nullable = false)
+	@Column(name = "classifiedcategory", unique = false, nullable = false)
 	private String classifiedCategory;
 	
 	@Column(name="approval",nullable=false)
@@ -40,7 +40,6 @@ public class Classified implements Serializable {
 	@Lob
 	@Column(columnDefinition = "MEDIUMBLOB")
     private String classifiedimage;
-	
 
 	public Classified() {
 		super();
@@ -57,8 +56,6 @@ public class Classified implements Serializable {
 		this.approval = approval;
 		this.classifiedimage = classifiedimage;
 	}
-
-
 
 	public int getClassifiedId() {
 		return classifiedId;
@@ -122,6 +119,4 @@ public class Classified implements Serializable {
 				+ classifiedTitle + ", description=" + description + ", classifiedCategory=" + classifiedCategory
 				+ ", approval=" + approval + ", classifiedimage=" + classifiedimage + "]";
 	}
-	
-	
 }

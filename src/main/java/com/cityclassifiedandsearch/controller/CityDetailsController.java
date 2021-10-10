@@ -2,7 +2,9 @@ package com.cityclassifiedandsearch.controller;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,14 +15,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.CityDetails;
 import com.cityclassifiedandsearch.service.CityDetailsService;
+import com.cityclassifiedandsearch.service.UserServiceImpl;
 
 @Controller
 public class CityDetailsController {
+	@Autowired
 	private CityDetailsService cityDetailsService;
 	
-	public CityDetailsController(CityDetailsService cityDetailsService) {
-		super();
-		this.cityDetailsService = cityDetailsService;
+	@Autowired
+	private UserServiceImpl userServiceImpl;
+	
+	@GetMapping("/index2")
+	public String index2(Model model) {
+		model.addAttribute("cityDetails", cityDetailsService.getAllCityDetails());
+		return "index2";
+	}
+	
+	@GetMapping("/viewcitydetails/{cityId}")
+	public String viewcityDetails(Model model, @PathVariable("cityId") int cityId) {
+		CityDetails cityDetails = cityDetailsService.getCityDetailsById(cityId);
+		model.addAttribute("cityDetails", cityDetails);
+		model.addAttribute("userDetails", userServiceImpl.getUserById(cityDetails.getUserId()));
+		return "viewcitydetails";
 	}
 	
 	@GetMapping("/admin/postcitydetails")

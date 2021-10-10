@@ -5,18 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class WebController {
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
-	
 	@GetMapping("/welcome")
-	public String template() {
+	public String welcome() {
 		return "welcome";
 	}
-	
-	/*@GetMapping("/template")
-	public String template() {
-		return "template";
-	}*/
 }

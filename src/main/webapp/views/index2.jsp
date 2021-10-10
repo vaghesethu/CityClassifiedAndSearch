@@ -1,3 +1,4 @@
+<%@page import="java.util.List, com.cityclassifiedandsearch.bean.CityDetails, org.apache.commons.codec.binary.Base64"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -22,20 +23,96 @@
               <a class="nav-link" aria-current="page" href="/index">Classifieds</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/index2">City Details</a>
+              <a class="nav-link active" href="#">City Details</a>
             </li>
           </ul>
-		  <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#signinmodal">
+          <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#signinmodal">
           	Sign in
+		  </button>
+		  <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#signupmodal">
+          	Sign up
 		  </button>
         </div>
       </div>
     </nav>
-    
-    <div class="container mt-3">
-    	<div class="card col-4 px-3 mx-auto">
-	    	<h5 class="mt-3">Sign up</h5>
-	      	<form class="my-3" name="register" action="register" method="post" onsubmit="return signupformcheck()">
+    <div class="container">
+    	<%
+	    	List<CityDetails> cityDetails = (List<CityDetails>)request.getAttribute("cityDetails");
+	    	int counter = 0;
+	    	while(counter < cityDetails.size()) {
+	    %>
+	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-2">
+	   				<% for(int i = 0; i < 5 && counter < cityDetails.size(); i++) { %>
+		  					<div class="col">
+		  						<% CityDetails cityDetail = cityDetails.get(counter++); %>
+							    <div class="card h-100">
+							      <%
+							      	String img = "";
+							      	String cityimage = cityDetail.getCityimage();
+							      	if(cityimage == null) {
+							      		img = "/images/noimage.jpg";
+							      	}
+							      	else {
+							      		img = "data:image/jpeg;base64," + cityimage;
+							      	}
+							      %>
+							      <div class="mt-2 mx-auto index-image-parent">
+							      	<img src="<%= img %>" class="index-image">
+							      </div>
+							      <div class="card-body">
+							        <h5 class="card-title"><%= cityDetail.getName() %></h5>
+							        <p class="card-text">
+							        	Category: <%= cityDetail.getCategory() %> <br>
+							        	City: <%= cityDetail.getCity() %> <br>
+							        	Address: <%= cityDetail.getAddress() %> <br>
+							        </p>
+							      </div>
+							      <div class="card-footer">
+							      	<a class="btn btn-sm btn-outline-dark col-md-12" href="/viewcitydetails/<%= cityDetail.getCityId() %>">More Info</a>
+							      </div>
+		    					</div>
+	  						</div>
+	  				<% } %>
+				</div>
+		<% } %>
+	</div>
+	
+	<!-- Sign in Modal -->
+	<div class="modal fade" id="signinmodal" tabindex="-1" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Sign in</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="container">
+	      	<form class="my-3" name="login" action="login" method="post" onsubmit="return signinmodalcheck()">
+			  <div class="mb-3">
+			    <label for="useremail" class="form-label">Email address</label>
+			    <span id=mail></span>
+			    <input type="email" class="form-control" id="useremail" name="username">
+			  </div>
+			  <div class="mb-3">
+			    <label for="password" class="form-label">Password</label>
+			    <input type="password" class="form-control" id="password" name="password">
+			  </div>
+		  	  <button type="submit" class="btn btn-outline-dark mx-auto">Login</button>
+		  	</form>
+		 </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- Sign up Modal -->
+	<div class="modal fade" id="signupmodal" tabindex="-1" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Sign up</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="container">
+	      	<form class="my-3" name="register" action="register" method="post" onsubmit="return signupmodalcheck()">
 			  <div class="mb-3">
 			    <label for="userName" class="form-label">User Name</label>
 			    <input type="text" class="form-control" id="userName" name="userName">
@@ -69,30 +146,6 @@
 			  </p>
 		  	  <button type="submit" class="btn btn-outline-dark">Register</button>
 		  	</form>
-	  	</div>
-	</div>
-	
-	<!-- Sign in Modal -->
-	<div class="modal fade" id="signinmodal" tabindex="-1" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title">Sign in</h5>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="container">
-	      	<form class="my-3" name="login" action="login" method="post" onsubmit="return signinmodalcheck()">
-			  <div class="mb-3">
-			    <label for="useremail" class="form-label">Email address</label>
-			    <span id=mail></span>
-			    <input type="email" class="form-control" id="useremail" name="username">
-			  </div>
-			  <div class="mb-3">
-			    <label for="password" class="form-label">Password</label>
-			    <input type="password" class="form-control" id="password" name="password">
-			  </div>
-		  	  <button type="submit" class="btn btn-outline-dark mx-auto">Login</button>
-		  	</form>
 		 </div>
 	    </div>
 	  </div>
@@ -110,7 +163,7 @@
 			}
 		}
 		
-		function signupformcheck(){
+		function signupmodalcheck(){
 			var userName = document.getElementById("userName").value;
 			var nameformat=/^[A-Za-z]+$/;
 			
