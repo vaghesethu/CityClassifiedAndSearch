@@ -48,16 +48,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/admin").hasRole("ADMIN")//only admin can visit the pages with "/admin"
 			.antMatchers("/user").hasRole("USER")//only user can visit the pages with "/user"
 			.antMatchers(
-				 "/register**",
-				 "/index**",
 				 "/js/**",
 				 "/css/**",
-				 "/images/**").permitAll()
+				 "/images/**",
+				 "/register**",
+				 "/index**",
+				 "/viewclassified/**",
+				 "/viewcitydetails/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
 			.loginPage("/login")//custom login page
-			.defaultSuccessUrl("/welcome", true)
+			.defaultSuccessUrl("/user/index", true)
 			.failureUrl("/template")
 			.permitAll()
 			.and()
