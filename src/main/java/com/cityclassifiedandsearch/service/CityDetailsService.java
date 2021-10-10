@@ -1,5 +1,7 @@
-package com.cityclassifiedandsearch.service;
 
+
+package com.cityclassifiedandsearch.service;
+import com.cityclassifiedandsearch.controller.EmailController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -17,6 +19,7 @@ import com.cityclassifiedandsearch.repo.CityDetailsRepository;
 @Service
 public class CityDetailsService {
 	private CityDetailsRepository cityDetailsRepository;
+  private EmailController email; 
 	
 	public CityDetailsService(CityDetailsRepository cityDetailsRepository) {
 		super();
@@ -65,7 +68,10 @@ public class CityDetailsService {
     	   if(filename.contains(".."))
     		   System.out.println("not a valid file");
    		   newCityDetails.setCityimage(Base64.getEncoder().encodeToString(image.getBytes()));
+        // Call the method EmailSubscription using the private variable "email" mentioned in line 22. eg.: email.EmailSubscription("cityname","address");
     	   return cityDetailsRepository.save(newCityDetails);
+
+
       
    }
    

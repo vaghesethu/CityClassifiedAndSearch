@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import com.cityclassifiedandsearch.repo.UserRepository;
+
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableJpaRepositories("com.cityclassifiedandsearch.repo")
@@ -14,6 +16,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"com.cityclassifiedandsearch.config","com.cityclassifiedandsearch.controller", "com.cityclassifiedandsearch.service"})
 public class CityClassifiedAndSearchApplication {
 	public static void main(String[] args) {
+		
 		SpringApplication.run(CityClassifiedAndSearchApplication.class, args);
+		
+		System.out.println();
 	}
 }
