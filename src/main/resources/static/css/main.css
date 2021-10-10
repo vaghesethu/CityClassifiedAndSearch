@@ -1,6 +1,8 @@
-.classified {
-	min-height: 200px;
-	border-style: solid;
-	border-width: 2px;
-	border-radius: 5px;
+.index-image-parent {
+  width: 220px;
+}
+
+.index-image {
+  width: 100%;
+  height: auto;
 }
