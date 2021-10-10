@@ -1,4 +1,4 @@
-<%@page import="java.util.List, com.cityclassifiedandsearch.bean.Classified, com.cityclassifiedandsearch.bean.User, org.apache.commons.codec.binary.Base64"%>
+<%@page import="java.util.List, com.cityclassifiedandsearch.bean.CityDetails, com.cityclassifiedandsearch.bean.User, org.apache.commons.codec.binary.Base64"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/index">City Classified And Search</a>
+        <a class="navbar-brand" href="/index">City Classfied And Search</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,30 +38,30 @@
     
     <div class="container mt-3">
     	<% 
-    		Classified classified = (Classified)request.getAttribute("classified");
+    		CityDetails cityDetails = (CityDetails)request.getAttribute("cityDetails");
     	    User user = (User)request.getAttribute("userDetails");
     	    String img = "";
-	      	String classifiedImage = classified.getClassifiedimage();
-	      	if(classifiedImage == null) {
+	      	String cityImage = cityDetails.getCityimage();
+	      	if(cityImage == null) {
 	      		img = "/images/noimage.jpg";
 	      	}
 	      	else {
-	      		img = "data:image/jpeg;base64," + classifiedImage;
+	      		img = "data:image/jpeg;base64," + cityImage;
 	      	} 
     	%>
     	<div class="card">
 		  <div class="card-body">
 			<img src="<%= img %>" class="img-fluid d-block mx-auto">
-			<h5 class="mt-3 card-title"> <%= classified.getClassifiedTitle() %> </h5>
+			<h5 class="mt-3 card-title"> <%= cityDetails.getName() %> </h5>
 			<p>
-				Category: <%= classified.getClassifiedCategory() %> <br>
-				<%= classified.getDescription() %>
+				Category: <%= cityDetails.getCategory() %> <br>
+				City: <%= cityDetails.getCity() %> <br>
+				Address: <%= cityDetails.getAddress() %> <br>
+				<a href="<%= cityDetails.getLink() %>" target="_blank">Website</a>
 			</p>
 			<br>
 			<h5 class="card-title"> Posted By: <%= user.getUserName() %> </h5>
 			<p>
-				Address: <%= user.getUserAddress() %> <br>
-				City: <%= user.getUserCity() %> <br>
 				Mobile: <%= user.getMobile() %> <br>
 				Email: <%= user.getUserEmail() %>
 			</p>

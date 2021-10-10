@@ -12,9 +12,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "classified")
 public class Classified implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -46,7 +43,7 @@ public class Classified implements Serializable {
 	}
 
 	public Classified(int classifiedId, int userId, String classifiedTitle, String description,
-			String classifiedCatgory, boolean approval, String classifiedimage) {
+			String classifiedCategory, boolean approval, String classifiedimage) {
 		super();
 		this.classifiedId = classifiedId;
 		this.userId = userId;

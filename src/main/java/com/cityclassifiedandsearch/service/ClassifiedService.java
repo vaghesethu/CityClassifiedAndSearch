@@ -65,7 +65,6 @@ public class ClassifiedService {
 		}
    }
    
-   
    public Classified createClassified(String classifiedCategory,
 			String classifiedTitle,String description,MultipartFile image) throws IOException {
        	   Classified newClassified = new Classified();
@@ -94,7 +93,7 @@ public class ClassifiedService {
    }
 
 
-public Classified UpdateClassified(int classifiedId, String classifiedCategory, String classifiedTitle, String description,
+   public Classified UpdateClassified(int classifiedId, String classifiedCategory, String classifiedTitle, String description,
 		MultipartFile image) throws IOException {
 	Optional<Classified> exist=classifiedRepository.findById(classifiedId);
 	if(exist.isPresent()) {
@@ -110,7 +109,7 @@ public Classified UpdateClassified(int classifiedId, String classifiedCategory, 
 	
 }
 
-public void approve(int classifiedId) {
+   public void approve(int classifiedId) {
 	Optional<Classified> exist=classifiedRepository.findById(classifiedId);
 	if(exist.isPresent()) {
 		Classified update=exist.get();

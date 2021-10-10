@@ -3,6 +3,7 @@ package com.cityclassifiedandsearch.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.Classified;
+import com.cityclassifiedandsearch.repo.UserRepository;
 import com.cityclassifiedandsearch.service.ClassifiedService;
 import com.cityclassifiedandsearch.service.UserServiceImpl;
 
@@ -25,6 +27,13 @@ public class ClassifiedController {
 	@Autowired
 	private UserServiceImpl userServiceImpl;
 	
+	@Autowired
+	private UserRepository userRepository;
+	
+	public int getCurrentUserId(Authentication authentication) {
+		return (userRepository.findByUserEmail(authentication.getName())).getUserId();
+	}
+	
 	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
@@ -35,8 +44,15 @@ public class ClassifiedController {
 	public String viewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
 		Classified classified = classifiedService.getClassifiedById(classifiedId);
 		model.addAttribute("classified", classified);
-		model.addAttribute("userdetails", userServiceImpl.getUserById(classified.getUserId()));
+		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
 		return "viewclassified";
+	}
+	
+	@GetMapping("/user/index")
+	public String userIndex(Model model, Authentication authentication) {
+		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
+		model.addAttribute("currentUserId", getCurrentUserId(authentication));
+		return "userindex";
 	}
 	
 	@GetMapping("/user/postclassified")
@@ -54,12 +70,26 @@ public class ClassifiedController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "welcome";
+		return "/user/postclassified?success";
+	}
+	
+	@GetMapping("/user/myclassifieds")
+	public String myClassified(Model model, Authentication authentication) {
+		model.addAttribute("myClassifieds", classifiedService.getClassifiedByUserId(getCurrentUserId(authentication)));
+		return "myclassifieds";
 	}
 	
 	@GetMapping("/user/editclassified")
 	public String editClassifiedForm() {
 		return "editclassified";
+	}
+	
+	@GetMapping("/user/viewclassified/{classifiedId}")
+	public String userViewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
+		Classified classified = classifiedService.getClassifiedById(classifiedId);
+		model.addAttribute("classified", classified);
+		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
+		return "userviewclassified";
 	}
 	
 	@PutMapping("/user/editclassified/{id}")

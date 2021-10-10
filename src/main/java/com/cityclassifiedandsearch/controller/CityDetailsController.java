@@ -39,6 +39,12 @@ public class CityDetailsController {
 		return "viewcitydetails";
 	}
 	
+	@GetMapping("/user/index2")
+	public String userIndex2(Model model) {
+		model.addAttribute("cityDetails", cityDetailsService.getAllCityDetails());
+		return "userindex2";
+	}
+	
 	@GetMapping("/admin/postcitydetails")
 	public String postCityDetailsForm() {
 		return "postcitydetails";
@@ -70,6 +76,7 @@ public class CityDetailsController {
 		cityDetailsService.UpdateCityDetails(cityId,category,name,address,cityName,link,image);
 		return "redirect:/editcitydetails?success";
 	}
+	
 	@DeleteMapping("/admin/deletecitydetails/{id}")
 	public void deleteCityDetails(@PathVariable("id")int cityId) {
 		cityDetailsService.deleteCityDetailsById(cityId);

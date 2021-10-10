@@ -19,7 +19,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          	<li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link" href="/user/index">Classifieds</a>
             </li>
             <li class="nav-item dropdown">
@@ -37,35 +37,48 @@
         </div>
       </div>
     </nav>
-    
-    <div class="container mt-3">
-    	<div class="card col-4 px-3 mx-auto">
-	    	<h5 class="mt-3">Post Classified</h5>
-	      	<form action="/user/postclassified" method="post" enctype="multipart/form-data">
-			  <div class="mb-3">
-			      <label for="classifiedCategory" class="form-label">Category</label>
-			      <select id="classifiedCategory" class="form-select" name="classifiedCategory">
-			        <option value="buy">Buy</option>
-					<option value="sell">Sell</option>
-					<option value="rent">Rent</option>
-					<option value="partime">Part Time Jobs</option>
-			      </select>
-			  </div>
-			  <div class="mb-3">
-			    <label for="classifiedTitle" class="form-label">Title</label>
-			    <input type="text" class="form-control" placeholder="Title" id="classifiedTitle" name="classifiedTitle">
-			  </div>
-			  <div class="mb-3">
-			    <label for="description" class="form-label">Description</label>
-			    <input type="text" class="form-control" placeholder="Description" id="description" name="description">
-			  </div>
-			  <div class="mb-3">
-				<label for="file" class="form-label">Upload Image</label>
-				<input class="form-control" type="file" id="file" name="file">
-			  </div>
-			  <button type="submit" class="btn btn-outline-dark mb-3">Post</button>
-	 		</form>
-	  	</div>
+    <div class="container">
+    	<%
+	    	List<Classified> classifieds = (List<Classified>)request.getAttribute("myClassifieds");
+	    	int counter = 0;
+	    	while(counter < classifieds.size()) {
+	    %>
+	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-2">
+	   				<% for(int i = 0; i < 5 && counter < classifieds.size(); i++) { %>
+		  					<div class="col">
+		  						<%
+		  							Classified classified = classifieds.get(counter++);
+		  						%>
+							    <div class="card h-100">
+							      <%
+							      	String img = "";
+							      	String classifiedImage = classified.getClassifiedimage();
+							      	if(classifiedImage == null) {
+							      		img = "/images/noimage.jpg";
+							      	}
+							      	else {
+							      		img = "data:image/jpeg;base64," + classifiedImage;
+							      	}
+							      %>
+							      <div class="mt-2 mx-auto index-image-parent">
+							      	<img src="<%= img %>" class="index-image">
+							      </div>
+							      <div class="card-body">
+							        <h5 class="card-title"><%= classified.getClassifiedTitle() %></h5>
+							        <p class="card-text">
+							        	Category: <%= classified.getClassifiedCategory() %> <br>
+							        	<%= classified.getDescription() %> <br>
+							        </p>
+							      </div>
+							      <div class="card-footer text-center">
+							      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/user/editclassified/<%= classified.getClassifiedId() %>">Update</a>
+							      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/user/deleteclassified/<%= classified.getClassifiedId() %>">Remove</a>
+							      </div>
+		    					</div>
+	  						</div>
+	  				<% } %>
+				</div>
+		<% } %>
 	</div>
 	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
