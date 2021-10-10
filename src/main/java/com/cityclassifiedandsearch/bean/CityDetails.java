@@ -13,9 +13,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "citydetails")
 public class CityDetails implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
