@@ -34,6 +34,7 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public String userRegistration(@ModelAttribute("user") User user) {
+		
 		userService.save(user);
 		return "login";
 	}

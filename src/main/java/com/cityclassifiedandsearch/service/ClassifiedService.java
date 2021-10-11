@@ -8,17 +8,22 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.Classified;
+import com.cityclassifiedandsearch.exception.NoRecordFoundException;
 import com.cityclassifiedandsearch.repo.ClassifiedRepository;
+import com.cityclassifiedandsearch.repo.UserRepository;
 
 @Service
 public class ClassifiedService {
 	@Autowired
 	private ClassifiedRepository classifiedRepository;
+	private UserRepository userrepository;
 			
 	public ClassifiedService(ClassifiedRepository classifiedRepository) {
 		super();
@@ -26,13 +31,17 @@ public class ClassifiedService {
 	}
 	
    public List<Classified> getAllClassifieds() {
-		List<Classified> classifieds = classifiedRepository.findAll();
+		try{
+			List<Classified> classifieds = classifiedRepository.findAll();
+		
 		if(classifieds.size() > 0) {
 			Collections.reverse(classifieds);
 			return classifieds;
-		} else {
-		    return new ArrayList<Classified>(); //replace with custom exception(RecordNotFoundException)
+		}}catch(Exception ex) {
+			throw new NoRecordFoundException();
 		}
+		return null;
+		
     }
 	
    public Classified getClassifiedById(int classifiedId) {
@@ -68,7 +77,8 @@ public class ClassifiedService {
    public Classified createClassified(String classifiedCategory,
 			String classifiedTitle,String description,MultipartFile image) throws IOException {
        	   Classified newClassified = new Classified();
-    	   newClassified.setUserId(1);//UserServiceImpl.getCurrentUser().getUserId());
+       	 Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+    	   newClassified.setUserId(userrepository.findByUserEmail(auth.getName()).getUserId());
     	   newClassified.setClassifiedTitle(classifiedTitle);
     	   newClassified.setClassifiedCategory(classifiedCategory);
     	   newClassified.setDescription(description);

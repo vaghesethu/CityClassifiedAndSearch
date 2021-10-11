@@ -1,5 +1,7 @@
-package com.cityclassifiedandsearch.service;
 
+
+package com.cityclassifiedandsearch.service;
+import com.cityclassifiedandsearch.controller.EmailController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -8,20 +10,23 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.CityDetails;
 import com.cityclassifiedandsearch.repo.CityDetailsRepository;
+import com.cityclassifiedandsearch.repo.UserRepository;
 
 @Service
 public class CityDetailsService {
 	@Autowired
 	private CityDetailsRepository cityDetailsRepository;
+	private UserRepository userRepository;
 	
-//	UserRepository userrepo;
-//	private EmailController email; 
+  private EmailController email; 
 	
 	public CityDetailsService(CityDetailsRepository cityDetailsRepository) {
 		super();
@@ -60,9 +65,8 @@ public class CityDetailsService {
    
    public CityDetails createCityDetails(String category,String name,String address,String cityName,String link,MultipartFile image) throws IOException {
           	   CityDetails newCityDetails = new CityDetails();
-				//UserServiceImpl userServiceImpl = new UserServiceImpl(userrepo);
-				//User currentuser=userServiceImpl.getCurrentUser();
-    	   newCityDetails.setUserId(1);//currentuser.getUserId());
+          	   Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+    	   newCityDetails.setUserId(userRepository.findByUserEmail(auth.getName()).getUserId());
     	   newCityDetails.setName(name);
     	   newCityDetails.setCity(cityName);
     	   newCityDetails.setCategory(category);

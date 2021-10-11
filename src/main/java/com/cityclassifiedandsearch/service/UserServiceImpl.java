@@ -26,18 +26,17 @@ public class UserServiceImpl implements UserService {
 		this.userRepository = userRepository;
 	}
 	
-	/*public User getCurrentUser() {
-		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-		User currentuser=(User)auth.getPrincipal();
-		return currentuser;
-	}*/
-	
 	@Override
 	public User save(User user) {
+		if(userRepository.findByUserEmail(user.getUserEmail())==null) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setEnabled('y');
 		user.setRole("USER");
 		return userRepository.save(user);
+		}else
+		{
+			return null;//throw new user already exists;
+		}
 	}
 
 	@Override
