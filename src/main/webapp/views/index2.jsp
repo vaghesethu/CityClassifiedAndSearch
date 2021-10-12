@@ -67,8 +67,8 @@
 							        	Address: <%= cityDetail.getAddress() %> <br>
 							        </p>
 							      </div>
-							      <div class="card-footer">
-							      	<a class="btn btn-sm btn-outline-dark col-md-12" href="/viewcitydetails/<%= cityDetail.getCityId() %>">More Info</a>
+							      <div class="card-footer text-center">
+							      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/viewcitydetails/<%= cityDetail.getCityId() %>">View</a>
 							      </div>
 		    					</div>
 	  						</div>
