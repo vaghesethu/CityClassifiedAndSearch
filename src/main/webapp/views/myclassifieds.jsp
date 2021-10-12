@@ -71,6 +71,7 @@
 							        <p class="card-text">
 							        	Category: <%= classified.getClassifiedCategory() %> <br>
 							        	<%= classified.getDescription() %> <br>
+							        	Status: <% if(classified.isApproval()) { %> Approved <% } else { %> Pending Approval <% } %> <br>
 							        </p>
 							      </div>
 							      <div class="card-footer text-center">
