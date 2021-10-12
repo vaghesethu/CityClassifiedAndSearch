@@ -2,7 +2,6 @@ package com.cityclassifiedandsearch.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,23 +21,20 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-	//Custom login page
 	@GetMapping("/login")
 	public String userLoginForm() {
 		return "login";
 	}
 	
-	//Registration Page
 	@GetMapping("/register")
 	public String userRegistrationForm() {
 		//email.EmailSubscription("Chennai","kukjkjkj,palm");
 		return "register";
 	}
+	
 	@PostMapping("/register")
-	public String userRegistration(Model model,@ModelAttribute("user") User user) {
-		User user1=userService.save(user);
-		if(user1==null)
-		model.addAttribute("error","User Already Exists");	
+	public String userRegistration(@ModelAttribute("user") User user) {
+		userService.save(user);
 		return "login";
 	}
 }

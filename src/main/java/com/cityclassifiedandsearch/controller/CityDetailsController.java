@@ -33,9 +33,6 @@ public class CityDetailsController {
 	}
 	
 	//Guest
-	/*View City Details*/
-	
-	//View City Details
 	@GetMapping("/index2")
 	public String index2(Model model) {
 		model.addAttribute("cityDetails", cityDetailsService.getAllCityDetails());
@@ -44,16 +41,12 @@ public class CityDetailsController {
 	@GetMapping("/viewcitydetails/{cityId}")
 	public String viewCityDetails(Model model, @PathVariable("cityId") int cityId) {
 		CityDetails cityDetails = cityDetailsService.getCityDetailsById(cityId);
-		if(cityDetails==null) model.addAttribute("error","City detail doesn't exist");
 		model.addAttribute("cityDetails", cityDetails);
 		model.addAttribute("userDetails", userServiceImpl.getUserById(cityDetails.getUserId()));
 		return "viewcitydetails";
 	}
 	
 	//User
-	/*View City Details*/
-	
-	//View City Details
 	@GetMapping("/user/index2")
 	public String userIndex2(Model model) {
 		model.addAttribute("cityDetails", cityDetailsService.getAllCityDetails());
@@ -62,19 +55,12 @@ public class CityDetailsController {
 	@GetMapping("/user/viewcitydetails/{cityId}")
 	public String userViewCityDetails(Model model, @PathVariable("cityId") int cityId) {
 		CityDetails cityDetails = cityDetailsService.getCityDetailsById(cityId);
-		if(cityDetails==null) model.addAttribute("Cityerror","City detail doesn't exist");
 		model.addAttribute("cityDetails", cityDetails);
 		model.addAttribute("userDetails", userServiceImpl.getUserById(cityDetails.getUserId()));
 		return "userviewcitydetails";
 	}
 	
 	//Admin
-	/*View City Details
-	 * Post City Details
-	 * Update City Details
-	 * Delete CIty Details */
-	
-	//View City Details
 	@GetMapping("/admin/index2")
 	public String adminIndex2(Model model, Authentication authentication) {
 		model.addAttribute("cityDetails", cityDetailsService.getAllCityDetails());
@@ -84,18 +70,10 @@ public class CityDetailsController {
 	@GetMapping("/admin/viewcitydetails/{cityId}")
 	public String adminViewCityDetails(Model model, @PathVariable("cityId") int cityId) {
 		CityDetails cityDetails = cityDetailsService.getCityDetailsById(cityId);
-		if(cityDetails==null) model.addAttribute("Cityerror","City detail doesn't exist");
 		model.addAttribute("cityDetails", cityDetails);
 		model.addAttribute("userDetails", userServiceImpl.getUserById(cityDetails.getUserId()));
 		return "adminviewcitydetails";
 	}
-	@GetMapping("/admin/mycitydetails")
-	public String myCityDetails(Authentication authentication, Model model) {
-		model.addAttribute("cityDetails", cityDetailsService.getCityDetailsByUserId(getCurrentUserId(authentication)));
-		return "mycitydetails";
-	}
-	
-	//Post City Details
 	@GetMapping("/admin/postcitydetails")
 	public String postCityDetailsForm() {
 		return "postcitydetails";
@@ -121,8 +99,16 @@ public class CityDetailsController {
 		}
 		return "redirect:/admin/postcitydetails?success";
 	}
-	
-	//Update City Details
+	@GetMapping("/admin/mycitydetails")
+	public String myCityDetails(Authentication authentication, Model model) {
+		model.addAttribute("cityDetails", cityDetailsService.getCityDetailsByUserId(getCurrentUserId(authentication)));
+		return "/mycitydetails";
+	}
+	@GetMapping("/admin/deletecitydetails/{cityId}")
+	public String deleteCityDetails(@PathVariable("cityId")int cityId) {
+		cityDetailsService.deleteCityDetailsById(cityId);
+		return "redirect:/admin/mycitydetails?success";
+	}
 	@GetMapping("/admin/editcitydetails/{cityId}")
 	public String editCityDetailsForm(@PathVariable("cityId") int cityId, Model model) {
 		model.addAttribute("cityDetails", cityDetailsService.getCityDetailsById(cityId));
@@ -147,12 +133,5 @@ public class CityDetailsController {
 			return "redirect:/admin/editcitydetails/" + cityId + "?error";
 		}
 		return "redirect:/admin/editcitydetails/" + cityId + "?success";
-	}
-	
-	//Delete CIty Details
-	@GetMapping("/admin/deletecitydetails/{cityId}")
-	public String deleteCityDetails(@PathVariable("cityId")int cityId) {
-		cityDetailsService.deleteCityDetailsById(cityId);
-		return "redirect:/admin/mycitydetails?success";
 	}
 }
