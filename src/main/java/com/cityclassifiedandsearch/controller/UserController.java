@@ -40,6 +40,4 @@ public class UserController {
 		model.addAttribute("error","User Already Exists");	
 		return "login";
 	}
-	
-	
 }

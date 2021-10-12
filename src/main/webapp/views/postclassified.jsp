@@ -48,7 +48,7 @@
 			        <option value="buy">Buy</option>
 					<option value="sell">Sell</option>
 					<option value="rent">Rent</option>
-					<option value="partime">Part Time Jobs</option>
+					<option value="parttime">Part Time Job</option>
 			      </select>
 			  </div>
 			  <div class="mb-3">

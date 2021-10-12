@@ -6,15 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.Classified;
+import com.cityclassifiedandsearch.repo.ClassifiedRepository;
 import com.cityclassifiedandsearch.repo.UserRepository;
 import com.cityclassifiedandsearch.service.ClassifiedService;
 import com.cityclassifiedandsearch.service.UserServiceImpl;
@@ -23,6 +22,9 @@ import com.cityclassifiedandsearch.service.UserServiceImpl;
 public class ClassifiedController {
 	@Autowired
 	private ClassifiedService classifiedService;
+	
+	@Autowired
+	private ClassifiedRepository classifiedRepository;
 	
 	@Autowired
 	private UserServiceImpl userServiceImpl;
@@ -34,92 +36,123 @@ public class ClassifiedController {
 		return (userRepository.findByUserEmail(authentication.getName())).getUserId();
 	}
 	
+	//Guest
 	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
 		return "index";
 	}
-	
 	@GetMapping("/viewclassified/{classifiedId}")
 	public String viewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
 		Classified classified = classifiedService.getClassifiedById(classifiedId);
-		if(classified==null) {
-			model.addAttribute("Classifiederror", "Classified doesn't exist");
-		}
 		model.addAttribute("classified", classified);
 		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
 		return "viewclassified";
 	}
 	
+	//User
 	@GetMapping("/user/index")
 	public String userIndex(Model model, Authentication authentication) {
 		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
 		model.addAttribute("currentUserId", getCurrentUserId(authentication));
 		return "userindex";
 	}
-	
 	@GetMapping("/user/postclassified")
 	public String postClassifiedForm() {
 		return "postclassified";
 	}
-	
 	@PostMapping("/user/postclassified")
-	public String postClassified(@RequestParam("classifiedCategory")String classifiedCategory,
+	public String postClassified(Authentication authentication,
+			@RequestParam("classifiedCategory")String classifiedCategory,
 			@RequestParam("classifiedTitle")String classifiedTitle,
 			@RequestParam("description")String description,
 			@RequestParam("file") MultipartFile image) {
 		try {
-			classifiedService.createClassified(classifiedCategory,classifiedTitle,description,image);
-		} catch (IOException e) {
-			e.printStackTrace();
+			if(image.isEmpty()) {
+				classifiedService.createClassified(getCurrentUserId(authentication), classifiedCategory, classifiedTitle, description);
+			}
+			else {
+				classifiedService.createClassified(getCurrentUserId(authentication), classifiedCategory, classifiedTitle, description, image);
+			}
+		}
+		catch (IOException e) {
+			return "redirect:/user/postclassified?error";
 		}
 		return "redirect:/user/postclassified?success";
 	}
-	
+	@GetMapping("/user/viewclassified/{classifiedId}")
+	public String userViewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
+		Classified classified = classifiedService.getClassifiedById(classifiedId);
+		model.addAttribute("classified", classified);
+		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
+		return "userviewclassified";
+	}
 	@GetMapping("/user/myclassifieds")
 	public String myClassified(Model model, Authentication authentication) {
 		model.addAttribute("myClassifieds", classifiedService.getClassifiedByUserId(getCurrentUserId(authentication)));
 		return "myclassifieds";
 	}
-	
-	@GetMapping("/user/editclassified")
-	public String editClassifiedForm() {
+	@GetMapping("/user/editclassified/{classifiedId}")
+	public String editClassifiedForm(@PathVariable("classifiedId") int classifiedId, Model model) {
+		model.addAttribute("classified", classifiedService.getClassifiedById(classifiedId));
 		return "editclassified";
 	}
-	
-	@GetMapping("/user/viewclassified/{classifiedId}")
-	public String userViewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
-		Classified classified = classifiedService.getClassifiedById(classifiedId);
-		if(classified==null) {
-			model.addAttribute("Classifiederror", "Classified doesn't exist");
-		}
-		model.addAttribute("classified", classified);
-		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
-		return "userviewclassified";
-	}
-	
-	@PutMapping("/user/editclassified/{id}")
-	public String editClassified(@PathVariable("id") int classifiedId,@RequestParam("classifiedCategory")String classifiedCategory,
+	@PostMapping("/user/editclassified/{classifiedId}")
+	public String editClassified(@PathVariable("classifiedId")int classifiedId,
+			@RequestParam("classifiedCategory")String classifiedCategory,
 			@RequestParam("classifiedTitle")String classifiedTitle,
 			@RequestParam("description")String description,
 			@RequestParam("file") MultipartFile image) throws IOException {
-		classifiedService.UpdateClassified(classifiedId,classifiedCategory,classifiedTitle,description,image);
-		return "redirect:/editclassified?success";
+		try {
+			if(image.isEmpty()) {
+				classifiedService.updateClassified(classifiedId, classifiedCategory, classifiedTitle, description);
+			}
+			else {
+				classifiedService.updateClassified(classifiedId, classifiedCategory, classifiedTitle, description, image);
+			}
+		}
+		catch (IOException e) {
+			return "redirect:/user/editclassified/" + classifiedId + "?error";
+		}
+		return "redirect:/user/editclassified/" + classifiedId + "?success";
+	}
+	@GetMapping("/user/deleteclassified/{classifiedId}")
+	public String deleteClassified(@PathVariable("classifiedId")int classifiedId) {
+		classifiedService.deleteClassifiedById(classifiedId);
+		return "redirect:/user/myclassifieds?success";
 	}
 	
-	@DeleteMapping("/deleteclassified/{id}")
-	public void deleteCityDetails(@PathVariable("id")int classifiedId) {
-		classifiedService.deleteClassifiedById(classifiedId);
+	//Admin
+	@GetMapping("/admin/index")
+	public String adminIndex(Model model) {
+		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
+		return "adminindex";
 	}
-  
+	@GetMapping("/admin/viewclassified/{classifiedId}")
+	public String adminViewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
+		Classified classified = classifiedService.getClassifiedById(classifiedId);
+		model.addAttribute("classified", classified);
+		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
+		return "adminviewclassified";
+	}
+	@GetMapping("/admin/deleteclassified/{classifiedId}")
+	public String adminDeleteClassified(@PathVariable("classifiedId") int classifiedId) {
+		classifiedService.deleteClassifiedById(classifiedId);
+		return "redirect:/admin/index?success";	
+	}
 	@GetMapping("/admin/approve")
-	public String classifiedApproval() {
+	public String viewPendingApproval(Model model) {
+		model.addAttribute("classifieds", classifiedRepository.findByApproval(false));
 		return "approve";
 	}
-	
-	@PutMapping("/admin/approve/{id}")
-	public String approval(@PathVariable("id") int classifiedId) {
+	@GetMapping("/admin/approve/{classifiedId}")
+	public String approveClassified(@PathVariable("classifiedId") int classifiedId) {
 		classifiedService.approve(classifiedId);
-		return "redirect:/approve?success";	
+		return "redirect:/admin/approve?success";	
+	}
+	@GetMapping("/admin/reject/{classifiedId}")
+	public String rejectClassified(@PathVariable("classifiedId") int classifiedId) {
+		classifiedService.deleteClassifiedById(classifiedId);
+		return "redirect:/admin/approve?success";	
 	}
 }
