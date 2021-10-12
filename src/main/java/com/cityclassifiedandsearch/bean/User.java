@@ -57,26 +57,34 @@ public class User implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "userid")
 	private Collection<CityDetails> cityDetails;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "userid")
+	private Collection<Multimedia> carousel;
 
 	public User() {
 		super();
 	}
 
-	public User(String userName, String userEmail, String password, String mobile, String userAddress,
+	
+	public User(int userId, String userName, String userEmail, String password, String mobile, String userAddress,
 			String userCity, char enabled, String role, Collection<Classified> classifieds,
-			Collection<CityDetails> cityDetails) {
+			Collection<CityDetails> cityDetails, Collection<Multimedia> carousel) {
 		super();
+		this.userId = userId;
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.password = password;
 		this.mobile = mobile;
 		this.userAddress = userAddress;
 		this.userCity = userCity;
-		this.enabled = 'n';
+		this.enabled = enabled;
 		this.role = role;
 		this.classifieds = classifieds;
 		this.cityDetails = cityDetails;
+		this.carousel = carousel;
 	}
+
 
 	public int getUserId() {
 		return userId;
@@ -166,11 +174,23 @@ public class User implements Serializable {
 		this.cityDetails = cityDetails;
 	}
 
+	public Collection<Multimedia> getCarousel() {
+		return carousel;
+	}
+
+
+	public void setCarousel(Collection<Multimedia> carousel) {
+		this.carousel = carousel;
+	}
+
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", password="
 				+ password + ", mobile=" + mobile + ", userAddress=" + userAddress + ", userCity=" + userCity
 				+ ", enabled=" + enabled + ", role=" + role + ", classifieds=" + classifieds + ", cityDetails="
-				+ cityDetails + "]";
+				+ cityDetails + ", carousel=" + carousel + "]";
 	}
+	
+	
 }
