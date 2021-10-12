@@ -21,6 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	CustomSuccessHandler successhandler;
+	
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -44,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable().
 			authorizeRequests()
-			.antMatchers("/").anonymous()//allows users to visit page without logging in
+			//.antMatchers("/").anonymous()//allows users to visit page without logging in
 			.antMatchers("/admin").hasAuthority("ADMIN")//only admin can visit the pages with "/admin"
 			.antMatchers("/user").hasAuthority("USER")//only user can visit the pages with "/user"
 			.antMatchers(
@@ -59,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin()
 			.loginPage("/login")//custom login page
-			.defaultSuccessUrl("/user/index", true)
+			.successHandler(successhandler)
 			.failureUrl("/login?error")
 			.permitAll()
 			.and()
