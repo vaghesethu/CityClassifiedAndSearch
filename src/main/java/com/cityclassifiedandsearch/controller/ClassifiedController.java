@@ -39,7 +39,7 @@ public class ClassifiedController {
 	//Guest
 	@GetMapping("/index")
 	public String index(Model model) {
-		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
+		model.addAttribute("classifieds", classifiedRepository.findByApproval(true));
 		return "index";
 	}
 	@GetMapping("/viewclassified/{classifiedId}")
@@ -53,7 +53,7 @@ public class ClassifiedController {
 	//User
 	@GetMapping("/user/index")
 	public String userIndex(Model model, Authentication authentication) {
-		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
+		model.addAttribute("classifieds", classifiedRepository.findByApproval(true));
 		model.addAttribute("currentUserId", getCurrentUserId(authentication));
 		return "userindex";
 	}
@@ -125,7 +125,7 @@ public class ClassifiedController {
 	//Admin
 	@GetMapping("/admin/index")
 	public String adminIndex(Model model) {
-		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
+		model.addAttribute("classifieds", classifiedRepository.findByApproval(true));
 		return "adminindex";
 	}
 	@GetMapping("/admin/viewclassified/{classifiedId}")
