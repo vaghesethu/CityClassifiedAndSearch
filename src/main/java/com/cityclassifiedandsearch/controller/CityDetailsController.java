@@ -78,6 +78,11 @@ public class CityDetailsController {
 	public String postCityDetailsForm() {
 		return "postcitydetails";
 	}
+	@GetMapping("/admin/mycitydetails")
+	public String myCityDetails(Authentication authentication, Model model) {
+		model.addAttribute("cityDetails", cityDetailsService.getCityDetailsByUserId(getCurrentUserId(authentication)));
+		return "/mycitydetails";
+	}
 	@PostMapping("/admin/postcitydetails")
 	public String postCityDetails(Authentication authentication,
 			@RequestParam("category")String category,
@@ -99,16 +104,8 @@ public class CityDetailsController {
 		}
 		return "redirect:/admin/postcitydetails?success";
 	}
-	@GetMapping("/admin/mycitydetails")
-	public String myCityDetails(Authentication authentication, Model model) {
-		model.addAttribute("cityDetails", cityDetailsService.getCityDetailsByUserId(getCurrentUserId(authentication)));
-		return "/mycitydetails";
-	}
-	@GetMapping("/admin/deletecitydetails/{cityId}")
-	public String deleteCityDetails(@PathVariable("cityId")int cityId) {
-		cityDetailsService.deleteCityDetailsById(cityId);
-		return "redirect:/admin/mycitydetails?success";
-	}
+	
+	
 	@GetMapping("/admin/editcitydetails/{cityId}")
 	public String editCityDetailsForm(@PathVariable("cityId") int cityId, Model model) {
 		model.addAttribute("cityDetails", cityDetailsService.getCityDetailsById(cityId));
@@ -133,5 +130,11 @@ public class CityDetailsController {
 			return "redirect:/admin/editcitydetails/" + cityId + "?error";
 		}
 		return "redirect:/admin/editcitydetails/" + cityId + "?success";
+	}
+	
+	@GetMapping("/admin/deletecitydetails/{cityId}")
+	public String deleteCityDetails(@PathVariable("cityId")int cityId) {
+		cityDetailsService.deleteCityDetailsById(cityId);
+		return "redirect:/admin/mycitydetails?success";
 	}
 }
