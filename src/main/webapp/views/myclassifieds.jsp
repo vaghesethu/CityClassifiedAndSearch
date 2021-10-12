@@ -69,9 +69,9 @@
 							      <div class="card-body">
 							        <h5 class="card-title"><%= classified.getClassifiedTitle() %></h5>
 							        <p class="card-text">
+							        	Status: <% if(classified.isApproval()) { %> Approved <% } else { %> Pending Approval <% } %> <br>
 							        	Category: <%= classified.getClassifiedCategory() %> <br>
 							        	<%= classified.getDescription() %> <br>
-							        	Status: <% if(classified.isApproval()) { %> Approved <% } else { %> Pending Approval <% } %> <br>
 							        </p>
 							      </div>
 							      <div class="card-footer text-center">
