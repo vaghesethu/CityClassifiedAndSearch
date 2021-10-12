@@ -37,9 +37,6 @@ public class ClassifiedController {
 	}
 	
 	//Guest
-	/*View Classifieds*/
-	
-	//View CLassifieds
 	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
@@ -48,40 +45,18 @@ public class ClassifiedController {
 	@GetMapping("/viewclassified/{classifiedId}")
 	public String viewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
 		Classified classified = classifiedService.getClassifiedById(classifiedId);
-		if(classified==null) model.addAttribute("error", "Classified doesn't exist");
 		model.addAttribute("classified", classified);
 		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
 		return "viewclassified";
 	}
 	
 	//User
-	/* View Classifieds
-	 * Post Classifieds
-	 * Update Classifieds
-	 * Delete Classifieds */
-	
-	//View CLassifieds
 	@GetMapping("/user/index")
 	public String userIndex(Model model, Authentication authentication) {
 		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
 		model.addAttribute("currentUserId", getCurrentUserId(authentication));
 		return "userindex";
 	}
-	@GetMapping("/user/viewclassified/{classifiedId}")
-	public String userViewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
-		Classified classified = classifiedService.getClassifiedById(classifiedId);
-		if(classified==null) model.addAttribute("error", "Classified doesn't exist");
-		model.addAttribute("classified", classified);
-		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
-		return "userviewclassified";
-	}
-	@GetMapping("/user/myclassifieds")
-	public String myClassified(Model model, Authentication authentication) {
-		model.addAttribute("myClassifieds", classifiedService.getClassifiedByUserId(getCurrentUserId(authentication)));
-		return "myclassifieds";
-	}
-	
-	//Post Classifieds
 	@GetMapping("/user/postclassified")
 	public String postClassifiedForm() {
 		return "postclassified";
@@ -105,8 +80,18 @@ public class ClassifiedController {
 		}
 		return "redirect:/user/postclassified?success";
 	}
-	
-	//Update Classifieds
+	@GetMapping("/user/viewclassified/{classifiedId}")
+	public String userViewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
+		Classified classified = classifiedService.getClassifiedById(classifiedId);
+		model.addAttribute("classified", classified);
+		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
+		return "userviewclassified";
+	}
+	@GetMapping("/user/myclassifieds")
+	public String myClassified(Model model, Authentication authentication) {
+		model.addAttribute("myClassifieds", classifiedService.getClassifiedByUserId(getCurrentUserId(authentication)));
+		return "myclassifieds";
+	}
 	@GetMapping("/user/editclassified/{classifiedId}")
 	public String editClassifiedForm(@PathVariable("classifiedId") int classifiedId, Model model) {
 		model.addAttribute("classified", classifiedService.getClassifiedById(classifiedId));
@@ -131,8 +116,6 @@ public class ClassifiedController {
 		}
 		return "redirect:/user/editclassified/" + classifiedId + "?success";
 	}
-	
-	//Delete Classifieds
 	@GetMapping("/user/deleteclassified/{classifiedId}")
 	public String deleteClassified(@PathVariable("classifiedId")int classifiedId) {
 		classifiedService.deleteClassifiedById(classifiedId);
@@ -140,11 +123,6 @@ public class ClassifiedController {
 	}
 	
 	//Admin
-	/* View Classifieds
-	 * Approve/Reject Classifieds
-	 * Delete CLassifieds */
-	
-	//View Classifieds
 	@GetMapping("/admin/index")
 	public String adminIndex(Model model) {
 		model.addAttribute("classifieds", classifiedService.getAllClassifieds());
@@ -153,13 +131,15 @@ public class ClassifiedController {
 	@GetMapping("/admin/viewclassified/{classifiedId}")
 	public String adminViewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
 		Classified classified = classifiedService.getClassifiedById(classifiedId);
-		if(classified==null) model.addAttribute("error", "Classified doesn't exist");
 		model.addAttribute("classified", classified);
 		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
 		return "adminviewclassified";
 	}
-	
-	//Approve/Reject Classifieds
+	@GetMapping("/admin/deleteclassified/{classifiedId}")
+	public String adminDeleteClassified(@PathVariable("classifiedId") int classifiedId) {
+		classifiedService.deleteClassifiedById(classifiedId);
+		return "redirect:/admin/index?success";	
+	}
 	@GetMapping("/admin/approve")
 	public String viewPendingApproval(Model model) {
 		model.addAttribute("classifieds", classifiedRepository.findByApproval(false));
@@ -174,12 +154,5 @@ public class ClassifiedController {
 	public String rejectClassified(@PathVariable("classifiedId") int classifiedId) {
 		classifiedService.deleteClassifiedById(classifiedId);
 		return "redirect:/admin/approve?success";	
-	}
-	
-	//Delete Classified
-	@GetMapping("/admin/deleteclassified/{classifiedId}")
-	public String adminDeleteClassified(@PathVariable("classifiedId") int classifiedId) {
-		classifiedService.deleteClassifiedById(classifiedId);
-		return "redirect:/admin/index?success";	
 	}
 }
