@@ -25,6 +25,9 @@
             <li class="nav-item">
               <a class="nav-link active" href="#">City Details</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/viewupdates">New Updates</a>
+            </li>
           </ul>
           <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#signinmodal">
           	Sign in
@@ -67,8 +70,8 @@
 							        	Address: <%= cityDetail.getAddress() %> <br>
 							        </p>
 							      </div>
-							      <div class="card-footer">
-							      	<a class="btn btn-sm btn-outline-dark col-md-12" href="/viewcitydetails/<%= cityDetail.getCityId() %>">More Info</a>
+							      <div class="card-footer text-center">
+							      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/viewcitydetails/<%= cityDetail.getCityId() %>">View</a>
 							      </div>
 		    					</div>
 	  						</div>

@@ -1,4 +1,4 @@
-<%@page import="java.util.List, com.cityclassifiedandsearch.bean.Classified, org.apache.commons.codec.binary.Base64"%>
+<%@page import="java.util.List, com.cityclassifiedandsearch.bean.Classified, com.cityclassifiedandsearch.bean.User, org.apache.commons.codec.binary.Base64"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -13,13 +13,13 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/user/index">City Classified And Search</a>
+        <a class="navbar-brand" href="/user/index2">City Classified And Search</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          	<li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link" href="/user/index">Classifieds</a>
             </li>
             <li class="nav-item dropdown">
@@ -42,33 +42,36 @@
     </nav>
     
     <div class="container mt-3">
-    	<div class="card col-4 px-3 mx-auto">
-	    	<h5 class="mt-3">Post Classified</h5>
-	      	<form action="/user/postclassified" method="post" enctype="multipart/form-data">
-			  <div class="mb-3">
-			      <label for="classifiedCategory" class="form-label">Category</label>
-			      <select id="classifiedCategory" class="form-select" name="classifiedCategory">
-			        <option value="buy">Buy</option>
-					<option value="sell">Sell</option>
-					<option value="rent">Rent</option>
-					<option value="parttime">Part Time Job</option>
-			      </select>
-			  </div>
-			  <div class="mb-3">
-			    <label for="classifiedTitle" class="form-label">Title</label>
-			    <input type="text" class="form-control" placeholder="Title" id="classifiedTitle" name="classifiedTitle">
-			  </div>
-			  <div class="mb-3">
-			    <label for="description" class="form-label">Description</label>
-			    <input type="text" class="form-control" placeholder="Description" id="description" name="description">
-			  </div>
-			  <div class="mb-3">
-				<label for="file" class="form-label">Upload Image</label>
-				<input class="form-control" type="file" id="file" name="file">
-			  </div>
-			  <button type="submit" class="btn btn-outline-dark mb-3">Post</button>
-	 		</form>
-	  	</div>
+    	<% 
+    		Classified classified = (Classified)request.getAttribute("classified");
+    	    User user = (User)request.getAttribute("userDetails");
+    	    String img = "";
+	      	String classifiedImage = classified.getClassifiedimage();
+	      	if(classifiedImage == null) {
+	      		img = "/images/noimage.jpg";
+	      	}
+	      	else {
+	      		img = "data:image/jpeg;base64," + classifiedImage;
+	      	} 
+    	%>
+    	<div class="card">
+		  <div class="card-body">
+			<img src="<%= img %>" class="img-fluid d-block mx-auto">
+			<h5 class="mt-3 card-title"> <%= classified.getClassifiedTitle() %> </h5>
+			<p>
+				Category: <%= classified.getClassifiedCategory() %> <br>
+				<%= classified.getDescription() %>
+			</p>
+			<br>
+			<h5 class="card-title"> Posted By: <%= user.getUserName() %> </h5>
+			<p>
+				Address: <%= user.getUserAddress() %> <br>
+				City: <%= user.getUserCity() %> <br>
+				Mobile: <%= user.getMobile() %> <br>
+				Email: <%= user.getUserEmail() %>
+			</p>
+		  </div>	
+		</div>
 	</div>
 	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
