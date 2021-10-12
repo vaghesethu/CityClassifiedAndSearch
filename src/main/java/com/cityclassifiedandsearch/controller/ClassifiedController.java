@@ -37,6 +37,11 @@ public class ClassifiedController {
 	}
 	
 	//Guest
+	@GetMapping("/")
+	public String slash(Model model) {
+		model.addAttribute("classifieds", classifiedRepository.findByApproval(true));
+		return "index";
+	}
 	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("classifieds", classifiedRepository.findByApproval(true));
