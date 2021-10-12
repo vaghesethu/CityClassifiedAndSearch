@@ -136,4 +136,13 @@ public class ClassifiedService {
 			classifiedRepository.save(update);
 		}
     }
+    public void reject(int classifiedId) {
+        Optional<Classified> classified = classifiedRepository.findById(classifiedId);
+        if(classified.isPresent()) {
+            classifiedRepository.deleteById(classifiedId);
+        }
+        else {
+            return; // replace with custom exception(RecordNotFoundException)
+        }
+     }
 }
