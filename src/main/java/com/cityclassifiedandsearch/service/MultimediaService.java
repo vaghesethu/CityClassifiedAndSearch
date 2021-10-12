@@ -1,6 +1,7 @@
 package com.cityclassifiedandsearch.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cityclassifiedandsearch.bean.CityDetails;
 import com.cityclassifiedandsearch.bean.Multimedia;
 import com.cityclassifiedandsearch.repo.MultimediaRepo;
 
@@ -32,7 +32,7 @@ public class MultimediaService {
 			Collections.reverse(carousel);
 			return carousel;
 		}
-		return null;
+		return new ArrayList<Multimedia>();
 	}
 	public Multimedia getCarouselById(int carouselid) {
 		Optional<Multimedia> carousel = multimediarepo.findById(carouselid);
