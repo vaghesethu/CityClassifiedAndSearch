@@ -10,6 +10,7 @@
     <title>City Classified And Search</title>    
 </head>
 <body>
+<!--<jsp:include page="carousel.jsp"></jsp:include>-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="/index">City Classified And Search</a>

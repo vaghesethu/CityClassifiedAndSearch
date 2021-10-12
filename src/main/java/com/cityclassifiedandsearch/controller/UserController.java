@@ -22,17 +22,18 @@ public class UserController {
 		this.userService = userService;
 	}
 	
+	//Custom login page
 	@GetMapping("/login")
 	public String userLoginForm() {
 		return "login";
 	}
 	
+	//Registration Page
 	@GetMapping("/register")
 	public String userRegistrationForm() {
 		//email.EmailSubscription("Chennai","kukjkjkj,palm");
 		return "register";
 	}
-	
 	@PostMapping("/register")
 	public String userRegistration(Model model,@ModelAttribute("user") User user) {
 		User user1=userService.save(user);

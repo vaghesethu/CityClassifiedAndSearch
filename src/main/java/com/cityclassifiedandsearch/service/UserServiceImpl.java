@@ -26,6 +26,12 @@ public class UserServiceImpl implements UserService {
 		this.userRepository = userRepository;
 	}
 	
+	public User getUserById(int userId) {
+		User user = userRepository.findByUserId(userId);
+		return user;
+	}
+	
+	//User Registration
 	@Override
 	public User save(User user) {
 		if(userRepository.findByUserEmail(user.getUserEmail())==null) {
@@ -39,6 +45,7 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	//User Sign In
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUserEmail(username);
@@ -48,10 +55,5 @@ public class UserServiceImpl implements UserService {
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
 		return new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getPassword(), grantedAuthorities);	
-	}
-	
-	public User getUserById(int userId) {
-		User user = userRepository.findByUserId(userId);
-		return user;
 	}
 }
