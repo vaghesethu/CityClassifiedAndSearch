@@ -28,6 +28,7 @@ public class CityDetailsService {
 		this.cityDetailsRepository = cityDetailsRepository;
 	}
 	
+	/*View City Details*/
    public List<CityDetails> getAllCityDetails() {
 		List<CityDetails> cityDetails = cityDetailsRepository.findAll();
 		if(cityDetails.size() > 0) {
@@ -60,6 +61,7 @@ public class CityDetailsService {
 		}
    }
    
+   /*Post City Details*/
    public CityDetails createCityDetails(int userId, String category, String name, String address, String cityName, 
 	   String link, MultipartFile image) throws IOException {
        CityDetails newCityDetails = new CityDetails();
@@ -91,6 +93,7 @@ public class CityDetailsService {
 	   return cityDetailsRepository.save(newCityDetails);
    }
 
+   /*Update City Details*/
    public CityDetails updateCityDetails(int cityId, String category, String name, String address, String cityName,
 		   String link, MultipartFile image) throws IOException {
 	   Optional<CityDetails> exist = cityDetailsRepository.findById(cityId);
@@ -122,6 +125,7 @@ public class CityDetailsService {
 		return null;
    }
    
+   /* Delete City Details*/
    public void deleteCityDetailsById(int cityDetailsId) {
        Optional<CityDetails> cityDetails = cityDetailsRepository.findById(cityDetailsId);
        if(cityDetails.isPresent()) {
