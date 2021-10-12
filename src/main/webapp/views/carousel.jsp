@@ -15,11 +15,13 @@
 .carousel .carousel-item {
   height: 650px;
 }
+
 .carousel-item img {
     position: relative;
     height: 100%;
     width:100%;
 }
+
 </style>
 </head>
 <body>

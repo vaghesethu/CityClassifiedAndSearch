@@ -92,7 +92,7 @@ public class MultimediaController {
 		catch (IOException e) {
 			return "redirect:/admin/editcitydetails/" + carouselId + "?error";
 		}
-		return "redirect:/admin/editupdates?success";
+		return "redirect:/admin/viewupdates?success";
 	}
 	
 	/*Delete carousel Details*/
