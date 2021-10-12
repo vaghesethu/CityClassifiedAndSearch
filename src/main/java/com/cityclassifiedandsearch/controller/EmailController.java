@@ -18,11 +18,11 @@ public class EmailController {
 	private SmtpMailSender smtpMailSender;
 	
 	public boolean EmailSubscription(String cityname, String address) {
-		String subject=cityname+" added";
-		String body="Address: "+address;
-		List<User> test=userrepo.findAll();
-		for(User u:test) {
-			System.out.println("USER EMAIL HERE : "+u.getUserEmail()+"\n");
+		String subject = cityname + " added";
+		String body = "Address: "+ address;
+		List<User> test = userrepo.findAll();
+		for(User u: test) {
+			System.out.println("USER EMAIL HERE : "+ u.getUserEmail() + "\n");
 			try {
 				smtpMailSender.send(u.getUserEmail(), subject, body);
 			} catch (MessagingException e) {
