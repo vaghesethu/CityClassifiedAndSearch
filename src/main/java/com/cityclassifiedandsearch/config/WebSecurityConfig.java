@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.cityclassifiedandsearch.service.UserService;
@@ -23,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserService userService;
 	
 	@Autowired
-	AuthenticationSuccessHandler successHandler;
+	CustomSuccessHandler successhandler;
 	
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -47,9 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-			.antMatchers("/").anonymous()//allows users to visit page without logging in
-			.antMatchers("/admin/**").hasAuthority("ADMIN")//only admin can visit the pages with "/admin"
-			.antMatchers("/user/**").hasAuthority("USER")//only user can visit the pages with "/user"
+			//.antMatchers("/").anonymous()//allows users to visit page without logging in
+			.antMatchers("/admin").hasAuthority("ADMIN")//only admin can visit the pages with "/admin"
+			.antMatchers("/user").hasAuthority("USER")//only user can visit the pages with "/user"
 			.antMatchers(
 				 "/js/**",
 				 "/css/**",
@@ -62,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin()
 			.loginPage("/login")//custom login page
-			.successHandler(successHandler)
+			.successHandler(successhandler)
 			.failureUrl("/login?error")
 			.permitAll()
 			.and()

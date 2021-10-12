@@ -1,4 +1,4 @@
-<%@page import="java.util.List, com.cityclassifiedandsearch.bean.Classified, com.cityclassifiedandsearch.bean.User, org.apache.commons.codec.binary.Base64"%>
+<%@page import="java.util.List, com.cityclassifiedandsearch.bean.CityDetails, com.cityclassifiedandsearch.bean.User, org.apache.commons.codec.binary.Base64"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -53,42 +53,26 @@
         </div>
       </div>
     </nav>
-	
-	<div class="container mt-3">
-    	<% 
-    		Classified classified = (Classified)request.getAttribute("classified");
-    	    User user = (User)request.getAttribute("userDetails");
-    	    String img = "";
-	      	String classifiedImage = classified.getClassifiedimage();
-	      	if(classifiedImage == null) {
-	      		img = "/images/noimage.jpg";
-	      	}
-	      	else {
-	      		img = "data:image/jpeg;base64," + classifiedImage;
-	      	} 
-    	%>
-    	<div class="card">
-		  <div class="card-body">
-			<img src="<%= img %>" class="img-fluid d-block mx-auto">
-			<h5 class="mt-3 card-title"> <%= classified.getClassifiedTitle() %> </h5>
-			<p>
-				Category: <%= classified.getClassifiedCategory() %> <br>
-				<%= classified.getDescription() %>
-			</p>
-			<br>
-			<h5 class="card-title"> Posted By: <%= user.getUserName() %> </h5>
-			<p>
-				Address: <%= user.getUserAddress() %> <br>
-				City: <%= user.getUserCity() %> <br>
-				Mobile: <%= user.getMobile() %> <br>
-				Email: <%= user.getUserEmail() %>
-			</p>
-			<div class="card-footer text-center">
-
-		      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/admin/deleteclassified/<%= classified.getClassifiedId() %>">Remove</a>
-		    </div>
-		  </div>	
-		</div>
+    
+    <div class="container mt-3">
+    	<div class="card col-4 px-3 mx-auto">
+	    	<h5 class="mt-3">Post Updates</h5>
+	      	<form action="/admin/postupdates" method="post" enctype="multipart/form-data">
+			  <div class="mb-3">
+			    <label for="name" class="form-label">Title</label>
+			    <input type="text" class="form-control" placeholder="Title" id="careouselTitle" name="careouselTitle">
+			  </div>
+			  <div class="mb-3">
+			    <label for="address" class="form-label">Update</label>
+			    <input type="text" class="form-control" placeholder="Update" id="update" name="update">
+			  </div>
+			  <div class="mb-3">
+				<label for="file" class="form-label">Upload Image</label>
+				<input class="form-control" type="file" id="file" name="file">
+			  </div>
+			  <button type="submit" class="btn btn-outline-dark mb-3">Post</button>
+	 		</form>
+	  	</div>
 	</div>
 	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
