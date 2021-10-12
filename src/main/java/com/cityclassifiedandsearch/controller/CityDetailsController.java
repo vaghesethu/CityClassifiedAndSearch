@@ -34,6 +34,9 @@ public class CityDetailsController {
 	@GetMapping("/viewcitydetails/{cityId}")
 	public String viewcityDetails(Model model, @PathVariable("cityId") int cityId) {
 		CityDetails cityDetails = cityDetailsService.getCityDetailsById(cityId);
+		if(cityDetails==null) {
+			model.addAttribute("Cityerror","City detail doesn't exist");
+		}
 		model.addAttribute("cityDetails", cityDetails);
 		model.addAttribute("userDetails", userServiceImpl.getUserById(cityDetails.getUserId()));
 		return "viewcitydetails";

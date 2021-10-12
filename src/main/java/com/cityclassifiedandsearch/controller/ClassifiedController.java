@@ -43,6 +43,9 @@ public class ClassifiedController {
 	@GetMapping("/viewclassified/{classifiedId}")
 	public String viewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
 		Classified classified = classifiedService.getClassifiedById(classifiedId);
+		if(classified==null) {
+			model.addAttribute("Classifiederror", "Classified doesn't exist");
+		}
 		model.addAttribute("classified", classified);
 		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
 		return "viewclassified";
@@ -70,7 +73,7 @@ public class ClassifiedController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "/user/postclassified?success";
+		return "redirect:/user/postclassified?success";
 	}
 	
 	@GetMapping("/user/myclassifieds")
@@ -87,6 +90,9 @@ public class ClassifiedController {
 	@GetMapping("/user/viewclassified/{classifiedId}")
 	public String userViewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
 		Classified classified = classifiedService.getClassifiedById(classifiedId);
+		if(classified==null) {
+			model.addAttribute("Classifiederror", "Classified doesn't exist");
+		}
 		model.addAttribute("classified", classified);
 		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
 		return "userviewclassified";

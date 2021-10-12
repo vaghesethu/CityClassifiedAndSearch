@@ -3,28 +3,23 @@
 package com.cityclassifiedandsearch.service;
 import com.cityclassifiedandsearch.controller.EmailController;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.CityDetails;
 import com.cityclassifiedandsearch.repo.CityDetailsRepository;
-import com.cityclassifiedandsearch.repo.UserRepository;
 
 @Service
 public class CityDetailsService {
 	@Autowired
 	private CityDetailsRepository cityDetailsRepository;
-	private UserRepository userRepository;
 	
   private EmailController email; 
 	
@@ -39,7 +34,7 @@ public class CityDetailsService {
 			Collections.reverse(cityDetails);
 			return cityDetails;
 		} else {
-		    return new ArrayList<CityDetails>(); //replace with custom exception(RecordNotFoundException)
+		    return null; //replace with custom exception(RecordNotFoundException)
 		}
     }
 	
@@ -59,14 +54,14 @@ public class CityDetailsService {
 			Collections.reverse(cityDetails);
 			return cityDetails;
 		} else {
-		    return new ArrayList<CityDetails>(); //replace with custom exception(RecordNotFoundException)
+		    return null; //replace with custom exception(RecordNotFoundException)
 		}
    }
    
    public CityDetails createCityDetails(String category,String name,String address,String cityName,String link,MultipartFile image) throws IOException {
           	   CityDetails newCityDetails = new CityDetails();
-          	   Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-    	   newCityDetails.setUserId(userRepository.findByUserEmail(auth.getName()).getUserId());
+          	   //Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+    	   newCityDetails.setUserId(1);//userRepository.findByUserEmail(auth.getName()).getUserId());
     	   newCityDetails.setName(name);
     	   newCityDetails.setCity(cityName);
     	   newCityDetails.setCategory(category);
@@ -87,9 +82,6 @@ public class CityDetailsService {
        Optional<CityDetails> cityDetails = cityDetailsRepository.findById(cityDetailsId);
        if(cityDetails.isPresent()) {
            cityDetailsRepository.deleteById(cityDetailsId);
-       }
-       else {
-           return; // replace with custom exception(RecordNotFoundException)
        }
    }
 

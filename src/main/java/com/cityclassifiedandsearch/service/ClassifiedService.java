@@ -1,3 +1,4 @@
+
 package com.cityclassifiedandsearch.service;
 
 import java.io.IOException;
@@ -31,14 +32,11 @@ public class ClassifiedService {
 	}
 	
    public List<Classified> getAllClassifieds() {
-		try{
 			List<Classified> classifieds = classifiedRepository.findAll();
 		
 		if(classifieds.size() > 0) {
 			Collections.reverse(classifieds);
 			return classifieds;
-		}}catch(Exception ex) {
-			throw new NoRecordFoundException();
 		}
 		return null;
 		
@@ -77,8 +75,9 @@ public class ClassifiedService {
    public Classified createClassified(String classifiedCategory,
 			String classifiedTitle,String description,MultipartFile image) throws IOException {
        	   Classified newClassified = new Classified();
-       	 Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-    	   newClassified.setUserId(userrepository.findByUserEmail(auth.getName()).getUserId());
+       	 //Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+       	//int id=userrepository.findByUserEmail(auth.getName()).getUserId();
+    	   newClassified.setUserId(1);//id);
     	   newClassified.setClassifiedTitle(classifiedTitle);
     	   newClassified.setClassifiedCategory(classifiedCategory);
     	   newClassified.setDescription(description);

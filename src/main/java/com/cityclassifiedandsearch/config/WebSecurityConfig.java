@@ -45,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable().
 			authorizeRequests()
 			.antMatchers("/").anonymous()//allows users to visit page without logging in
-			.antMatchers("/admin/**").hasRole("ADMIN")//only admin can visit the pages with "/admin"
-			.antMatchers("/user/**").hasRole("USER")//only user can visit the pages with "/user"
+			.antMatchers("/admin/**").hasAuthority("ADMIN")//only admin can visit the pages with "/admin"
+			.antMatchers("/user/**").hasAuthority("USER")//only user can visit the pages with "/user"
 			.antMatchers(
 				 "/js/**",
 				 "/css/**",
