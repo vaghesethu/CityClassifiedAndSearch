@@ -38,6 +38,16 @@
 	            <li><a class="dropdown-item" href="/admin/mycitydetails">My City Details</a></li>
 	          </ul>
         	</li>
+        	<li class="nav-item">
+              <a class="nav-link" href="/admin/viewupdates">News Updates</a>
+            </li>
+        	 <li class="nav-item dropdown">
+	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+	          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	            <li><a class="dropdown-item" href="/admin/postupdates">Post updates</a></li>
+	            <li><a class="dropdown-item" href="/admin/viewupdates">View updates</a></li>
+	          </ul>
+        	</li>
           </ul>
 		  <a class="btn btn-outline-light" href="/logout">Logout</a>
         </div>

@@ -32,6 +32,9 @@
             <li class="nav-item">
               <a class="nav-link active" href="#">City Details</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/viewupdates">New Updates</a>
+            </li>
           </ul>
 		  <a class="btn btn-outline-light" href="/logout">Logout</a>
         </div>

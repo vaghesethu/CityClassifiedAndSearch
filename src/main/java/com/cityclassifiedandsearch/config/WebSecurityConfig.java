@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.cityclassifiedandsearch.service.UserService;
@@ -23,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserService userService;
 	
 	@Autowired
-	AuthenticationSuccessHandler successHandler;
+	CustomSuccessHandler successhandler;
 	
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -62,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin()
 			.loginPage("/login")//custom login page
-			.successHandler(successHandler)
+			.successHandler(successhandler)
 			.failureUrl("/login?error")
 			.permitAll()
 			.and()

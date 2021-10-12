@@ -25,6 +25,9 @@
             <li class="nav-item">
               <a class="nav-link active" href="#">City Details</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/viewupdates">New Updates</a>
+            </li>
           </ul>
           <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#signinmodal">
           	Sign in

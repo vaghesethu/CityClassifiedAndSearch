@@ -1,4 +1,4 @@
-<%@page import="java.util.List, com.cityclassifiedandsearch.bean.Classified, com.cityclassifiedandsearch.bean.User, org.apache.commons.codec.binary.Base64"%>
+<%@page import="java.util.List, com.cityclassifiedandsearch.bean.Multimedia, org.apache.commons.codec.binary.Base64"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -53,42 +53,48 @@
         </div>
       </div>
     </nav>
-	
-	<div class="container mt-3">
-    	<% 
-    		Classified classified = (Classified)request.getAttribute("classified");
-    	    User user = (User)request.getAttribute("userDetails");
-    	    String img = "";
-	      	String classifiedImage = classified.getClassifiedimage();
-	      	if(classifiedImage == null) {
-	      		img = "/images/noimage.jpg";
-	      	}
-	      	else {
-	      		img = "data:image/jpeg;base64," + classifiedImage;
-	      	} 
-    	%>
-    	<div class="card">
-		  <div class="card-body">
-			<img src="<%= img %>" class="img-fluid d-block mx-auto">
-			<h5 class="mt-3 card-title"> <%= classified.getClassifiedTitle() %> </h5>
-			<p>
-				Category: <%= classified.getClassifiedCategory() %> <br>
-				<%= classified.getDescription() %>
-			</p>
-			<br>
-			<h5 class="card-title"> Posted By: <%= user.getUserName() %> </h5>
-			<p>
-				Address: <%= user.getUserAddress() %> <br>
-				City: <%= user.getUserCity() %> <br>
-				Mobile: <%= user.getMobile() %> <br>
-				Email: <%= user.getUserEmail() %>
-			</p>
-			<div class="card-footer text-center">
-
-		      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/admin/deleteclassified/<%= classified.getClassifiedId() %>">Remove</a>
-		    </div>
-		  </div>	
-		</div>
+    
+    <div class="container">
+    	<%
+        List<Multimedia> carousels = (List<Multimedia>)request.getAttribute("carousel");
+		int counter = 0;
+	    	while(counter <carousels.size()) {
+	    %>
+	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-2">
+	   				<% 
+	   					for(int i = 0; i < 5 && counter < carousels.size(); i++) {
+	   						Multimedia carousel = carousels.get(counter++);
+	   				%>
+	  					<div class="col">
+						    <div class="card h-100">
+						      <%
+						      	String img = "";
+						      	String carouselimage = carousel.getCarouselimage();
+						      	if(carouselimage == null) {
+						      		img = "/images/noimage.jpg";
+						      	}
+						      	else {
+						      		img = "data:image/jpeg;base64," + carouselimage;
+						      	}
+						      %>
+						      <div class="mt-2 mx-auto index-image-parent">
+						      	<img src="<%= img %>" class="index-image">
+						      </div>
+						      <div class="card-body">
+						        <h5 class="card-title"><%= carousel.getCarouselTitle() %></h5>
+						        <p class="card-text">
+						        	 <%=carousel.getCarouselupdate()%> <br>
+						        </p>
+						      </div>
+						      <div class="card-footer text-center">
+						      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/admin/editupdates/<%= carousel.getCarouselid() %>">Update</a>
+						      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/admin/deleteupdates/<%= carousel.getCarouselid() %>">Delete</a>
+						      </div>
+	    					</div>
+  						</div>
+	  				<% } %>
+				</div>
+		<% } %>
 	</div>
 	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
