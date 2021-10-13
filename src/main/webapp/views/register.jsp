@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>City Classified And Search</title>
 </head>
 <body>
@@ -36,6 +38,18 @@
     </nav>
     
     <div class="container mt-3">
+     <%
+    		String status = (String) request.getParameter("registration-status");
+    		if(status != null) {
+    			 if(status.equals("failed")) {
+		%>
+					<div class="alert alert-danger" role="alert">
+					  User Email Already Exists
+					</div>
+		<%
+    			}
+    		}
+		%>
     	<div class="card col-4 px-3 mx-auto">
 	    	<h5 class="mt-3">Sign up</h5>
 	      	<form class="my-3" name="register" action="register" method="post" onsubmit="return signupmodalcheck()">
@@ -88,7 +102,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="container">
-	      	<form class="my-3" name="login" action="login" method="post" onsubmit="return signinmodalcheck()">
+	      	<form class="my-3" name="login" action="login" method="post" >
 			  <div class="mb-3">
 			    <label for="useremail" class="form-label">Email address</label>
 			    <span id=mail></span>
@@ -105,19 +119,8 @@
 	  </div>
 	</div>
 	
-	<script>
-		function signinmodalcheck() {
-			var email = document.getElementById("useremail").value;
-			var mailformat =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-			if(!email.match(mailformat)) {
-				document.getElementById("mail").innerHTML = "<br>Invalid Email";  
-			  	return false;  
-			}else{
-				return true;
-			}
-		}
-		
-		function signupformcheck(){
+	<script>		
+		function signupmodalcheck(){
 			var userName = document.getElementById("userName").value;
 			var nameformat=/^[A-Za-z]+$/;
 			
@@ -152,14 +155,16 @@
 			
 			var password = document.getElementById("password").value;
 			var confirmPassword = document.getElementById("confirmPassword").value;
-			if(password!=confirmPassword){
+			if(password==confirmPassword){
+				return true;
+				}else{
 				document.getElementById("message").innerHTML = "Password Mismatch";  
 			    return false; 
 			}
 			return true;
 			}
 	</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
   </body>
 </body>
 </html>
