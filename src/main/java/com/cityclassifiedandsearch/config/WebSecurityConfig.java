@@ -55,6 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				 "/css/**",
 				 "/images/**",
 				 "/register**",
+				 "/confirm-account**",
+				 "/ConfirmationSuccess**",
 				 "/index**",
 				 "/viewclassified/**",
 				 "/viewcitydetails/**").permitAll()
