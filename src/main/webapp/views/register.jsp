@@ -41,11 +41,11 @@
 	      	<form class="my-3" name="register" action="register" method="post" onsubmit="return signupformcheck()">
 			  <div class="mb-3">
 			    <label for="userName" class="form-label">User Name</label>
-			    <input type="text" class="form-control" id="userName" name="userName">
+			    <input type="text" class="form-control" id="userName" name="userName" required="required">
 			  </div>
 			  <div class="mb-3">
 			    <label for="userEmail" class="form-label">Email Address</label>
-			    <input type="email" class="form-control" id="userEmail" name="userEmail">
+			    <input type="email" class="form-control" id="userEmail" name="userEmail" required="required">
 			  </div>
 			  <div class="mb-3">
 			    <label for="mobile" class="form-label">Mobile</label>
@@ -61,11 +61,11 @@
 			  </div>
 			  <div class="mb-3">
 			    <label for="password" class="form-label">Password</label>
-			    <input type="password" class="form-control" id="password" name="password">
+			    <input type="password" class="form-control" id="password" name="password" required="required">
 			  </div>
 			  <div class="mb-3">
 			    <label for="confirmPassword" class="form-label">Confirm Password</label>
-			    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+			    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required="required">
 			  </div>
 			  <p>
 			  	Already have an account? <a href="login">Log In</a>
@@ -88,11 +88,11 @@
 			  <div class="mb-3">
 			    <label for="useremail" class="form-label">Email address</label>
 			    <span id=mail></span>
-			    <input type="email" class="form-control" id="useremail" name="username">
+			    <input type="email" class="form-control" id="useremail" name="username" required="required">
 			  </div>
 			  <div class="mb-3">
 			    <label for="password" class="form-label">Password</label>
-			    <input type="password" class="form-control" id="password" name="password">
+			    <input type="password" class="form-control" id="password" name="password" required="required">
 			  </div>
 		  	  <button type="submit" class="btn btn-outline-dark mx-auto">Login</button>
 		  	</form>
