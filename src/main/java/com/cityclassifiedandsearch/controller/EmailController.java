@@ -31,7 +31,6 @@ public class EmailController {
 				smtpMailSender.send(u.getUserEmail(), subject, body);
 			} catch (MessagingException e) {
 				System.out.println("MAIL NOT SENT");
-				e.printStackTrace();
 				return false;
 			}
 		}
@@ -48,7 +47,6 @@ public boolean approvalMail(int classifiedId) {
 				smtpMailSender.send(user.getUserEmail(), subject, body);
 			} catch (MessagingException e) {
 				System.out.println("MAIL NOT SENT");
-				e.printStackTrace();
 				return false;
 			}
 		
@@ -66,7 +64,6 @@ public boolean rejectMail(int classifiedId) {
 				smtpMailSender.send(user.getUserEmail(), subject, body);
 			} catch (MessagingException e) {
 				System.out.println("MAIL NOT SENT");
-				e.printStackTrace();
 				return false;
 			}
 		
