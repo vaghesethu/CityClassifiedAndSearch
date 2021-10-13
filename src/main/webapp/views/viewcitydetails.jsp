@@ -107,39 +107,43 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="container">
-	      	<form class="my-3" name="register" action="register" method="post" onsubmit="return signupmodalcheck()">
+	      		<form class="my-3" name="register" action="register" method="post" onsubmit="return signupmodalcheck()">
 			  <div class="mb-3">
 			    <label for="userName" class="form-label">User Name</label>
-			    <input type="text" class="form-control" id="userName" name="userName">
+			    <input type="text" class="form-control" id="userName" name="userName" required>
+			    <span id="user"></span>
 			  </div>
 			  <div class="mb-3">
 			    <label for="userEmail" class="form-label">Email Address</label>
-			    <input type="email" class="form-control" id="userEmail" name="userEmail">
+			    <input type="email" class="form-control" id="userEmail" name="userEmail" required>
+			       <span id="mail"></span>
 			  </div>
 			  <div class="mb-3">
 			    <label for="mobile" class="form-label">Mobile</label>
-			    <input type="tel" class="form-control" id="mobile" name="mobile">
+			    <input type="tel" class="form-control" id="mobile" name="mobile" required>
+			       <span id="Mobile"></span>
 			  </div>
 			  <div class="mb-3">
 			    <label for="userAddress" class="form-label">Address</label>
-			    <input type="text" class="form-control" id="userAddress" name="userAddress">
+			    <input type="text" class="form-control" id="userAddress" name="userAddress" required>
 			  </div>
 			  <div class="mb-3">
 			    <label for="userCity" class="form-label">City</label>
-			    <input type="text" class="form-control" id="userCity" name="userCity">
+			    <input type="text" class="form-control" id="userCity" name="userCity" required>
 			  </div>
 			  <div class="mb-3">
 			    <label for="password" class="form-label">Password</label>
-			    <input type="password" class="form-control" id="password" name="password">
+			    <input type="password" class="form-control" id="password" name="password" required>
 			  </div>
 			  <div class="mb-3">
 			    <label for="confirmPassword" class="form-label">Confirm Password</label>
-			    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+			    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+			       <span id="message"></span>
 			  </div>
 			  <p>
 			  	Already have an account? <a href="login">Log In</a>
 			  </p>
-		  	  <button type="submit" class="btn btn-outline-dark">Register</button>
+		  	  <button type="submit" class="btn btn-outline-dark">Submit</button>
 		  	</form>
 		 </div>
 	    </div>
@@ -197,7 +201,7 @@
 				document.getElementById("message").innerHTML = "Password Mismatch";  
 			    return false; 
 			}
-			else{
+			
 			    return true;
 			}
 	</script>
