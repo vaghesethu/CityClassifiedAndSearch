@@ -42,6 +42,7 @@
     </nav>
     
     <div class="container mt-3">
+    
     	<div class="card col-4 px-3 mx-auto">
 	    	<h5 class="mt-3">Post Classified</h5>
 	      	<form action="/user/postclassified" method="post" enctype="multipart/form-data">
@@ -68,6 +69,27 @@
 			  </div>
 			  <button type="submit" class="btn btn-outline-dark mb-3">Post</button>
 	 		</form>
+	 		
+	 		<%
+	    		String status = (String) request.getParameter("status");
+	    		if(status != null) {
+	    			if(status.equals("success")) {
+	    	%>
+				    	<div class="alert alert-success" role="alert">
+						  Successfully Posted
+						</div>
+			<%
+	    			}
+	    			else if(status.equals("failed")) {
+			%>
+						<div class="alert alert-danger" role="alert">
+						  Failed
+						</div>
+			<%
+	    			}
+	    		}
+			%>
+	 		
 	  	</div>
 	</div>
 	
