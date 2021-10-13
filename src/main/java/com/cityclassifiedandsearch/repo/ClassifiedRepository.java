@@ -13,4 +13,5 @@ public interface ClassifiedRepository extends JpaRepository<Classified, Integer>
 	List<Classified> findByApproval(boolean approval);
 	List<Classified> findByClassifiedTitleContaining(String key);
 	List<Classified> findByDescriptionContaining(String key);
+	Classified findByClassifiedId(int classifiedId);
 }

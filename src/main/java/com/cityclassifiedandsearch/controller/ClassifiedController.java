@@ -32,6 +32,9 @@ public class ClassifiedController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private EmailController email;
+	
 	public int getCurrentUserId(Authentication authentication) {
 		return (userRepository.findByUserEmail(authentication.getName())).getUserId();
 	}
@@ -164,11 +167,13 @@ public class ClassifiedController {
 	@GetMapping("/admin/approve/{classifiedId}")
 	public String approveClassified(@PathVariable("classifiedId") int classifiedId) {
 		classifiedService.approve(classifiedId);
+		email.approvalMail(classifiedId);
 		return "redirect:/admin/approve?approve-status=success";	
 	}
 	@GetMapping("/admin/reject/{classifiedId}")
 	public String rejectClassified(@PathVariable("classifiedId") int classifiedId) {
 		classifiedService.reject(classifiedId);
+		email.rejectMail(classifiedId);
 		return "redirect:/admin/approve?reject-status=success";
 	}
 	@GetMapping("/admin/deleteclassified/{classifiedId}")

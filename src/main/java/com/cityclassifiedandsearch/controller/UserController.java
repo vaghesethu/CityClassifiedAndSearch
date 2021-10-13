@@ -13,7 +13,7 @@ import com.cityclassifiedandsearch.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
-	
+	//@Autowired
 	//private EmailController email;
 
 	public UserController(UserService userService) {
@@ -24,11 +24,13 @@ public class UserController {
 	@GetMapping("/login")
 	public String userLoginForm() {
 		return "login";
+		
 	}
 	
 	@GetMapping("/register")
 	public String userRegistrationForm() {
-		//email.EmailSubscription("Chennai","kukjkjkj,palm");
+		//email.approvalMail(1);
+		
 		return "register";
 	}
 	

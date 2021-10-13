@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SmtpMailSender {
 	@Autowired
-	private JavaMailSender javaMailSender;	
+	private JavaMailSender javaMailSender;
+	private EmailController email;
 	
 	public void send(String to, String subject, String body) throws MessagingException {
 		MimeMessage message = javaMailSender.createMimeMessage();
@@ -25,3 +26,4 @@ public class SmtpMailSender {
 		javaMailSender.send(message);
 	}
 }
+
