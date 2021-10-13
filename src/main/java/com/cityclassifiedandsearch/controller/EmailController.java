@@ -7,6 +7,8 @@ import com.cityclassifiedandsearch.bean.Classified;
 import com.cityclassifiedandsearch.bean.User;
 import com.cityclassifiedandsearch.repo.ClassifiedRepository;
 import com.cityclassifiedandsearch.repo.UserRepository;
+import com.cityclassifiedandsearch.service.ClassifiedService;
+
 import java.util.*;
 
 import javax.mail.MessagingException;
@@ -55,15 +57,14 @@ public boolean approvalMail(int classifiedId) {
 		return true;
 	}
 	
-public boolean rejectMail(int classifiedId) {
-		
-		Classified test = classifiedrepo.findByClassifiedId(classifiedId);
-		User user=userrepo.findByUserId(test.getUserId());
-		String subject = "Your classified "+test.getClassifiedTitle()+" is rejected.";
-		String body = "Your classified "+test.getClassifiedTitle()+" is rejected. Please add classifieds with appropriate details.";
+public boolean rejectMail(String ClassifiedTitle,int UserId) {
+		User user=userrepo.findByUserId(UserId);
+		String subject = "Your classified "+ClassifiedTitle+" is rejected.";
+		String body = "Your classified "+ClassifiedTitle+" is rejected. Please add classifieds with appropriate details.";
 		System.out.println("USER EMAIL HERE : "+ user.getUserEmail() + "\n");
 			try {
 				smtpMailSender.send(user.getUserEmail(), subject, body);
+				
 			} catch (MessagingException e) {
 				System.out.println("MAIL NOT SENT");
 				e.printStackTrace();
