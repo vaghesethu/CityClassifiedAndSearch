@@ -1,4 +1,4 @@
-package com.cityclassifiedandsearch.controller;
+package com.cityclassifiedandsearch.service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -8,11 +8,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import com.cityclassifiedandsearch.controller.EmailController;
+
 @Component
-public class SmtpMailSender {
+public class EmailService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	private EmailController email;
+	
 	
 	public void send(String to, String subject, String body) throws MessagingException {
 		MimeMessage message = javaMailSender.createMimeMessage();
@@ -25,5 +28,7 @@ public class SmtpMailSender {
 		// continue using helper object for more functionalities like adding attachments, etc.  
 		javaMailSender.send(message);
 	}
+	
+	
 }
 

@@ -13,4 +13,5 @@ public interface CityDetailsRepository extends JpaRepository<CityDetails, Intege
 	List<CityDetails> findByCityContaining(String key);
 	List<CityDetails> findByNameContaining(String key);
 	List<CityDetails> findByAddressContaining(String key);
+	List<CityDetails> findByCategoryContaining(String key);
 }

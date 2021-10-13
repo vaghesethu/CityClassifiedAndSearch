@@ -33,7 +33,7 @@
               <a class="nav-link active" href="#">City Details</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/user/viewupdates">New Updates</a>
+              <a class="nav-link" href="/user/viewupdates">News Updates</a>
             </li>
           </ul>
 		  <a class="btn btn-outline-light" href="/logout">Logout</a>
@@ -81,6 +81,7 @@
 							        	Category: <%= cityDetail.getCategory() %> <br>
 							        	City: <%= cityDetail.getCity() %> <br>
 							        	Address: <%= cityDetail.getAddress() %> <br>
+							        	<a href="<%= cityDetail.getLink() %>" target="_blank">Website</a>
 							        </p>
 							      </div>
 							      <div class="card-footer text-center">

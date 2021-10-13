@@ -138,7 +138,8 @@ public class CityDetailsService {
 		List<CityDetails> cityDetails = new ArrayList<CityDetails>();
 		cityDetails.addAll(cityDetailsRepository.findByCityContaining(searchText));
 		cityDetails.addAll(cityDetailsRepository.findByNameContaining(searchText));
-		cityDetails.addAll(cityDetailsRepository.findByNameContaining(searchText));
+		cityDetails.addAll(cityDetailsRepository.findByAddressContaining(searchText));
+		cityDetails.addAll(cityDetailsRepository.findByCategoryContaining(searchText));
 		return filterSearched(cityDetails);
    }
 	
