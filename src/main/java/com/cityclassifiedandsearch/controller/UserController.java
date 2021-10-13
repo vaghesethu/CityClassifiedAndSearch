@@ -3,8 +3,6 @@ package com.cityclassifiedandsearch.controller;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,18 +54,21 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public String userRegistration(@ModelAttribute("user") User user) throws MessagingException {
-		userService.save(user);
 		
+		if(userRepository.findByUserEmail(user.getUserEmail())==null){
+			userService.save(user);
+			
+	
 		ConfirmationToken confirmationToken = new ConfirmationToken(user);
 
         confirmationTokenRepository.save(confirmationToken);        
         
         emailService.send(user.getUserEmail(),"Complete Registration!", "To confirm your account, please click here : "+"http://localhost:8081/confirm-account?token="+confirmationToken.getConfirmationToken());
 
-
-		
-		
-		return "login";
+        return "login";
+		}else { 
+			return "redirect:/register?registration-status=failed";
+		}
 	}
 	
 	@RequestMapping(value="/confirm-account",method= {RequestMethod.GET, RequestMethod.POST})
