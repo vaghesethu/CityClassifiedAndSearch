@@ -57,8 +57,11 @@ public boolean approvalMail(int classifiedId) {
 	
 public boolean rejectMail(int classifiedId) {
 		
+	{
 		Classified test = classifiedrepo.findByClassifiedId(classifiedId);
 		User user=userrepo.findByUserId(test.getUserId());
+		
+	
 		String subject = "Your classified "+test.getClassifiedTitle()+" is rejected.";
 		String body = "Your classified "+test.getClassifiedTitle()+" is rejected. Please add classifieds with appropriate details.";
 		System.out.println("USER EMAIL HERE : "+ user.getUserEmail() + "\n");
@@ -69,7 +72,28 @@ public boolean rejectMail(int classifiedId) {
 				e.printStackTrace();
 				return false;
 			}
+	}
+		return true;
+	}
+
+public boolean TokenMail(int classifiedId) {
+	
+	{
+		Classified test = classifiedrepo.findByClassifiedId(classifiedId);
+		User user=userrepo.findByUserId(test.getUserId());
 		
+	
+		String subject = "Your classified "+test.getClassifiedTitle()+" is rejected.";
+		String body = "Your classified "+test.getClassifiedTitle()+" is rejected. Please add classifieds with appropriate details.";
+		System.out.println("USER EMAIL HERE : "+ user.getUserEmail() + "\n");
+			try {
+				smtpMailSender.send(user.getUserEmail(), subject, body);
+			} catch (MessagingException e) {
+				System.out.println("MAIL NOT SENT");
+				e.printStackTrace();
+				return false;
+			}
+	}
 		return true;
 	}
 	
