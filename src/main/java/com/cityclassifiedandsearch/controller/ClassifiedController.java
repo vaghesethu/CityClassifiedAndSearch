@@ -172,8 +172,10 @@ public class ClassifiedController {
 	}
 	@GetMapping("/admin/reject/{classifiedId}")
 	public String rejectClassified(@PathVariable("classifiedId") int classifiedId) {
+		Classified classified=classifiedRepository.findByClassifiedId(classifiedId);
+		int userId=classified.getUserId();
+		email.rejectMail(classified.getClassifiedTitle(),userId);
 		classifiedService.reject(classifiedId);
-		email.rejectMail(classifiedId);
 		return "redirect:/admin/approve?reject-status=success";
 	}
 	@GetMapping("/admin/deleteclassified/{classifiedId}")

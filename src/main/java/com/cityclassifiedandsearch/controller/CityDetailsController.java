@@ -151,8 +151,7 @@ public class CityDetailsController {
 			return "redirect:/admin/mycitydetails?delete-status=success";
 		}
 		else {
-			cityDetailsService.deleteCityDetailsById(cityId);
-			return "redirect:/admin/mycitydetails?delete-status=success";
+			return "redirect:/admin/mycitydetails?delete-status=error";
 		}
 	}
 	@PostMapping("/admin/searchcitydetails")
