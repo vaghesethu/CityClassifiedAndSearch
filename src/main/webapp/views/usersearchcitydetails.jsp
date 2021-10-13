@@ -30,7 +30,7 @@
 	          </ul>
         	</li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">City Details</a>
+              <a class="nav-link active" href="/user/index2">City Details</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/user/viewupdates">New Updates</a>

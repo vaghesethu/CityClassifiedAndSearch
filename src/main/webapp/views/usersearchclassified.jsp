@@ -1,4 +1,4 @@
-<%@page import="java.util.List, com.cityclassifiedandsearch.bean.CityDetails, org.apache.commons.codec.binary.Base64"%>
+<%@page import="java.util.List, com.cityclassifiedandsearch.bean.Classified, org.apache.commons.codec.binary.Base64"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="/user/index">Classifieds</a>
+              <a class="nav-link active" href="/user/index">Classifieds</a>
             </li>
             <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
@@ -30,7 +30,7 @@
 	          </ul>
         	</li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">City Details</a>
+              <a class="nav-link" href="/user/index2">City Details</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/user/viewupdates">New Updates</a>
@@ -45,49 +45,55 @@
     	
     	<div class="nav justify-content-center">
 		  <div class="nav-item me-2">
-		    <form class="d-flex" name="search" action="/user/searchcitydetails" method="post">
+		    <form class="d-flex" name="search" action="/user/searchclassified" method="post">
 		      <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="key" id="key">
 		      <button class="btn btn-outline-dark" type="submit">Search</button>
 		    </form>
 		  </div>
 		</div>
-    	
+		
     	<%
-	    	List<CityDetails> cityDetails = (List<CityDetails>)request.getAttribute("cityDetails");
+    		int currentUserId = (Integer) request.getAttribute("currentUserId");
+	    	List<Classified> classifieds = (List<Classified>)request.getAttribute("classifieds");
 	    	int counter = 0;
-	    	while(counter < cityDetails.size()) {
+	    	while(counter < classifieds.size()) {
 	    %>
 	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-1">
-	   				<% for(int i = 0; i < 5 && counter < cityDetails.size(); i++) { %>
-		  					<div class="col">
-		  						<% CityDetails cityDetail = cityDetails.get(counter++); %>
-							    <div class="card h-100">
-							      <%
-							      	String img = "";
-							      	String cityimage = cityDetail.getCityimage();
-							      	if(cityimage == null) {
-							      		img = "/images/noimage.jpg";
-							      	}
-							      	else {
-							      		img = "data:image/jpeg;base64," + cityimage;
-							      	}
-							      %>
-							      <div class="mt-2 mx-auto index-image-parent">
-							      	<img src="<%= img %>" class="index-image">
-							      </div>
-							      <div class="card-body">
-							        <h5 class="card-title"><%= cityDetail.getName() %></h5>
-							        <p class="card-text">
-							        	Category: <%= cityDetail.getCategory() %> <br>
-							        	City: <%= cityDetail.getCity() %> <br>
-							        	Address: <%= cityDetail.getAddress() %> <br>
-							        </p>
-							      </div>
-							      <div class="card-footer text-center">
-							      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/user/viewcitydetails/<%= cityDetail.getCityId() %>">View</a>
-							      </div>
-		    					</div>
-	  						</div>
+	   				<% 
+	   					for(int i = 0; i < 5 && counter < classifieds.size(); i++) {
+							Classified classified = classifieds.get(counter++);
+							if(classified.getUserId() == currentUserId) {
+								i--;
+								continue;
+							}
+ 					%>
+  					<div class="col">
+					    <div class="card h-100">
+					      <%
+					      	String img = "";
+					      	String classifiedImage = classified.getClassifiedimage();
+					      	if(classifiedImage == null) {
+					      		img = "/images/noimage.jpg";
+					      	}
+					      	else {
+					      		img = "data:image/jpeg;base64," + classifiedImage;
+					      	}
+					      %>
+					      <div class="mt-2 mx-auto index-image-parent">
+					      	<img src="<%= img %>" class="index-image">
+					      </div>
+					      <div class="card-body">
+					        <h5 class="card-title"><%= classified.getClassifiedTitle() %></h5>
+					        <p class="card-text">
+					        	Category: <%= classified.getClassifiedCategory() %> <br>
+					        	<%= classified.getDescription() %> <br>
+					        </p>
+					      </div>
+					      <div class="card-footer text-center">
+					      	<a class="btn btn-sm btn-outline-dark col-md-4" href="/user/viewclassified/<%= classified.getClassifiedId() %>">View</a>
+					      </div>
+    					</div>
+ 						</div>
 	  				<% } %>
 				</div>
 		<% } %>

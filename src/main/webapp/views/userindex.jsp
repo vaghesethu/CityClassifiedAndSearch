@@ -40,14 +40,25 @@
         </div>
       </div>
     </nav>
-    <div class="container">
+    
+    <div class="container mt-4">
+    	
+    	<div class="nav justify-content-center">
+		  <div class="nav-item me-2">
+		    <form class="d-flex" name="search" action="/user/searchclassified" method="post">
+		      <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="key" id="key">
+		      <button class="btn btn-outline-dark" type="submit">Search</button>
+		    </form>
+		  </div>
+		</div>
+		
     	<%
     		int currentUserId = (Integer) request.getAttribute("currentUserId");
 	    	List<Classified> classifieds = (List<Classified>)request.getAttribute("classifieds");
 	    	int counter = 0;
 	    	while(counter < classifieds.size()) {
 	    %>
-	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-2">
+	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-1">
 	   				<% 
 	   					for(int i = 0; i < 5 && counter < classifieds.size(); i++) {
 							Classified classified = classifieds.get(counter++);

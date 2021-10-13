@@ -29,7 +29,7 @@
 	          </ul>
         	</li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">City Details</a>
+              <a class="nav-link active" href="/admin/index2">City Details</a>
             </li>
             <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
