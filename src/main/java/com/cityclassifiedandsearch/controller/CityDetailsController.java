@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.CityDetails;
+import com.cityclassifiedandsearch.repo.CityDetailsRepository;
 import com.cityclassifiedandsearch.repo.UserRepository;
 import com.cityclassifiedandsearch.service.CityDetailsService;
 import com.cityclassifiedandsearch.service.UserServiceImpl;
@@ -21,6 +22,9 @@ import com.cityclassifiedandsearch.service.UserServiceImpl;
 public class CityDetailsController {
 	@Autowired
 	private CityDetailsService cityDetailsService;
+	
+	@Autowired
+	private CityDetailsRepository cityDetailsRepository;
 	
 	@Autowired
 	private UserServiceImpl userServiceImpl;
@@ -59,6 +63,11 @@ public class CityDetailsController {
 		model.addAttribute("userDetails", userServiceImpl.getUserById(cityDetails.getUserId()));
 		return "userviewcitydetails";
 	}
+	@PostMapping("/user/searchcitydetails")
+	public String userSearchCityDetails(@RequestParam("key") String key, Model model) {
+		model.addAttribute("cityDetails", cityDetailsService.searchCityDetails(key));
+		return "usersearchcitydetails";
+	}
 	
 	//Admin
 	@GetMapping("/admin/index2")
@@ -78,11 +87,6 @@ public class CityDetailsController {
 	public String postCityDetailsForm() {
 		return "postcitydetails";
 	}
-	@GetMapping("/admin/mycitydetails")
-	public String myCityDetails(Authentication authentication, Model model) {
-		model.addAttribute("cityDetails", cityDetailsService.getCityDetailsByUserId(getCurrentUserId(authentication)));
-		return "/mycitydetails";
-	}
 	@PostMapping("/admin/postcitydetails")
 	public String postCityDetails(Authentication authentication,
 			@RequestParam("category")String category,
@@ -100,12 +104,15 @@ public class CityDetailsController {
 			}
 		}
 		catch (IOException e) {
-			return "redirect:/admin/postcitydetails?error";
+			return "redirect:/admin/postcitydetails?status=failed";
 		}
-		return "redirect:/admin/postcitydetails?success";
+		return "redirect:/admin/postcitydetails?status=success";
 	}
-	
-	
+	@GetMapping("/admin/mycitydetails")
+	public String myCityDetails(Authentication authentication, Model model) {
+		model.addAttribute("cityDetails", cityDetailsService.getCityDetailsByUserId(getCurrentUserId(authentication)));
+		return "mycitydetails";
+	}
 	@GetMapping("/admin/editcitydetails/{cityId}")
 	public String editCityDetailsForm(@PathVariable("cityId") int cityId, Model model) {
 		model.addAttribute("cityDetails", cityDetailsService.getCityDetailsById(cityId));
@@ -117,7 +124,12 @@ public class CityDetailsController {
 			@RequestParam("address")String address,
 			@RequestParam("cityName")String cityName,
 			@RequestParam("link")String link,
-			@RequestParam("file") MultipartFile image) throws IOException {
+			@RequestParam("file") MultipartFile image,
+			Authentication authentication) throws IOException {
+		int currentUserId = getCurrentUserId(authentication);
+		if(currentUserId != cityDetailsRepository.getById(cityId).getUserId()) {
+			return "redirect:/admin/editcitydetails/" + cityId + "?status=failed";
+		}
 		try {
 			if(image.isEmpty()) {
 				cityDetailsService.updateCityDetails(cityId, category, name, address, cityName, link);
@@ -127,14 +139,26 @@ public class CityDetailsController {
 			}
 		}
 		catch (IOException e) {
-			return "redirect:/admin/editcitydetails/" + cityId + "?error";
+			return "redirect:/admin/editcitydetails/" + cityId + "?status=failed";
 		}
-		return "redirect:/admin/editcitydetails/" + cityId + "?success";
+		return "redirect:/admin/editcitydetails/" + cityId + "?status=success";
 	}
-	
 	@GetMapping("/admin/deletecitydetails/{cityId}")
-	public String deleteCityDetails(@PathVariable("cityId")int cityId) {
-		cityDetailsService.deleteCityDetailsById(cityId);
-		return "redirect:/admin/mycitydetails?success";
+	public String deleteCityDetails(@PathVariable("cityId")int cityId, Authentication authentication) {
+		int currentUserId = getCurrentUserId(authentication);
+		if(currentUserId == cityDetailsRepository.getById(cityId).getUserId()) {
+			cityDetailsService.deleteCityDetailsById(cityId);
+			return "redirect:/admin/mycitydetails?delete-status=success";
+		}
+		else {
+			cityDetailsService.deleteCityDetailsById(cityId);
+			return "redirect:/admin/mycitydetails?delete-status=success";
+		}
+	}
+	@PostMapping("/admin/searchcitydetails")
+	public String adminSearchCity(@RequestParam("key") String key, Authentication authentication, Model model) {
+		model.addAttribute("currentUserId", getCurrentUserId(authentication));
+		model.addAttribute("cityDetails", cityDetailsService.searchCityDetails(key));
+		return "adminsearchcitydetails";
 	}
 }

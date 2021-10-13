@@ -54,13 +54,34 @@
       </div>
     </nav>
     
-    <div class="container">
+    <div class="container mt-4">
+    
+    	<%
+    		String status = (String) request.getParameter("delete-status");
+    		if(status != null) {
+    			if(status.equals("success")) {
+    	%>
+			    	<div class="alert alert-success mt-4" role="alert">
+					  Deleted Successfully
+					</div>
+		<%
+    			}
+    			else if(status.equals("failed")) {
+		%>
+					<div class="alert alert-danger mt-4" role="alert">
+					  Failed
+					</div>
+		<%
+    			}
+    		}
+		%>
+    	
     	<%
         List<Multimedia> carousels = (List<Multimedia>)request.getAttribute("carousel");
 		int counter = 0;
 	    	while(counter <carousels.size()) {
 	    %>
-	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-2">
+	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-1">
 	   				<% 
 	   					for(int i = 0; i < 5 && counter < carousels.size(); i++) {
 	   						Multimedia carousel = carousels.get(counter++);

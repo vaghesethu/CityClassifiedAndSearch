@@ -54,13 +54,54 @@
       </div>
     </nav>
     
-    <div class="container">
+    <div class="container mt-4">
+    
+    	<%
+    		String status = (String) request.getParameter("approve-status");
+    		if(status != null) {
+    			if(status.equals("success")) {
+    	%>
+			    	<div class="alert alert-success" role="alert">
+					  Approved Successfully
+					</div>
+		<%
+    			}
+    			else if(status.equals("failed")) {
+		%>
+					<div class="alert alert-danger" role="alert">
+					  Failed
+					</div>
+		<%
+    			}
+    		}
+		%>
+		
+		<%
+    		status = (String) request.getParameter("reject-status");
+    		if(status != null) {
+    			if(status.equals("success")) {
+    	%>
+			    	<div class="alert alert-success" role="alert">
+					  Rejected Successfully
+					</div>
+		<%
+    			}
+    			else if(status.equals("failed")) {
+		%>
+					<div class="alert alert-danger" role="alert">
+					  Failed
+					</div>
+		<%
+    			}
+    		}
+		%>
+    	
     	<%
 	    	List<Classified> classifieds = (List<Classified>)request.getAttribute("classifieds");
 	    	int counter = 0;
 	    	while(counter < classifieds.size()) {
 	    %>
-	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-2">
+	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-1">
 	   				<% for(int i = 0; i < 5 && counter < classifieds.size(); i++) { %>
  						<%
  							Classified classified = classifieds.get(counter++);
