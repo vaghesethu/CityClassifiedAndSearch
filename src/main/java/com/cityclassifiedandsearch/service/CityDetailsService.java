@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,4 +133,23 @@ public class CityDetailsService {
            return; // replace with custom exception(RecordNotFoundException)
        }
    }
+   
+   public List<CityDetails> searchCityDetails(String searchText) {
+		List<CityDetails> cityDetails = new ArrayList<CityDetails>();
+		cityDetails.addAll(cityDetailsRepository.findByCityContaining(searchText));
+		cityDetails.addAll(cityDetailsRepository.findByNameContaining(searchText));
+		cityDetails.addAll(cityDetailsRepository.findByNameContaining(searchText));
+		return filterSearched(cityDetails);
+   }
+	
+	public List<CityDetails> filterSearched(List<CityDetails> cityDetails) {
+		List<CityDetails> filtered = new ArrayList<CityDetails>();
+		Set<Integer> set = new HashSet<Integer>();
+		for(CityDetails i: cityDetails) {
+			if(set.add(i.getCityId())) {
+				filtered.add(i);
+			}
+		}
+		return filtered;
+	}
 }
