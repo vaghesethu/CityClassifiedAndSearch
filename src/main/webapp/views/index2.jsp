@@ -99,7 +99,7 @@
 			  </div>
 			  <div class="mb-3">
 			    <label for="password" class="form-label">Password</label>
-			    <input type="password" class="form-control" id="password1" name="password1" required="required">
+			    <input type="password" class="form-control" id="password" name="password" required="required">
 			  </div>
 		  	  <button type="submit" class="btn btn-outline-dark mx-auto">Login</button>
 		  	</form>
@@ -143,7 +143,7 @@
 			  </div>
 			  <div class="mb-3">
 			    <label for="password" class="form-label">Password</label>
-			    <input type="password" class="form-control" id="password" name="password" required>
+			    <input type="password" class="form-control" id="password1" name="password" required>
 			  </div>
 			  <div class="mb-3">
 			    <label for="confirmPassword" class="form-label">Confirm Password</label>
@@ -195,7 +195,7 @@
 			      return false;  
 			}
 			
-			var password = document.getElementById("password").value;
+			var password = document.getElementById("password1").value;
 			var confirmPassword = document.getElementById("confirmPassword").value;
 			if(password!=confirmPassword){
 				document.getElementById("message").innerHTML = "Password Mismatch";  
