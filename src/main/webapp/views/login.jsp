@@ -25,7 +25,7 @@
               <a class="nav-link" href="/index2">City Details</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/user/viewupdates">New Updates</a>
+              <a class="nav-link" href="/user/viewupdates">News Updates</a>
             </li>
           </ul>
 		  <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#signupmodal">
