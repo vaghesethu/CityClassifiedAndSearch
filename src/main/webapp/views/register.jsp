@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>City Classified And Search</title>
+    <style type="text/css">
+    span{color:red;}</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -110,7 +112,7 @@
 			  </div>
 			  <div class="mb-3">
 			    <label for="password" class="form-label">Password</label>
-			    <input type="password" class="form-control" id="password" name="password" required="required">
+			    <input type="password" class="form-control" id="password1" name="password1" required="required">
 			  </div>
 		  	  <button type="submit" class="btn btn-outline-dark mx-auto">Login</button>
 		  	</form>
@@ -155,9 +157,7 @@
 			
 			var password = document.getElementById("password").value;
 			var confirmPassword = document.getElementById("confirmPassword").value;
-			if(password==confirmPassword){
-				return true;
-				}else{
+			if(password!=confirmPassword){
 				document.getElementById("message").innerHTML = "Password Mismatch";  
 			    return false; 
 			}

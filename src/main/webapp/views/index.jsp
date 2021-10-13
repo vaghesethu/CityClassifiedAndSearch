@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
     <title>City Classified And Search</title>
+    <style type="text/css">
+    span{color:red;}</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -88,7 +90,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="container">
-	      	<form class="my-3" name="login" action="login" method="post" onsubmit="return signinmodalcheck()">
+	      	<form class="my-3" name="login" action="login" method="post" >
 			  <div class="mb-3">
 			    <label for="useremail" class="form-label">Email address</label>
 			    <span id=mail></span>
@@ -96,7 +98,7 @@
 			  </div>
 			  <div class="mb-3">
 			    <label for="password" class="form-label">Password</label>
-			    <input type="password" class="form-control" id="password" name="password" required="required">
+			    <input type="password" class="form-control" id="password1" name="password1" required="required">
 			  </div>
 		  	  <button type="submit" class="btn btn-outline-dark mx-auto">Login</button>
 		  	</form>
@@ -157,18 +159,7 @@
 	  </div>
 	</div>
 	
-	<script>
-		function signinmodalcheck() {
-			var email = document.getElementById("useremail").value;
-			var mailformat =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-			if(!email.match(mailformat)) {
-				document.getElementById("mail").innerHTML = "<br>Invalid Email";  
-			  	return false;  
-			}else{
-				return true;
-			}
-		}
-		
+	<script>		
 		function signupmodalcheck(){
 			var userName = document.getElementById("userName").value;
 			var nameformat=/^[A-Za-z]+$/;
