@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,6 @@ import com.cityclassifiedandsearch.repo.ClassifiedRepository;
 public class ClassifiedService {
 	@Autowired
 	private ClassifiedRepository classifiedRepository;
-			
-	public ClassifiedService(ClassifiedRepository classifiedRepository) {
-		super();
-		this.classifiedRepository = classifiedRepository;
-	}
 	
 	public List<Classified> getAllClassifieds() {
 		List<Classified> classifieds = classifiedRepository.findAll();
@@ -135,7 +132,8 @@ public class ClassifiedService {
 			update.setApproval(true);
 			classifiedRepository.save(update);
 		}
-    }
+	}
+    
     public void reject(int classifiedId) {
         Optional<Classified> classified = classifiedRepository.findById(classifiedId);
         if(classified.isPresent()) {
@@ -144,5 +142,23 @@ public class ClassifiedService {
         else {
             return; // replace with custom exception(RecordNotFoundException)
         }
-     }
+    }
+    
+	public List<Classified> searchClassified(String searchText) {
+		List<Classified> classified = new ArrayList<Classified>();
+		classified.addAll(classifiedRepository.findByClassifiedTitleContaining(searchText));
+		classified.addAll(classifiedRepository.findByDescriptionContaining(searchText));
+		return filterSearched(classified);
+    }
+	
+	public List<Classified> filterSearched(List<Classified> classified) {
+		List<Classified> filtered = new ArrayList<Classified>();
+		Set<Integer> set = new HashSet<Integer>();
+		for(Classified i: classified) {
+			if(set.add(i.getClassifiedId()) && i.isApproval()) {
+				filtered.add(i);
+			}
+		}
+		return filtered;
+	}
 }

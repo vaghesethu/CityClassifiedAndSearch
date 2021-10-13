@@ -41,13 +41,23 @@
       </div>
     </nav>
     
-    <div class="container">
+    <div class="container mt-4">
+    	
+    	<div class="nav justify-content-center">
+		  <div class="nav-item me-2">
+		    <form class="d-flex" name="search" action="/user/searchcitydetails" method="post">
+		      <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="key" id="key">
+		      <button class="btn btn-outline-dark" type="submit">Search</button>
+		    </form>
+		  </div>
+		</div>
+    	
     	<%
 	    	List<CityDetails> cityDetails = (List<CityDetails>)request.getAttribute("cityDetails");
 	    	int counter = 0;
 	    	while(counter < cityDetails.size()) {
 	    %>
-	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-2">
+	   			<div class="row row-cols-1 row-cols-md-5 g-4 mt-1">
 	   				<% for(int i = 0; i < 5 && counter < cityDetails.size(); i++) { %>
 		  					<div class="col">
 		  						<% CityDetails cityDetail = cityDetails.get(counter++); %>

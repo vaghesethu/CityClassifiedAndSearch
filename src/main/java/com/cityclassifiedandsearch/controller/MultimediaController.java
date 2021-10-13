@@ -31,12 +31,15 @@ public class MultimediaController {
 	public int getCurrentUserId(Authentication authentication) {
 		return (userRepository.findByUserEmail(authentication.getName())).getUserId();
 	}
+	
+	//user
 	@GetMapping("/user/viewupdates")
 	public String viewCarouselDetailsUser(Model model) {
 		model.addAttribute("carousel", multiservice.getAllCarousel());
 		return "carousel";
 	}
-	//ADMIN
+	
+	//admin
 	/*View carousel details*/
 	@GetMapping("/admin/viewupdates")
 	public String viewCarouselDetails(Model model) {
@@ -64,10 +67,10 @@ public class MultimediaController {
 			}
 		}
 		catch (IOException e) {
-			return "redirect:/admin/editcitydetails?error";
+			return "redirect:/admin/postupdates?status=failed";
 		}
 		
-		return "redirect:/admin/postupdates?success";
+		return "redirect:/admin/postupdates?status=success";
 	}
 	
 	/*Update carousel details*/
@@ -90,16 +93,15 @@ public class MultimediaController {
 			}
 		}
 		catch (IOException e) {
-			return "redirect:/admin/editcitydetails/" + carouselId + "?error";
+			return "redirect:/admin/editupdates" + carouselId + "?status=failed";
 		}
-		return "redirect:/admin/viewupdates?success";
+		return "redirect:/admin/editupdates/" + carouselId + "?status=success";
 	}
 	
 	/*Delete carousel Details*/
 	@GetMapping("/admin/deleteupdates/{carouselId}")
 	public String deleteCityDetails(@PathVariable("carouselId")int carouselId) {
 		multiservice.deleteCarousel(carouselId);
-		return "redirect:/admin/viewupdates?success";
+		return "redirect:/admin/viewupdates?delete-status=success";
 	}
-	
 }

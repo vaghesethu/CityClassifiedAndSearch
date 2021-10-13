@@ -89,6 +89,25 @@
 			  </div>
 			  <button type="submit" class="btn btn-outline-dark mb-3">Post</button>
 	 		</form>
+	 		<%
+	    		String status = (String) request.getParameter("status");
+	    		if(status != null) {
+	    			if(status.equals("success")) {
+	    	%>
+				    	<div class="alert alert-success" role="alert">
+						  Successfully Posted
+						</div>
+			<%
+	    			}
+	    			else if(status.equals("failed")) {
+			%>
+						<div class="alert alert-danger" role="alert">
+						  Failed
+						</div>
+			<%
+	    			}
+	    		}
+			%>
 	  	</div>
 	</div>
 	
