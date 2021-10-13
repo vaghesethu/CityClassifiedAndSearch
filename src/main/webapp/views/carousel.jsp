@@ -47,7 +47,7 @@
               <a class="nav-link" href="/user/index2">City Details</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/user/viewupdates">New Updates</a>
+              <a class="nav-link" href="/user/viewupdates">News Updates</a>
             </li>
           </ul>
 		  <a class="btn btn-outline-light" href="/logout">Logout</a>

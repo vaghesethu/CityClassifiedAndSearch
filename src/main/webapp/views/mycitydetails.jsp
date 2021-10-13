@@ -86,6 +86,7 @@
 						        	Category: <%= cityDetail.getCategory() %> <br>
 						        	City: <%= cityDetail.getCity() %> <br>
 						        	Address: <%= cityDetail.getAddress() %> <br>
+						        	<a href="<%= cityDetail.getLink() %>" target="_blank">Website</a>
 						        </p>
 						      </div>
 						      <div class="card-footer text-center">
