@@ -62,7 +62,6 @@ public class ClassifiedController {
 		model.addAttribute("currentUserId", getCurrentUserId(authentication));
 		return "userindex";
 	}
-	
 	@GetMapping("/user/viewclassified/{classifiedId}")
 	public String userViewClassified(Model model, @PathVariable("classifiedId") int classifiedId) {
 		Classified classified = classifiedService.getClassifiedById(classifiedId);
@@ -75,7 +74,6 @@ public class ClassifiedController {
 		model.addAttribute("myClassifieds", classifiedService.getClassifiedByUserId(getCurrentUserId(authentication)));
 		return "myclassifieds";
 	}
-	
 	@GetMapping("/user/postclassified")
 	public String postClassifiedForm() {
 		return "postclassified";
@@ -95,11 +93,10 @@ public class ClassifiedController {
 			}
 		}
 		catch (IOException e) {
-			return "redirect:/user/postclassified?error";
+			return "redirect:/user/postclassified?status=failed";
 		}
-		return "redirect:/user/postclassified?success";
+		return "redirect:/user/postclassified?status=success";
 	}
-	
 	@GetMapping("/user/editclassified/{classifiedId}")
 	public String editClassifiedForm(@PathVariable("classifiedId") int classifiedId, Model model) {
 		model.addAttribute("classified", classifiedService.getClassifiedById(classifiedId));
@@ -110,7 +107,12 @@ public class ClassifiedController {
 			@RequestParam("classifiedCategory")String classifiedCategory,
 			@RequestParam("classifiedTitle")String classifiedTitle,
 			@RequestParam("description")String description,
-			@RequestParam("file") MultipartFile image) throws IOException {
+			@RequestParam("file") MultipartFile image,
+			Authentication authentication) throws IOException {
+		int currentUserId = getCurrentUserId(authentication);
+		if(currentUserId != classifiedRepository.getById(classifiedId).getUserId()) {
+			return "redirect:/user/editclassified/" + classifiedId + "?status=failed";
+		}
 		try {
 			if(image.isEmpty()) {
 				classifiedService.updateClassified(classifiedId, classifiedCategory, classifiedTitle, description);
@@ -120,15 +122,25 @@ public class ClassifiedController {
 			}
 		}
 		catch (IOException e) {
-			return "redirect:/user/editclassified/" + classifiedId + "?error";
+			return "redirect:/user/editclassified/" + classifiedId + "?status=failed";
 		}
-		return "redirect:/user/editclassified/" + classifiedId + "?success";
+		return "redirect:/user/editclassified/" + classifiedId + "?status=success";
 	}
-	
 	@GetMapping("/user/deleteclassified/{classifiedId}")
-	public String deleteClassified(@PathVariable("classifiedId")int classifiedId) {
-		classifiedService.deleteClassifiedById(classifiedId);
-		return "redirect:/user/myclassifieds?success";
+	public String deleteClassified(@PathVariable("classifiedId")int classifiedId, Authentication authentication) {
+		int currentUserId = getCurrentUserId(authentication);
+		if(classifiedRepository.getById(classifiedId).getUserId() == currentUserId) {
+			classifiedService.deleteClassifiedById(classifiedId);
+			return "redirect:/user/myclassifieds?status=success";
+			
+		}
+		return "redirect:/user/myclassifieds?status=failed";
+	}
+	@PostMapping("/user/searchclassified")
+	public String userSearchClassified(@RequestParam("key") String key, Authentication authentication, Model model) {
+		model.addAttribute("currentUserId", getCurrentUserId(authentication));
+		model.addAttribute("classifieds", classifiedService.searchClassified(key));
+		return "usersearchclassified";
 	}
 	
 	//Admin
@@ -144,7 +156,6 @@ public class ClassifiedController {
 		model.addAttribute("userDetails", userServiceImpl.getUserById(classified.getUserId()));
 		return "adminviewclassified";
 	}
-	
 	@GetMapping("/admin/approve")
 	public String viewPendingApproval(Model model) {
 		model.addAttribute("classifieds", classifiedRepository.findByApproval(false));
@@ -153,18 +164,21 @@ public class ClassifiedController {
 	@GetMapping("/admin/approve/{classifiedId}")
 	public String approveClassified(@PathVariable("classifiedId") int classifiedId) {
 		classifiedService.approve(classifiedId);
-		return "redirect:/admin/approve?success";	
+		return "redirect:/admin/approve?approve-status=success";	
 	}
-	
 	@GetMapping("/admin/reject/{classifiedId}")
 	public String rejectClassified(@PathVariable("classifiedId") int classifiedId) {
 		classifiedService.reject(classifiedId);
-		return "redirect:/admin/approve?success";	
+		return "redirect:/admin/approve?reject-status=success";
 	}
-	
 	@GetMapping("/admin/deleteclassified/{classifiedId}")
 	public String adminDeleteClassified(@PathVariable("classifiedId") int classifiedId) {
 		classifiedService.deleteClassifiedById(classifiedId);
-		return "redirect:/admin/index?success";	
+		return "redirect:/admin/index?delete-status=success";
+	}
+	@PostMapping("/admin/searchclassified")
+	public String adminSearchClassified(@RequestParam("key") String key, Model model) {
+		model.addAttribute("classifieds", classifiedService.searchClassified(key));
+		return "adminsearchclassified";
 	}
 }
