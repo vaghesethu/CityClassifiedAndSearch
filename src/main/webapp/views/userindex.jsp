@@ -47,7 +47,7 @@
 		  <div class="nav-item me-2">
 		    <form class="d-flex" name="search" action="/user/searchclassified" method="post">
 		      <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="key" id="key">
-		      <button class="btn btn-outline-dark" type="submit">Search</button>
+		      <button class="btn btn-light" type="submit">Search</button>
 		    </form>
 		  </div>
 		</div>

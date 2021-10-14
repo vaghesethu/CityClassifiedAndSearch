@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cityclassifiedandsearch.bean.CityDetails;
+import com.cityclassifiedandsearch.controller.EmailController;
 import com.cityclassifiedandsearch.repo.CityDetailsRepository;
 
 @Service
@@ -22,8 +23,8 @@ public class CityDetailsService {
 	@Autowired
 	private CityDetailsRepository cityDetailsRepository;
 	
-//	@Autowired
-//	private EmailController email; 
+	//@Autowired
+	//private EmailController email; 
 	
 	public CityDetailsService(CityDetailsRepository cityDetailsRepository) {
 		super();

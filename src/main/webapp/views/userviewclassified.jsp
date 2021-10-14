@@ -36,7 +36,7 @@
               <a class="nav-link" href="/user/viewupdates">News Updates</a>
             </li>
           </ul>
-		  <a class="btn btn-outline-light" href="/logout">Logout</a>
+		  <a class="btn btn-light" href="/logout">Logout</a>
         </div>
       </div>
     </nav>

@@ -12,7 +12,7 @@
 <body>
 <div style="margin:100px;padding:20px;bg-color:"red";color:"blue";"> 
 
-	<h3> Your email has been successfully verified</h3>
+	<h3 style="color:white"> Your email has been successfully verified</h3>
 	<a href="/login">Click here to login</a>
 	
 	</div>
