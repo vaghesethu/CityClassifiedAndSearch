@@ -23,8 +23,8 @@ public class CityDetailsService {
 	@Autowired
 	private CityDetailsRepository cityDetailsRepository;
 	
-	//@Autowired
-	//private EmailController email; 
+	@Autowired
+	private EmailController email; 
 	
 	public CityDetailsService(CityDetailsRepository cityDetailsRepository) {
 		super();
@@ -77,7 +77,7 @@ public class CityDetailsService {
 		   System.out.println("not a valid file");
 	   }
 	   newCityDetails.setCityimage(Base64.getEncoder().encodeToString(image.getBytes()));
-	   //email.EmailSubscription(cityName, address);//Call the method EmailSubscription using the private variable "email" mentioned in line 22. eg.: email.EmailSubscription("cityname","address");
+	   email.EmailSubscription(cityName, address);//Call the method EmailSubscription using the private variable "email" mentioned in line 22. eg.: email.EmailSubscription("cityname","address");
 	   return cityDetailsRepository.save(newCityDetails);
    }
    
@@ -90,7 +90,7 @@ public class CityDetailsService {
 	   newCityDetails.setCategory(category);
 	   newCityDetails.setAddress(address);
 	   newCityDetails.setLink(link);
-	   //email.EmailSubscription(cityName, address);//Call the method EmailSubscription using the private variable "email" mentioned in line 22. eg.: email.EmailSubscription("cityname","address");
+	   email.EmailSubscription(cityName, address);//Call the method EmailSubscription using the private variable "email" mentioned in line 22. eg.: email.EmailSubscription("cityname","address");
 	   return cityDetailsRepository.save(newCityDetails);
    }
 
